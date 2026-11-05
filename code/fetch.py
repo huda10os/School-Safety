@@ -51,12 +51,16 @@ def _charset(headers: dict) -> str:
     return "utf-8"
 
 
-def _host_key(url: str) -> str:
+def _host_delay(url: str) -> tuple[str, float]:
+    """Return (rate-limit key, delay). Each hostname is limited separately; the
+    delay comes from the most specific HOST_DELAY suffix, so every Diligent
+    tenant subdomain gets its own 3 s slot while go.boarddocs.com, one host for
+    all districts, stays a single shared slot."""
     host = urlparse(url).hostname or ""
-    for suffix in HOST_DELAY:
+    for suffix, delay in HOST_DELAY.items():
         if suffix != "default" and (host == suffix or host.endswith("." + suffix)):
-            return suffix
-    return host
+            return host, delay
+    return host, HOST_DELAY["default"]
 
 
 class Fetcher:
@@ -82,8 +86,7 @@ class Fetcher:
         return self._local.session
 
     def _wait_turn(self, url: str) -> None:
-        key = _host_key(url)
-        delay = HOST_DELAY.get(key, HOST_DELAY["default"])
+        key, delay = _host_delay(url)
         with self._guard:
             lock = self._host_locks.setdefault(key, threading.Lock())
         with lock:
