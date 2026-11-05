@@ -27,6 +27,7 @@ import sys
 import threading
 import traceback
 from concurrent.futures import FIRST_COMPLETED, ProcessPoolExecutor, ThreadPoolExecutor, wait
+from concurrent.futures.process import BrokenProcessPool
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -116,14 +117,46 @@ def run_discover(args) -> None:
                 print(json.dumps(dict(stage="discover", done=done, errors=errors)), flush=True)
 
 
-def document_one(fetcher: Fetcher, processes: ProcessPoolExecutor, record: dict) -> dict:
+class ParserPool:
+    """Process pool that replaces itself if a worker dies.
+
+    A worker killed mid-parse (for example by the kernel on a pathological
+    PDF) breaks a ProcessPoolExecutor for every later task; without this an
+    overnight run would mark all remaining documents as errors.
+    """
+
+    def __init__(self, size: int):
+        self.size = size
+        self.lock = threading.Lock()
+        self.pool = self._new()
+
+    def _new(self):
+        # max_tasks_per_child recycles workers so one large document cannot
+        # leave a process holding its memory for the rest of the run.
+        return ProcessPoolExecutor(max_workers=self.size, max_tasks_per_child=40)
+
+    def parse(self, *args) -> dict:
+        pool = self.pool
+        try:
+            return pool.submit(extract_file, *args).result(timeout=600)
+        except BrokenProcessPool:
+            with self.lock:
+                if self.pool is pool:
+                    self.pool = self._new()
+            raise RuntimeError("parser process died on this document")
+
+    def shutdown(self):
+        self.pool.shutdown(cancel_futures=True)
+
+
+def document_one(fetcher: Fetcher, processes: ParserPool, record: dict) -> dict:
     result = {**record, "collected_at": datetime.now(timezone.utc).isoformat(), "error": None}
     try:
         resolved = platform_module(record["platform"]).resolve(record, fetcher)
         result.update(resolved)
         if result.get("text") is None and result.get("raw_path") and not resolved.get("text_status"):
-            parsed = processes.submit(extract_file, result["raw_path"], result.get("content_type") or "",
-                                      result.get("document_link") or record["source_link"]).result(timeout=600)
+            parsed = processes.parse(result["raw_path"], result.get("content_type") or "",
+                                     result.get("document_link") or record["source_link"])
             result.update(parsed)
         if result.get("text_status") is None:
             result["text_status"] = "ok" if result.get("text") else "empty"
@@ -135,15 +168,28 @@ def document_one(fetcher: Fetcher, processes: ProcessPoolExecutor, record: dict)
     return result
 
 
+DETAIL_ORDER = ("Minutes", "Agenda", "Projector", "Extras", "Other")
+
+
 def pending_records(selected):
-    """Yield (records_path, record) for listing records not yet collected."""
-    for district, row in selected:
-        listing = LISTINGS / f"{stem(district, row)}.jsonl"
-        target = RECORDS / f"{stem(district, row)}.jsonl"
-        done = {r["record_id"] for r in read_jsonl(target) if r.get("text_status") != "error"}
-        for record in read_jsonl(listing):
-            if record["record_id"] not in done:
-                yield target, record
+    """Yield (records_path, record) for listing records not yet collected.
+
+    Statewide collection takes days, so documents are collected in passes by
+    detail type: every district's Minutes first, then Agendas, then the rest.
+    An interrupted run therefore holds the most useful documents first.
+    """
+    for detail in DETAIL_ORDER:
+        for district, row in selected:
+            listing = LISTINGS / f"{stem(district, row)}.jsonl"
+            target = RECORDS / f"{stem(district, row)}.jsonl"
+            done = None
+            for record in read_jsonl(listing):
+                if record.get("detail") != detail:
+                    continue
+                if done is None:
+                    done = {r["record_id"] for r in read_jsonl(target) if r.get("text_status") != "error"}
+                if record["record_id"] not in done:
+                    yield target, record
 
 
 def run_documents(args) -> None:
@@ -153,10 +199,8 @@ def run_documents(args) -> None:
     counts: dict[str, int] = {}
     total = 0
     print(json.dumps(dict(stage="documents", districts=len(selected))), flush=True)
-    # max_tasks_per_child recycles parser processes so a pathological PDF
-    # cannot leave a worker holding its memory for the rest of the run.
-    with ProcessPoolExecutor(max_workers=args.processes, max_tasks_per_child=40) as processes, \
-            ThreadPoolExecutor(max_workers=args.workers) as threads:
+    processes = ParserPool(args.processes)
+    with ThreadPoolExecutor(max_workers=args.workers) as threads:
         todo = pending_records(selected)
         inflight = {}
 
@@ -181,12 +225,13 @@ def run_documents(args) -> None:
                 if total % 200 == 0:
                     print(json.dumps(dict(stage="documents", done=total, **counts)), flush=True)
             refill()
+    processes.shutdown()
     print(json.dumps(dict(stage="documents", done=total, **counts)), flush=True)
 
 
 def main(argv=None) -> None:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("stage", choices=["discover", "documents", "all"])
+    parser.add_argument("stage", choices=["discover", "documents", "build", "all"])
     parser.add_argument("--platforms", default=str(REFERENCE / "platforms.csv"))
     parser.add_argument("--tea-ids", help="comma-separated TEA ids to limit the run")
     parser.add_argument("--platform", help="limit to one platform")
@@ -198,6 +243,9 @@ def main(argv=None) -> None:
         run_discover(args)
     if args.stage in ("documents", "all"):
         run_documents(args)
+    if args.stage in ("build", "all"):
+        from build_dataset import build
+        print(json.dumps(dict(stage="build", **build())), flush=True)
 
 
 if __name__ == "__main__":
