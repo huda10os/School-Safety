@@ -1,0 +1,143 @@
+#!/usr/bin/env python3
+"""Build data/records.parquet and data/coverage.parquet from staging files.
+
+Reads one district/platform records file at a time, so memory stays at the
+size of the largest single district. Within a file the last line per
+record_id wins (retries append). Districts whose listing was discovered but
+not yet collected contribute their listing records with text_status "pending".
+
+Coverage flags, per district (the "short history" follow-up list):
+    late_start      earliest minutes date after 2018-01-01
+    short_span      minutes cover less than 3 years
+    long_gap        a gap of more than 6 months between consecutive meetings
+    multi_platform  records found on more than one platform
+    no_records      no records discovered at all
+"""
+from __future__ import annotations
+
+import csv
+import json
+from collections import defaultdict
+from datetime import date
+
+import pyarrow as pa
+import pyarrow.parquet as pq
+
+from config import DATA, REFERENCE, STAGING
+from records import FIELDS, PREFERENCE, read_jsonl
+
+ARROW_TYPES = {"string": pa.string(), "date": pa.date32(), "int32": pa.int32(),
+               "bool": pa.bool_(), "list<string>": pa.list_(pa.string())}
+SCHEMA = pa.schema([(name, ARROW_TYPES[kind]) for name, (kind, _) in FIELDS.items()])
+LATE_START = date(2018, 1, 1)
+
+
+def _date(value):
+    if not value:
+        return None
+    try:
+        return date.fromisoformat(str(value)[:10])
+    except ValueError:
+        return None
+
+
+def _meeting_key(record: dict) -> tuple:
+    return (record["platform"], record.get("meeting_id") or "",
+            record.get("date") or "", record.get("meeting_title") or "")
+
+
+def district_records(tea_id_platform: str) -> list[dict]:
+    collected: dict[str, dict] = {}
+    for record in read_jsonl(STAGING / "records" / f"{tea_id_platform}.jsonl"):
+        collected[record["record_id"]] = record
+    for record in read_jsonl(STAGING / "listings" / f"{tea_id_platform}.jsonl"):
+        if record["record_id"] not in collected:
+            collected[record["record_id"]] = {**record, "text_status": "pending"}
+    rows = list(collected.values())
+    best: dict[tuple, dict] = {}
+    for row in rows:
+        row["preferred_for_meeting"] = False
+        rank = PREFERENCE.get(row.get("detail"))
+        if rank is None or row.get("text_status") in ("error", "pending"):
+            continue
+        key = _meeting_key(row)
+        if key not in best or rank < PREFERENCE[best[key]["detail"]]:
+            best[key] = row
+    for row in best.values():
+        row["preferred_for_meeting"] = True
+    for row in rows:
+        row.setdefault("reviewed", "not_reviewed")
+        row["reviewed"] = row.get("reviewed") or "not_reviewed"
+        row["date"] = _date(row.get("date"))
+        text = row.get("text")
+        row["char_count"] = len(text) if text else 0
+    return rows
+
+
+def coverage_row(district: dict, platforms: set, rows: list[dict]) -> dict:
+    minutes = sorted({r["date"] for r in rows if r.get("detail") == "Minutes" and r.get("date")})
+    meetings = sorted({r["date"] for r in rows if r.get("date")})
+    gaps = [(b - a).days for a, b in zip(meetings, meetings[1:])]
+    status = defaultdict(int)
+    for r in rows:
+        status[r.get("text_status") or "pending"] += 1
+    span_days = (minutes[-1] - minutes[0]).days if minutes else 0
+    flags = []
+    if not rows:
+        flags.append("no_records")
+    if minutes and minutes[0] > LATE_START:
+        flags.append("late_start")
+    if not minutes or span_days < 3 * 365:
+        flags.append("short_span")
+    if gaps and max(gaps) > 183:
+        flags.append("long_gap")
+    if len(platforms) > 1:
+        flags.append("multi_platform")
+    return dict(tea_id=district["tea_id"], school_district=district["school_district"],
+                county_name=district["county_name"], platforms=",".join(sorted(platforms)),
+                records=len(rows), meetings=len(meetings),
+                first_meeting_date=meetings[0] if meetings else None,
+                last_meeting_date=meetings[-1] if meetings else None,
+                first_minutes_date=minutes[0] if minutes else None,
+                last_minutes_date=minutes[-1] if minutes else None,
+                minutes_count=sum(r.get("detail") == "Minutes" for r in rows),
+                agenda_count=sum(r.get("detail") == "Agenda" for r in rows),
+                longest_gap_days=max(gaps) if gaps else None,
+                text_status_counts=json.dumps(dict(status), sort_keys=True),
+                flags=",".join(flags))
+
+
+def build() -> dict:
+    with open(REFERENCE / "districts.csv", newline="") as handle:
+        districts = list(csv.DictReader(handle))
+    stems = defaultdict(set)
+    for path in (STAGING / "listings").glob("*.jsonl"):
+        tea_id, platform = path.stem.split("__", 1)
+        stems[tea_id].add(platform)
+    target = DATA / "records.parquet"
+    tmp = target.with_suffix(".parquet.tmp")
+    writer = pq.ParquetWriter(tmp, SCHEMA, compression="zstd")
+    coverage, total = [], 0
+    try:
+        for district in districts:
+            rows = []
+            for platform in sorted(stems.get(district["tea_id"], ())):
+                platform_rows = district_records(f"{district['tea_id']}__{platform}")
+                if platform_rows:
+                    table = pa.Table.from_pylist(
+                        [{name: r.get(name) for name in SCHEMA.names} for r in platform_rows], schema=SCHEMA)
+                    writer.write_table(table, row_group_size=5000)
+                    total += len(platform_rows)
+                # coverage only needs metadata; drop text before holding rows longer
+                rows += [{k: r.get(k) for k in ("detail", "date", "text_status")} for r in platform_rows]
+            coverage.append(coverage_row(district, stems.get(district["tea_id"], set()), rows))
+    finally:
+        writer.close()
+    tmp.replace(target)
+    pq.write_table(pa.Table.from_pylist(coverage), DATA / "coverage.parquet", compression="zstd")
+    flagged = sum(bool(c["flags"]) for c in coverage)
+    return dict(records=total, districts=len(coverage), flagged_districts=flagged)
+
+
+if __name__ == "__main__":
+    print(json.dumps(build()))
