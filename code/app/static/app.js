@@ -240,7 +240,10 @@ function progressView(p) {
       "Texas school districts. This page refreshes every 30 seconds."),
     h("div", { class: "hero" },
       h("span", { class: "hero-num" }, `${p.collected_pct}%`),
-      h("span", {}, `of discovered records collected: ${num(p.records_done)} of ${num(p.records_discovered)}.`)),
+      h("span", {}, `of discovered records collected successfully: ${num(p.records_done)} of ${num(p.records_discovered)}` +
+        (p.records_collected > p.records_done
+          ? ` (${num(p.records_collected - p.records_done)} failed downloads are not counted; they are retried).`
+          : "."))),
     h("dl", { class: "facts" },
       fact("Records discovered", num(p.records_discovered), "Document links found on district meeting pages"),
       fact("Records collected", num(p.records_collected), "Downloaded, including ones that failed"),
