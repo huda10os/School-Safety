@@ -186,3 +186,15 @@ def test_custom_minutes_page_without_a_document_is_empty_not_error():
     result = boardbook.resolve(dict(source_link=source, detail="Minutes"), Fetcher({source: page}))
     assert result["text_status"] == "empty"
     assert result["text"] is None
+
+
+def test_agenda_published_as_snapshot_pdf_follows_the_download():
+    source = BASE + "/Public/Agenda/1681?meeting=765723"
+    viewer = BASE + "/Documents/WebViewer/1681?snapshotUri=Org1048%2FMeeting774742%2FMinutes%2FUnit%2FPublic.pdf"
+    download = BASE + "/Public/DownloadSnapshot?SnapshotUri=Org1048%2FMeeting774742%2FMinutes%2FUnit%2FPublic.pdf"
+    pdf = Response(download, 200, {"Content-Type": "application/pdf"}, b"%PDF-1.7 fake",
+                   "data/raw/pdf.gz", "sha", True)
+    result = boardbook.resolve(dict(source_link=source, detail="Agenda"),
+                               Fetcher({source: response("snapshot_minutes.html", viewer), download: pdf}))
+    assert result["document_link"] == download
+    assert result["text_status"] is None

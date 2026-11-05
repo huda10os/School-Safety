@@ -237,7 +237,10 @@ def resolve(record: dict, fetcher) -> dict:
                 and soup.select_one("#Tab-AgendaItem .agenda-items-section"):
             # Some districts publish minutes only as BoardBook HTML items.
             return _meeting_text(response, soup, record["detail"])
-        if record["detail"] == "Minutes" or has_viewer:
+        # Some districts publish agendas, too, as snapshot PDFs behind
+        # /Documents/WebViewer rather than as HTML agenda items.
+        snapshot = "/Documents/WebViewer/" in response.url and _download_template(soup)
+        if record["detail"] == "Minutes" or has_viewer or snapshot:
             return _fields(_file_response(response, soup, fetcher))
         return _meeting_text(response, soup, record["detail"])
     except ValueError as exc:
