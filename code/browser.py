@@ -14,7 +14,10 @@ import subprocess
 import threading
 
 CHALLENGE_MARKERS = ("<title>Client Challenge</title>", "cf-challenge", "Just a moment...")
-_lock = threading.Lock()  # one browser action at a time keeps memory use predictable
+# A few concurrent sessions (one Chrome each, a few hundred MB) keep memory
+# predictable while bot-checked sites no longer queue behind a single browser.
+BROWSER_SLOTS = 3
+_lock = threading.BoundedSemaphore(BROWSER_SLOTS)
 
 
 def available() -> bool:

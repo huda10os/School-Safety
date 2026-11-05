@@ -24,7 +24,9 @@ PLATFORM = "website"
 MAX_LISTING_PAGES = 200
 DISCOVERY_STATS: dict[str, dict] = {}
 _LOG = logging.getLogger(__name__)
-_BROWSER_LOCK = threading.Lock()
+# Up to BROWSER_SLOTS districts may run a browser session at once; each holds
+# its slot for the whole open-read-close sequence of one page.
+_BROWSER_LOCK = threading.BoundedSemaphore(browser.BROWSER_SLOTS)
 _DOC = re.compile(r"\.(?:pdf|docx?|txt|rtf|jpe?g|png)(?:$|[?#])", re.I)
 _TOPIC = re.compile(r"minutes?|\bmins\b|agendas?|packets?|supporting|attachments?|meeting\s+(?:notice|material)|notice\s+(?:of\s+)?(?:public\s+)?meeting|bulletins?", re.I)
 _BOARD = re.compile(r"board|trustees?", re.I)
@@ -280,8 +282,6 @@ def _read(fetcher, url: str, stats: dict) -> tuple[object, str, str]:
     html, final_url = response.text, response.url
     legacy_tree = "new ContentItemListUI(" in html
     if browser.is_challenge(html) or legacy_tree:
-        # browser.py serializes actions; hold our lock across the entire session
-        # so another district cannot leave a second browser open between actions.
         with _BROWSER_LOCK:
             session = "website-" + re.sub(r"\W", "", _district_host(url))
             try:
