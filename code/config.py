@@ -27,5 +27,7 @@ HOST_DELAY = {
 # Files above this size are cached but not parsed in-process; their record gets
 # text_status "too_large" so the OCR/post-processing step can handle them.
 MAX_PARSE_BYTES = 60 * 1024 * 1024
+# Downloads above this size are stopped and recorded as text_status "too_large".
+MAX_DOWNLOAD_BYTES = 150 * 1024 * 1024
 # Free-disk floor; downloads pause below it.
 MIN_FREE_BYTES = 20 * 1024**3

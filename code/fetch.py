@@ -23,7 +23,7 @@ import requests
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 
-from config import HOST_DELAY, MIN_FREE_BYTES, RAW, USER_AGENT
+from config import HOST_DELAY, MAX_DOWNLOAD_BYTES, MIN_FREE_BYTES, RAW, USER_AGENT
 
 
 @dataclass
@@ -62,6 +62,38 @@ def _host_delay(url: str) -> tuple[str, float]:
         if suffix != "default" and (host == suffix or host.endswith("." + suffix)):
             return host, delay
     return host, HOST_DELAY["default"]
+
+
+class SkippedDownload(Exception):
+    """A response deliberately not downloaded; status is a records text_status."""
+
+    def __init__(self, status: str, message: str):
+        super().__init__(message)
+        self.status = status
+
+
+def _read_body(response) -> bytes:
+    """Read a streamed body, refusing media and anything over MAX_DOWNLOAD_BYTES.
+
+    Districts link meeting recordings (WAV files of several hundred MB) next to
+    their minutes; reading those whole would exhaust a worker's memory.
+    """
+    content_type = response.headers.get("Content-Type", "").lower()
+    if content_type.startswith(("audio/", "video/")):
+        response.close()
+        raise SkippedDownload("unsupported", f"media file not downloaded ({content_type})")
+    declared = int(response.headers.get("Content-Length") or 0)
+    if declared > MAX_DOWNLOAD_BYTES:
+        response.close()
+        raise SkippedDownload("too_large", f"not downloaded: {declared} bytes")
+    chunks, size = [], 0
+    for chunk in response.iter_content(1 << 20):
+        size += len(chunk)
+        if size > MAX_DOWNLOAD_BYTES:
+            response.close()
+            raise SkippedDownload("too_large", f"not downloaded: over {MAX_DOWNLOAD_BYTES} bytes")
+        chunks.append(chunk)
+    return b"".join(chunks)
 
 
 class Fetcher:
@@ -138,6 +170,12 @@ class Fetcher:
         rel = str(payload_path.relative_to(self.raw_root.parent.parent))
         if not refresh and payload_path.exists() and meta_path.exists():
             meta = json.loads(meta_path.read_text())
+            cached_headers = {k.lower(): v for k, v in meta["headers"].items()}
+            cached_type = cached_headers.get("content-type", "").lower()
+            if cached_type.startswith(("audio/", "video/")):
+                raise SkippedDownload("unsupported", f"media file not read ({cached_type})")
+            if int(cached_headers.get("content-length") or 0) > MAX_DOWNLOAD_BYTES:
+                raise SkippedDownload("too_large", f"not read: {cached_headers['content-length']} bytes")
             content = gzip.decompress(payload_path.read_bytes())
             return Response(meta["url"], meta["status"], meta["headers"], content,
                             rel, meta["sha256"], True)
@@ -146,13 +184,14 @@ class Fetcher:
         for _ in range(6):
             self._wait_turn(url)
             response = self._session().request(method, url, data=data, headers=headers,
-                                               timeout=(20, timeout))
+                                               timeout=(20, timeout), stream=True)
             if response.status_code not in (429, 503):
                 break
+            response.close()
             time.sleep(self._slow_down(url, response.headers.get("Retry-After")))
         response.raise_for_status()
         self._speed_up(url)
-        content = response.content
+        content = _read_body(response)
         digest = hashlib.sha256(content).hexdigest()
         payload_path.parent.mkdir(parents=True, exist_ok=True)
         tmp = payload_path.with_suffix(".gz.tmp")

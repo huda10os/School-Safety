@@ -33,7 +33,7 @@ from pathlib import Path
 
 from config import REFERENCE, STAGING
 from extract import extract_file
-from fetch import Fetcher
+from fetch import Fetcher, SkippedDownload
 from records import append_jsonl, read_jsonl, write_jsonl
 
 LISTINGS = STAGING / "listings"
@@ -164,6 +164,8 @@ def document_one(fetcher: Fetcher, processes: ParserPool, record: dict) -> dict:
             result.update(parsed)
         if result.get("text_status") is None:
             result["text_status"] = "ok" if result.get("text") else "empty"
+    except SkippedDownload as exc:
+        result.update(text=None, text_status=exc.status, error=str(exc))
     except Exception as exc:
         result.update(text=None, text_status="error", error=f"{type(exc).__name__}: {exc}"[:1000])
     text = result.get("text")

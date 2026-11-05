@@ -177,7 +177,8 @@ def _extras(response, soup, fetcher) -> dict:
             if parsed.get("error"):
                 errors.append(f"{title}: {parsed['error']}")
         except Exception as exc:
-            statuses.append("error")
+            # fetch.SkippedDownload carries its own status (media, oversize).
+            statuses.append(getattr(exc, "status", "error"))
             errors.append(f"{title}: {type(exc).__name__}: {exc}")
     text = clean_text("\n\n".join(blocks)) or None
     if not statuses:
