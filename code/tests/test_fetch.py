@@ -47,7 +47,7 @@ def test_media_and_oversize_downloads_are_skipped_not_read(tmp_path, monkeypatch
         fetcher.get("https://example.org/meeting.wav")
         raise AssertionError("expected SkippedDownload")
     except fetch.SkippedDownload as exc:
-        assert exc.status == "unsupported"
+        assert exc.status == "recording"
     monkeypatch.setattr(fetch, "MAX_DOWNLOAD_BYTES", 10)
     monkeypatch.setattr(fetcher, "_session", lambda: session_with({"Content-Type": "application/pdf"}, b"x" * 11))
     try:

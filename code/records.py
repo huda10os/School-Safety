@@ -23,7 +23,7 @@ import json
 import os
 from pathlib import Path
 
-DETAILS = ("Agenda", "Minutes", "Projector", "Extras", "Other")
+DETAILS = ("Agenda", "Minutes", "Projector", "Extras", "Recording", "Other")
 # Order used to choose one preferred document per meeting.
 PREFERENCE = {"Minutes": 0, "Agenda": 1, "Projector": 2}
 
@@ -39,7 +39,7 @@ FIELDS = {
     "meeting_type": ("string", "Source's meeting type, e.g. Regular, Special; null if not given."),
     "meeting_title": ("string", "Meeting title as shown on the listing."),
     "meeting_id": ("string", "Platform's meeting identifier when it has one."),
-    "detail": ("string", "One of Agenda, Minutes, Projector, Extras, Other."),
+    "detail": ("string", "One of Agenda, Minutes, Projector, Extras, Recording, Other."),
     "detail_raw": ("string", "Link label exactly as shown on the source."),
     "source_link": ("string", "Link to the record as published on the listing."),
     "listing_url": ("string", "Page or API URL the record was discovered on."),
@@ -49,7 +49,7 @@ FIELDS = {
     "raw_path": ("string", "Repo-relative path of the cached gzip body that was parsed."),
     "content_sha256": ("string", "SHA-256 of the parsed document bytes."),
     "text": ("string", "Extracted text; null when text_status is not ok."),
-    "text_status": ("string", "ok | needs_ocr | partial_ocr | empty | too_large | unsupported | unavailable (source no longer publishes it) | error | pending"),
+    "text_status": ("string", "ok | needs_ocr | partial_ocr | empty | too_large | unsupported | unavailable (source no longer publishes it) | recording (audio/video link kept, not downloaded or transcribed) | error | pending"),
     "text_method": ("string", "html | pdf | docx | plain"),
     "page_count": ("int32", "Pages in a PDF document."),
     "char_count": ("int32", "Characters in text."),

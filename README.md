@@ -65,10 +65,10 @@ Memory: network work runs in threads; PDF parsing runs in a small process pool w
 | `school_district`, `tea_id` | District name and TEA 6-digit id |
 | `county_name` | County of the district's TEA county number |
 | `date`, `date_raw` | Meeting date, and the date text exactly as shown |
-| `detail`, `detail_raw` | Agenda, Minutes, Projector, Extras or Other, and the link label as shown |
+| `detail`, `detail_raw` | Agenda, Minutes, Projector, Extras, Recording or Other, and the link label as shown |
 | `meeting_type`, `meeting_title` | Regular, Special, Workshop, etc. as the source states it |
 | `text` | Extracted text; null unless `text_status` is `ok` or `partial_ocr` |
-| `text_status` | `ok`, `needs_ocr` (scanned, no text layer), `partial_ocr`, `empty`, `unsupported`, `too_large`, `error`, `pending` |
+| `text_status` | `ok`, `needs_ocr` (scanned, no text layer), `partial_ocr`, `empty`, `unsupported`, `too_large`, `unavailable` (no longer published), `recording` (audio/video link only), `error`, `pending` |
 | `source_link` | The link as published; `document_link` is the file actually parsed |
 | `listing_row_text` | Exact text of the listing row the metadata came from |
 | `raw_path`, `content_sha256` | Cached original bytes, for OCR and review |
@@ -99,5 +99,6 @@ Shows collection progress with a rate and estimated time to finish, every distri
 ## Not yet done
 
 - OCR for `needs_ocr` and `partial_ocr` documents (raw files are kept for it).
+- Transcription of `Recording` rows. They hold links only: audio/video files posted on district sites, and YouTube, Swagit and Vimeo links found in meeting listings. Video links embedded elsewhere on district websites are not yet collected.
 - Legacy `.doc` conversion.
 - Independent review of extracted records (planned with TypeSafe's jev).

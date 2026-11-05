@@ -54,6 +54,7 @@ const TEXT_LABELS = {
   too_large: "Too large",
   unsupported: "Unsupported format",
   unavailable: "No longer published",
+  recording: "Recording (link only)",
   error: "Download error",
   unknown: "Unknown",
 };
@@ -66,6 +67,7 @@ const TEXT_HELP = {
   too_large: "Saved, but too big to read automatically. It will be handled later.",
   unsupported: "A file type we do not read, such as a video or spreadsheet.",
   unavailable: "The district's platform no longer serves this document, so there is nothing to download.",
+  recording: "An audio or video recording. The link is kept for a later transcription step; it is not downloaded.",
   error: "The download or reading failed. It is retried on the next run.",
 };
 const DETAIL_HELP = [
@@ -232,7 +234,7 @@ function progressView(p) {
   const rate = p.rate_per_min;
   const eta = p.records_backlog === 0 ? "Nothing waiting"
     : rate ? duration(p.eta_minutes) : "Unknown";
-  const statusRows = ["ok", "needs_ocr", "partial_ocr", "empty", "too_large", "unsupported", "unavailable", "error"]
+  const statusRows = ["ok", "needs_ocr", "partial_ocr", "empty", "too_large", "unsupported", "unavailable", "recording", "error"]
     .concat(Object.keys(p.by_status).filter(k => !(k in TEXT_LABELS)));
   const unchecked = p.districts_total - p.districts_mapped;
   return [

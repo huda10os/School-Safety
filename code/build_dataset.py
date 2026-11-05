@@ -18,6 +18,7 @@ from __future__ import annotations
 import csv
 import fcntl
 import json
+import re
 from collections import defaultdict
 from datetime import date
 
@@ -25,7 +26,7 @@ import pyarrow as pa
 import pyarrow.parquet as pq
 
 from config import DATA, REFERENCE, STAGING
-from records import FIELDS, PREFERENCE, read_jsonl
+from records import FIELDS, LISTING_FIELDS, PREFERENCE, read_jsonl, record_id
 
 ARROW_TYPES = {"string": pa.string(), "date": pa.date32(), "int32": pa.int32(),
                "bool": pa.bool_(), "list<string>": pa.list_(pa.string())}
@@ -47,6 +48,36 @@ def _meeting_key(record: dict) -> tuple:
             record.get("date") or "", record.get("meeting_title") or "")
 
 
+# Meeting video links that appear inside a listing row (BoardBook rows often
+# carry a YouTube "virtual meeting location" or a Swagit recording link).
+VIDEO_LINK = re.compile(r"https?://(?:www\.)?(?:youtube\.com|youtu\.be|vimeo\.com|[\w-]+\.(?:new\.)?swagit\.com)"
+                        r"[^\s\"'<>)\]]*", re.I)
+
+
+def _recording_rows(rows: list[dict]) -> list[dict]:
+    """Recordings are kept as links for a later transcription step.
+
+    Direct audio/video files were already listed as documents and skipped at
+    download; they become detail Recording. Video links inside a listing row
+    become one Recording row per meeting and link.
+    """
+    extra: dict[str, dict] = {}
+    for row in rows:
+        if row.get("text_status") in ("unsupported", "recording") and \
+                (row.get("error") or "").startswith("media file not"):
+            row.update(detail="Recording", text_status="recording")
+        for url in VIDEO_LINK.findall(row.get("listing_row_text") or ""):
+            url = url.rstrip(".,;")
+            rid = record_id(row["tea_id"], row["platform"], f"{url}|{row.get('date_raw') or ''}", "Recording")
+            if rid in extra:
+                continue
+            extra[rid] = {**{k: row.get(k) for k in LISTING_FIELDS}, "record_id": rid,
+                          "detail": "Recording", "detail_raw": "Video link in meeting listing",
+                          "source_link": url, "text": None, "text_status": "recording",
+                          "attachment_links": [], "error": None}
+    return list(extra.values())
+
+
 def district_records(tea_id_platform: str) -> list[dict]:
     collected: dict[str, dict] = {}
     for record in read_jsonl(STAGING / "records" / f"{tea_id_platform}.jsonl"):
@@ -55,6 +86,7 @@ def district_records(tea_id_platform: str) -> list[dict]:
         if record["record_id"] not in collected:
             collected[record["record_id"]] = {**record, "text_status": "pending"}
     rows = list(collected.values())
+    rows += _recording_rows(rows)
     best: dict[tuple, dict] = {}
     for row in rows:
         row["preferred_for_meeting"] = False

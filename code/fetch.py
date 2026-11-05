@@ -81,7 +81,7 @@ def _read_body(response) -> bytes:
     content_type = response.headers.get("Content-Type", "").lower()
     if content_type.startswith(("audio/", "video/")):
         response.close()
-        raise SkippedDownload("unsupported", f"media file not downloaded ({content_type})")
+        raise SkippedDownload("recording", f"media file not downloaded ({content_type})")
     declared = int(response.headers.get("Content-Length") or 0)
     if declared > MAX_DOWNLOAD_BYTES:
         response.close()
@@ -173,7 +173,7 @@ class Fetcher:
             cached_headers = {k.lower(): v for k, v in meta["headers"].items()}
             cached_type = cached_headers.get("content-type", "").lower()
             if cached_type.startswith(("audio/", "video/")):
-                raise SkippedDownload("unsupported", f"media file not read ({cached_type})")
+                raise SkippedDownload("recording", f"media file not read ({cached_type})")
             if int(cached_headers.get("content-length") or 0) > MAX_DOWNLOAD_BYTES:
                 raise SkippedDownload("too_large", f"not read: {cached_headers['content-length']} bytes")
             content = gzip.decompress(payload_path.read_bytes())
