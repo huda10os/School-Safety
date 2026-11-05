@@ -53,6 +53,7 @@ const TEXT_LABELS = {
   empty: "Empty",
   too_large: "Too large",
   unsupported: "Unsupported format",
+  unavailable: "No longer published",
   error: "Download error",
   unknown: "Unknown",
 };
@@ -64,6 +65,7 @@ const TEXT_HELP = {
   empty: "The document downloaded but contained no text.",
   too_large: "Saved, but too big to read automatically. It will be handled later.",
   unsupported: "A file type we do not read, such as a video or spreadsheet.",
+  unavailable: "The district's platform no longer serves this document, so there is nothing to download.",
   error: "The download or reading failed. It is retried on the next run.",
 };
 const DETAIL_HELP = [
@@ -230,7 +232,7 @@ function progressView(p) {
   const rate = p.rate_per_min;
   const eta = p.records_backlog === 0 ? "Nothing waiting"
     : rate ? duration(p.eta_minutes) : "Unknown";
-  const statusRows = ["ok", "needs_ocr", "partial_ocr", "empty", "too_large", "unsupported", "error"]
+  const statusRows = ["ok", "needs_ocr", "partial_ocr", "empty", "too_large", "unsupported", "unavailable", "error"]
     .concat(Object.keys(p.by_status).filter(k => !(k in TEXT_LABELS)));
   const unchecked = p.districts_total - p.districts_mapped;
   return [
