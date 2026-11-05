@@ -17,7 +17,7 @@ USER_AGENT = (
 # are fetched slowest.
 HOST_DELAY = {
     "default": 1.0,
-    "meetings.boardbook.org": 0.2,  # ~5 requests/s; slows automatically on 429/503
+    "meetings.boardbook.org": 0.1,  # ~10 requests/s; slows automatically on 429/503
     "go.boarddocs.com": 3.0,
     "community.diligentoneplatform.com": 3.0,
     "community.highbond.com": 3.0,
