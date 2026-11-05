@@ -10,6 +10,7 @@ from __future__ import annotations
 import gzip
 import hashlib
 import json
+import random
 import shutil
 import threading
 import time
@@ -72,14 +73,16 @@ class Fetcher:
         self._local = threading.local()
         self._host_locks: dict[str, threading.Lock] = {}
         self._host_next: dict[str, float] = {}
+        self._backoff: dict[str, float] = {}
         self._guard = threading.Lock()
 
     def _session(self) -> requests.Session:
         if not hasattr(self._local, "session"):
             session = requests.Session()
             session.headers["User-Agent"] = USER_AGENT
-            retry = Retry(total=4, backoff_factor=2, status_forcelist=[429, 500, 502, 503, 504],
-                          allowed_methods=None, respect_retry_after_header=True)
+            # 429 and 503 are handled in get() so the host's pace can slow down.
+            retry = Retry(total=4, backoff_factor=2, status_forcelist=[500, 502, 504],
+                          allowed_methods=None)
             session.mount("https://", HTTPAdapter(max_retries=retry, pool_maxsize=4))
             session.mount("http://", HTTPAdapter(max_retries=retry, pool_maxsize=4))
             self._local.session = session
@@ -92,9 +95,30 @@ class Fetcher:
         with lock:
             now = time.monotonic()
             start = max(now, self._host_next.get(key, 0.0))
-            self._host_next[key] = start + delay
+            # Jitter spreads requests out instead of a fixed metronome; the
+            # backoff multiplier slows a host that has pushed back.
+            pace = delay * self._backoff.get(key, 1.0) * random.uniform(0.7, 1.3)
+            self._host_next[key] = start + pace
         if start > now:
             time.sleep(start - now)
+
+    def _slow_down(self, url: str, retry_after: str | None) -> float:
+        """Double the host's delay (up to 32x) and return seconds to wait."""
+        key, delay = _host_delay(url)
+        with self._guard:
+            factor = min(self._backoff.get(key, 1.0) * 2, 32.0)
+            self._backoff[key] = factor
+        print(json.dumps(dict(event="host_backoff", host=key, factor=factor)), flush=True)
+        try:
+            return max(float(retry_after), delay * factor)
+        except (TypeError, ValueError):
+            return delay * factor * 4
+
+    def _speed_up(self, url: str) -> None:
+        key, _ = _host_delay(url)
+        if self._backoff.get(key, 1.0) > 1.0:
+            with self._guard:
+                self._backoff[key] = max(1.0, self._backoff[key] * 0.99)
 
     def _paths(self, key: str) -> tuple[Path, Path]:
         base = self.raw_root / key[:2] / key
@@ -119,10 +143,15 @@ class Fetcher:
                             rel, meta["sha256"], True)
         while shutil.disk_usage(self.raw_root.parent).free < MIN_FREE_BYTES:
             time.sleep(60)
-        self._wait_turn(url)
-        response = self._session().request(method, url, data=data, headers=headers,
-                                           timeout=(20, timeout))
+        for _ in range(6):
+            self._wait_turn(url)
+            response = self._session().request(method, url, data=data, headers=headers,
+                                               timeout=(20, timeout))
+            if response.status_code not in (429, 503):
+                break
+            time.sleep(self._slow_down(url, response.headers.get("Retry-After")))
         response.raise_for_status()
+        self._speed_up(url)
         content = response.content
         digest = hashlib.sha256(content).hexdigest()
         payload_path.parent.mkdir(parents=True, exist_ok=True)
