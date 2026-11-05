@@ -112,6 +112,10 @@ def _file_response(response, soup, fetcher):
     template = _download_template(soup)
     if viewer_id and viewer_id.get("value") and template and "TBR_AAAA_" in template:
         url = urljoin(response.url, template.replace("TBR_AAAA_", viewer_id["value"]))
+    elif template and "TBR_AAAA_" not in template and "Download" in template:
+        # Snapshot viewers (/Documents/WebViewer?snapshotUri=...) embed the
+        # finished download URL directly.
+        url = urljoin(response.url, template)
     else:
         link = soup.select_one('a[href*="/Public/DownloadMinutes/"]')
         if link is None:
@@ -237,5 +241,8 @@ def resolve(record: dict, fetcher) -> dict:
         return _meeting_text(response, soup, record["detail"])
     except ValueError as exc:
         result = _fields(response)
-        result.update(text_status="error", error=str(exc))
+        # A custom-minutes page with nothing attached is a published but empty
+        # record, not a failure to retry.
+        empty = "/Documents/CustomMinutesForMeeting/" in response.url
+        result.update(text_status="empty" if empty else "error", error=str(exc))
         return result

@@ -165,3 +165,24 @@ def test_m4a_served_as_plain_text_is_unsupported_not_document_text(tmp_path, mon
     assert result["text"] is None
     assert "audio/video" in result["error"]
     assert result["attachment_links"] == [download]
+
+
+def test_snapshot_viewer_uses_its_direct_download_url():
+    source = BASE + "/Public/Minutes/1048?meeting=774742"
+    viewer = BASE + "/Documents/WebViewer/1048?snapshotUri=Org1048%2FMeeting774742%2FMinutes%2FUnit%2FPublic.pdf"
+    download = BASE + "/Public/DownloadSnapshot?SnapshotUri=Org1048%2FMeeting774742%2FMinutes%2FUnit%2FPublic.pdf"
+    page = response("snapshot_minutes.html", viewer)
+    pdf = Response(download, 200, {"Content-Type": "application/pdf"}, b"%PDF-1.7 fake",
+                   "data/raw/pdf.gz", "sha", True)
+    result = boardbook.resolve(dict(source_link=source, detail="Minutes"),
+                               Fetcher({source: page, download: pdf}))
+    assert result["document_link"] == download
+    assert result["text_status"] is None  # binary: parsed later by the pipeline
+
+
+def test_custom_minutes_page_without_a_document_is_empty_not_error():
+    source = BASE + "/Public/Minutes/2183?meeting=585315"
+    page = response("custom_minutes_empty.html", BASE + "/Documents/CustomMinutesForMeeting/2183?meeting=585315")
+    result = boardbook.resolve(dict(source_link=source, detail="Minutes"), Fetcher({source: page}))
+    assert result["text_status"] == "empty"
+    assert result["text"] is None
