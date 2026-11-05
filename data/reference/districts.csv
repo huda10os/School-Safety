@@ -635,40 +635,40 @@ tea_id,school_district,county_name,county_fips,website,tea_source
 153904,Tahoka ISD,Lynn County,48305,https://www.tahokaisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
 153905,New Home ISD,Lynn County,48305,https://newhomeisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
 153907,Wilson ISD,Lynn County,48305,https://www.wilson.esc17.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
-154901,Madisonville CISD,McCulloch County,48307,https://www.madisonvillecisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
-154903,North Zulch ISD,McCulloch County,48307,https://www.nzisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
-155901,Jefferson ISD,McLennan County,48309,https://www.jeffersonisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
-156902,Stanton ISD,McMullen County,48311,https://www.stanton.esc18.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
-156905,Grady ISD,McMullen County,48311,https://gradyisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
-157901,Mason ISD,Madison County,48313,https://www.masonisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
-158901,Bay City ISD,Marion County,48315,https://www.bcblackcats.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
-158902,Tidehaven ISD,Marion County,48315,https://www.tidehavenisd.com/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
-158904,Matagorda ISD,Marion County,48315,https://www.matagordaisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
-158905,Palacios ISD,Marion County,48315,https://www.palaciosisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
-158906,Van Vleck ISD,Marion County,48315,https://www.vvisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
-159901,Eagle Pass ISD,Martin County,48317,https://www.eaglepassisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
-160901,Brady ISD,Mason County,48319,https://www.bradyisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
-160904,Rochelle ISD,Mason County,48319,https://www.rochelleisd.net/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
-160905,Lohn ISD,Mason County,48319,https://www.lohnisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
-161901,Crawford ISD,Matagorda County,48321,https://www.crawford-isd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
-161903,Midway ISD,Matagorda County,48321,https://www.midwayisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
-161906,La Vega ISD,Matagorda County,48321,https://www.lavegaisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
-161907,Lorena ISD,Matagorda County,48321,https://www.lorenaisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
-161908,Mart ISD,Matagorda County,48321,https://www.martisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
-161909,McGregor ISD,Matagorda County,48321,https://www.mcgregor-isd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
-161910,Moody ISD,Matagorda County,48321,https://www.moodyisd.org/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
-161912,Riesel ISD,Matagorda County,48321,https://www.rieselisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
-161914,Waco ISD,Matagorda County,48321,https://www.wacoisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
-161916,West ISD,Matagorda County,48321,https://www.westisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
-161918,Axtell ISD,Matagorda County,48321,https://www.axtellisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
-161919,Bruceville-Eddy ISD,Matagorda County,48321,https://www.beisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
-161920,China Spring ISD,Matagorda County,48321,https://www.chinaspringisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
-161921,Connally ISD,Matagorda County,48321,https://www.connally.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
-161922,Robinson ISD,Matagorda County,48321,https://www.risdweb.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
-161923,Bosqueville ISD,Matagorda County,48321,https://www.bosquevilleisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
-161924,Hallsburg ISD,Matagorda County,48321,https://www.hallsburgisd.com,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
-161925,Gholson ISD,Matagorda County,48321,https://www.gholsonisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
-162904,McMullen County ISD,Maverick County,48323,https://www.mcisd.us,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+154901,Madisonville CISD,Madison County,48313,https://www.madisonvillecisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+154903,North Zulch ISD,Madison County,48313,https://www.nzisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+155901,Jefferson ISD,Marion County,48315,https://www.jeffersonisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+156902,Stanton ISD,Martin County,48317,https://www.stanton.esc18.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+156905,Grady ISD,Martin County,48317,https://gradyisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+157901,Mason ISD,Mason County,48319,https://www.masonisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+158901,Bay City ISD,Matagorda County,48321,https://www.bcblackcats.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+158902,Tidehaven ISD,Matagorda County,48321,https://www.tidehavenisd.com/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+158904,Matagorda ISD,Matagorda County,48321,https://www.matagordaisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+158905,Palacios ISD,Matagorda County,48321,https://www.palaciosisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+158906,Van Vleck ISD,Matagorda County,48321,https://www.vvisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+159901,Eagle Pass ISD,Maverick County,48323,https://www.eaglepassisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+160901,Brady ISD,McCulloch County,48307,https://www.bradyisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+160904,Rochelle ISD,McCulloch County,48307,https://www.rochelleisd.net/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+160905,Lohn ISD,McCulloch County,48307,https://www.lohnisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+161901,Crawford ISD,McLennan County,48309,https://www.crawford-isd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+161903,Midway ISD,McLennan County,48309,https://www.midwayisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+161906,La Vega ISD,McLennan County,48309,https://www.lavegaisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+161907,Lorena ISD,McLennan County,48309,https://www.lorenaisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+161908,Mart ISD,McLennan County,48309,https://www.martisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+161909,McGregor ISD,McLennan County,48309,https://www.mcgregor-isd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+161910,Moody ISD,McLennan County,48309,https://www.moodyisd.org/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+161912,Riesel ISD,McLennan County,48309,https://www.rieselisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+161914,Waco ISD,McLennan County,48309,https://www.wacoisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+161916,West ISD,McLennan County,48309,https://www.westisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+161918,Axtell ISD,McLennan County,48309,https://www.axtellisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+161919,Bruceville-Eddy ISD,McLennan County,48309,https://www.beisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+161920,China Spring ISD,McLennan County,48309,https://www.chinaspringisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+161921,Connally ISD,McLennan County,48309,https://www.connally.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+161922,Robinson ISD,McLennan County,48309,https://www.risdweb.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+161923,Bosqueville ISD,McLennan County,48309,https://www.bosquevilleisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+161924,Hallsburg ISD,McLennan County,48309,https://www.hallsburgisd.com,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+161925,Gholson ISD,McLennan County,48309,https://www.gholsonisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+162904,McMullen County ISD,McMullen County,48311,https://www.mcisd.us,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
 163901,Devine ISD,Medina County,48325,https://www.devineisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
 163902,D'Hanis ISD,Medina County,48325,https://www.dhanisisd.net/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
 163903,Natalia ISD,Medina County,48325,https://www.nataliaisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query

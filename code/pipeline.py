@@ -52,6 +52,10 @@ def platform_module(name: str):
 def jobs(args) -> list[tuple[dict, dict]]:
     districts = {d["tea_id"]: d for d in load_csv(REFERENCE / "districts.csv")}
     rows = load_csv(Path(args.platforms))
+    # Hand-verified sources for districts the automatic map missed or got wrong.
+    overrides = REFERENCE / "platform_overrides.csv"
+    if overrides.exists() and Path(args.platforms) == REFERENCE / "platforms.csv":
+        rows += load_csv(overrides)
     wanted = set(args.tea_ids.split(",")) if args.tea_ids else None
     # A district can list documents on several pages of one platform (e.g. a
     # current-minutes page and an archive page); they share one staging file.

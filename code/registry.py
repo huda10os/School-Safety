@@ -2,9 +2,11 @@
 
 Source: TEA's public ArcGIS layer of districts (one point per district, with
 TEA's 6-digit id, name and website). The first three digits of the id are
-TEA's county number, which is the county's alphabetical position; the Census
-county FIPS code is 2*n - 1. A fourth digit of 8 marks an open-enrollment
-charter, which is out of scope.
+TEA's county number: the county's position in plain alphabetical order of its
+uppercase name without spaces. That differs from Census FIPS order only for
+the Mc counties (TEA puts MCCULLOCH after MAVERICK; the Census files it as
+"Mac"), so county names come from TEA's ordering and FIPS from the Census row.
+A fourth digit of 8 marks an open-enrollment charter, which is out of scope.
 """
 import csv
 import io
@@ -33,14 +35,17 @@ def tea_districts(fetcher):
         offset += len(features)
 
 
-def county_names(fetcher):
+def tea_counties(fetcher) -> dict[int, tuple[str, str]]:
+    """Map TEA county number -> (county name, Census county FIPS)."""
     text = fetcher.get(CENSUS_COUNTIES).text
-    return {row["COUNTYFP"]: row["COUNTYNAME"] for row in csv.DictReader(io.StringIO(text), delimiter="|")}
+    rows = list(csv.DictReader(io.StringIO(text), delimiter="|"))
+    ordered = sorted(rows, key=lambda r: r["COUNTYNAME"].upper().replace(" ", "").replace(".", ""))
+    return {number: (row["COUNTYNAME"], row["COUNTYFP"]) for number, row in enumerate(ordered, 1)}
 
 
 def build():
     fetcher = Fetcher()
-    counties = county_names(fetcher)
+    counties = tea_counties(fetcher)
     districts, skipped = [], []
     for row in tea_districts(fetcher):
         tea_id = str(row["id"]).zfill(6)
@@ -48,11 +53,11 @@ def build():
         if tea_id[3] == "8" or not REGULAR_SUFFIX.search(name):
             skipped.append((tea_id, name))
             continue
-        fips = f"{2 * int(tea_id[:3]) - 1:03d}"
+        county, fips = counties[int(tea_id[:3])]
         website = (row.get("website") or "").strip()
         if website and not website.startswith("http"):
             website = "https://" + website
-        districts.append(dict(tea_id=tea_id, school_district=name, county_name=counties[fips],
+        districts.append(dict(tea_id=tea_id, school_district=name, county_name=county,
                               county_fips="48" + fips, website=website, tea_source=TEA_LAYER))
     REFERENCE.mkdir(parents=True, exist_ok=True)
     with open(REFERENCE / "districts.csv", "w", newline="") as handle:

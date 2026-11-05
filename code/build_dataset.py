@@ -123,6 +123,11 @@ def build() -> dict:
             rows = []
             for platform in sorted(stems.get(district["tea_id"], ())):
                 platform_rows = district_records(f"{district['tea_id']}__{platform}")
+                for row in platform_rows:
+                    # The registry is authoritative; staging rows keep the
+                    # name and county they were discovered with.
+                    row["school_district"] = district["school_district"]
+                    row["county_name"] = district["county_name"]
                 if platform_rows:
                     table = pa.Table.from_pylist(
                         [{name: r.get(name) for name in SCHEMA.names} for r in platform_rows], schema=SCHEMA)
