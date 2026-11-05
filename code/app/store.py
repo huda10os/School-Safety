@@ -143,7 +143,11 @@ class Store:
                                 continue
                             todo.append((kind, rel, Path(entry.path), st, prev))
                 parquet = self.data / "records.parquet"
-                if parquet.exists():
+                # records.parquet is built from the staging files, so while they
+                # exist it adds nothing; reading it only matters for a data dir
+                # that holds the finished dataset alone.
+                staging_present = any(rel.startswith("records/") for rel in seen)
+                if parquet.exists() and not staging_present:
                     st = parquet.stat()
                     seen.add("records.parquet")
                     self.last_change = max(self.last_change, st.st_mtime)
@@ -273,11 +277,15 @@ class Store:
             else:
                 exprs.append(f"CAST({c} AS VARCHAR) AS {c}")
         con.execute("BEGIN")
-        con.execute("DELETE FROM records WHERE src=?", [rel])
-        con.execute(f"""INSERT INTO records SELECT {', '.join(exprs)}, '{rel}' FROM read_parquet(?) p
-            WHERE p.record_id NOT IN (SELECT record_id FROM records)""", [str(path)])
-        self._save_file(con, rel, "parquet", st, st.st_size)
-        con.execute("COMMIT")
+        try:
+            con.execute("DELETE FROM records WHERE src=?", [rel])
+            con.execute(f"""INSERT INTO records SELECT {', '.join(exprs)}, '{rel}' FROM read_parquet(?) p
+                WHERE p.record_id NOT IN (SELECT record_id FROM records)""", [str(path)])
+            self._save_file(con, rel, "parquet", st, st.st_size)
+            con.execute("COMMIT")
+        except Exception:
+            con.execute("ROLLBACK")
+            raise
 
     # ---------------------------------------------------------------- reference data
     def _csv(self, path: Path) -> list[dict]:
