@@ -52,7 +52,9 @@ def jobs(args) -> list[tuple[dict, dict]]:
     districts = {d["tea_id"]: d for d in load_csv(REFERENCE / "districts.csv")}
     rows = load_csv(Path(args.platforms))
     wanted = set(args.tea_ids.split(",")) if args.tea_ids else None
-    selected = []
+    # A district can list documents on several pages of one platform (e.g. a
+    # current-minutes page and an archive page); they share one staging file.
+    grouped: dict[tuple[str, str], dict] = {}
     for row in rows:
         if not row.get("entry_url") or row["platform"] in ("", "none", "unknown"):
             continue
@@ -60,8 +62,11 @@ def jobs(args) -> list[tuple[dict, dict]]:
             continue
         if args.platform and row["platform"] != args.platform:
             continue
-        selected.append((districts[row["tea_id"]], row))
-    return selected
+        key = (row["tea_id"], row["platform"])
+        job = grouped.setdefault(key, {**row, "entry_urls": []})
+        if row["entry_url"] not in job["entry_urls"]:
+            job["entry_urls"].append(row["entry_url"])
+    return [(districts[tea_id], job) for (tea_id, _), job in grouped.items()]
 
 
 def stem(district: dict, row: dict) -> str:
@@ -74,9 +79,11 @@ def discover_one(fetcher: Fetcher, district: dict, row: dict, refresh: bool) -> 
     if target.exists() and status_path.exists() and not refresh:
         return json.loads(status_path.read_text())
     status = dict(tea_id=district["tea_id"], platform=row["platform"], entry_url=row["entry_url"],
-                  discovered_at=datetime.now(timezone.utc).isoformat(), records=0, error=None)
+                  entry_urls=row["entry_urls"], discovered_at=datetime.now(timezone.utc).isoformat(),
+                  records=0, error=None)
     try:
-        records = platform_module(row["platform"]).discover(district, row["entry_url"], fetcher)
+        module = platform_module(row["platform"])
+        records = [r for url in row["entry_urls"] for r in module.discover(district, url, fetcher)]
         seen, unique = set(), []
         for record in records:
             if record["record_id"] not in seen:

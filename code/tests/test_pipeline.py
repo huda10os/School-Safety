@@ -1,0 +1,26 @@
+from argparse import Namespace
+
+import pipeline
+
+
+def test_jobs_merge_entry_urls_per_district_platform(tmp_path, monkeypatch):
+    reference = tmp_path / "reference"
+    reference.mkdir()
+    (reference / "districts.csv").write_text(
+        "tea_id,school_district,county_name,county_fips,website,tea_source\n"
+        "001906,Neches ISD,Anderson County,48001,https://www.nechesisd.com,x\n")
+    platforms = reference / "platforms.csv"
+    platforms.write_text(
+        "tea_id,platform,entry_url,evidence\n"
+        "001906,website,https://www.nechesisd.com/school_board,a\n"
+        "001906,website,https://www.nechesisd.com/school_board_archives,b\n"
+        "001906,website,https://www.nechesisd.com/school_board,duplicate\n"
+        "001906,none,,c\n")
+    monkeypatch.setattr(pipeline, "REFERENCE", reference)
+    args = Namespace(platforms=str(platforms), tea_ids=None, platform=None)
+    selected = pipeline.jobs(args)
+    assert len(selected) == 1
+    district, job = selected[0]
+    assert district["school_district"] == "Neches ISD"
+    assert job["entry_urls"] == ["https://www.nechesisd.com/school_board",
+                                 "https://www.nechesisd.com/school_board_archives"]
