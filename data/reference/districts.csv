@@ -1,0 +1,1019 @@
+tea_id,school_district,county_name,county_fips,website,tea_source
+001902,Cayuga ISD,Anderson County,48001,https://www.cayugaisd.com,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+001903,Elkhart ISD,Anderson County,48001,https://www.elkhartisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+001904,Frankston ISD,Anderson County,48001,https://www.frankstonisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+001906,Neches ISD,Anderson County,48001,https://www.nechesisd.com,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+001907,Palestine ISD,Anderson County,48001,https://www.palestineschools.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+001908,Westwood ISD,Anderson County,48001,https://www.westwoodisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+001909,Slocum ISD,Anderson County,48001,https://www.slocumisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+002901,Andrews ISD,Andrews County,48003,https://www.andrews.esc18.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+003902,Hudson ISD,Angelina County,48005,https://www.hudsonisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+003903,Lufkin ISD,Angelina County,48005,https://www.lufkinisd.org/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+003904,Huntington ISD,Angelina County,48005,https://www.huntingtonisd.com,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+003905,Diboll ISD,Angelina County,48005,https://www.dibollisd.com,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+003906,Zavalla ISD,Angelina County,48005,https://www.zavallaisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+003907,Central ISD,Angelina County,48005,https://www.centralisd.com/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+004901,Rockport-Fulton ISD,Aransas County,48007,https://www.rfisd.us,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+005901,Archer City ISD,Archer County,48009,https://www.archercityisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+005902,Holliday ISD,Archer County,48009,https://www.hollidayisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+005904,Windthorst ISD,Archer County,48009,https://www.windthorstisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+006902,Claude ISD,Armstrong County,48011,https://www.claudeisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+007901,Charlotte ISD,Atascosa County,48013,https://www.charlotteisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+007902,Jourdanton ISD,Atascosa County,48013,https://www.jourdantonisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+007904,Lytle ISD,Atascosa County,48013,https://www.lytleisd.org/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+007905,Pleasanton ISD,Atascosa County,48013,https://www.pisd.us,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+007906,Poteet ISD,Atascosa County,48013,https://www.poteetisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+008901,Bellville ISD,Austin County,48015,https://www.bellvilleisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+008902,Sealy ISD,Austin County,48015,https://www.sealyisd.com,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+008903,Brazos ISD,Austin County,48015,https://www.brazosisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+009901,Muleshoe ISD,Bailey County,48017,https://www.muleshoeisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+010901,Medina ISD,Bandera County,48019,https://www.medinaisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+010902,Bandera ISD,Bandera County,48019,https://www.banderaisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+011901,Bastrop ISD,Bastrop County,48021,https://www.bisdtx.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+011902,Elgin ISD,Bastrop County,48021,https://www.elginisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+011904,Smithville ISD,Bastrop County,48021,https://www.smithvilleisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+011905,McDade ISD,Bastrop County,48021,https://www.mcdadeisd.com,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+012901,Seymour ISD,Baylor County,48023,https://www.seymour-isd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+013901,Beeville ISD,Bee County,48025,https://www.beevilleisd.net/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+013902,Pawnee ISD,Bee County,48025,https://www.pawneeisd.net/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+013903,Pettus ISD,Bee County,48025,https://www.pettusisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+013905,Skidmore-Tynan ISD,Bee County,48025,https://www.stbobcats.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+014901,Academy ISD,Bell County,48027,https://www.academyisd.net/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+014902,Bartlett ISD,Bell County,48027,https://www.bartlett.txed.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+014903,Belton ISD,Bell County,48027,https://www.bisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+014905,Holland ISD,Bell County,48027,https://www.hollandisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+014906,Killeen ISD,Bell County,48027,https://www.killeenisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+014907,Rogers ISD,Bell County,48027,https://www.rogersisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+014908,Salado ISD,Bell County,48027,https://www.saladoisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+014909,Temple ISD,Bell County,48027,https://www.tisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+014910,Troy ISD,Bell County,48027,https://www.troyisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+015901,Alamo Heights ISD,Bexar County,48029,https://www.ahisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+015904,Harlandale ISD,Bexar County,48029,https://www.harlandale.net/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+015905,Edgewood ISD,Bexar County,48029,https://www.eisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+015906,Randolph Field ISD,Bexar County,48029,https://www.rfisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+015907,San Antonio ISD,Bexar County,48029,https://www.saisd.net/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+015908,South San Antonio ISD,Bexar County,48029,https://www.southsanisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+015909,Somerset ISD,Bexar County,48029,https://www.sisdk12.net/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+015910,North East ISD,Bexar County,48029,https://www.neisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+015911,East Central ISD,Bexar County,48029,https://www.ecisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+015912,Southwest ISD,Bexar County,48029,https://www.swisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+015913,Lackland ISD,Bexar County,48029,https://www.lacklandisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+015914,Ft Sam Houston ISD,Bexar County,48029,https://www.fshisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+015915,Northside ISD,Bexar County,48029,https://www.nisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+015916,Judson ISD,Bexar County,48029,https://www.judsonisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+015917,Southside ISD,Bexar County,48029,https://www.southsideisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+016901,Johnson City ISD,Blanco County,48031,https://www.jc.txed.net/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+016902,Blanco ISD,Blanco County,48031,https://www.blancoisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+017901,Borden County ISD,Borden County,48033,https://www.bcisd.net/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+018901,Clifton ISD,Bosque County,48035,https://www.cliftonisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+018902,Meridian ISD,Bosque County,48035,https://www.meridianisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+018903,Morgan ISD,Bosque County,48035,https://www.morganisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+018904,Valley Mills ISD,Bosque County,48035,https://www.vmisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+018905,Walnut Springs ISD,Bosque County,48035,https://www.walnutspringsisd.net/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+018906,Iredell ISD,Bosque County,48035,https://www.iredell-isd.com/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+018907,Kopperl ISD,Bosque County,48035,https://www.kopperlisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+018908,Cranfills Gap ISD,Bosque County,48035,https://cranfillsgapisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+019901,DeKalb ISD,Bowie County,48037,https://www.dekalbisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+019902,Hooks ISD,Bowie County,48037,https://www.hooksisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+019903,Maud ISD,Bowie County,48037,https://www.maudisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+019905,New Boston ISD,Bowie County,48037,https://www.nbschools.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+019906,Redwater ISD,Bowie County,48037,https://www.redwaterisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+019907,Texarkana ISD,Bowie County,48037,https://www.txkisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+019908,Liberty-Eylau ISD,Bowie County,48037,https://www.leisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+019909,Simms ISD,Bowie County,48037,https://www.simmsisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+019910,Malta ISD,Bowie County,48037,https://www.maltaisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+019911,Red Lick ISD,Bowie County,48037,https://www.redlickisd.com,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+019912,Pleasant Grove ISD,Bowie County,48037,https://www.pgisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+019913,Hubbard ISD,Bowie County,48037,https://hubbardisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+019914,Leary ISD,Bowie County,48037,https://www.learyisd.net/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+020901,Alvin ISD,Brazoria County,48039,https://www.alvinisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+020902,Angleton ISD,Brazoria County,48039,https://www.angletonisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+020904,Danbury ISD,Brazoria County,48039,https://www.danburyisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+020905,Brazosport ISD,Brazoria County,48039,https://www.brazosportisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+020906,Sweeny ISD,Brazoria County,48039,https://www.sweenyisd.org/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+020907,Columbia-Brazoria ISD,Brazoria County,48039,https://www.cbisd.com,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+020908,Pearland ISD,Brazoria County,48039,https://www.pearlandisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+020910,Damon ISD,Brazoria County,48039,https://www.damonisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+021901,College Station ISD,Brazos County,48041,https://www.csisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+021902,Bryan ISD,Brazos County,48041,https://www.bryanisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+022004,Terlingua CSD,Brewster County,48043,https://www.terlinguacsd.com/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+022901,Alpine ISD,Brewster County,48043,https://www.alpine.esc18.net/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+022902,Marathon ISD,Brewster County,48043,https://www.marathonisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+022903,San Vicente ISD,Brewster County,48043,https://www.svisd.com,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+023902,Silverton ISD,Briscoe County,48045,https://www.silvertonisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+024901,Brooks County ISD,Brooks County,48047,https://www.bcisd.us,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+025901,Bangs ISD,Brown County,48049,https://www.bangsisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+025902,Brownwood ISD,Brown County,48049,https://www.brownwoodisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+025904,Blanket ISD,Brown County,48049,https://blanketisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+025905,May ISD,Brown County,48049,https://www.mayisd.com,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+025906,Zephyr ISD,Brown County,48049,https://zephyrisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+025908,Brookesmith ISD,Brown County,48049,https://www.brookesmithisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+025909,Early ISD,Brown County,48049,https://www.earlyisd.net/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+026901,Caldwell ISD,Burleson County,48051,https://www.caldwellisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+026902,Somerville ISD,Burleson County,48051,https://www.somervilleisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+026903,Snook ISD,Burleson County,48051,https://www.snookisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+027903,Burnet CISD,Burnet County,48053,https://www.burnetcisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+027904,Marble Falls ISD,Burnet County,48053,https://www.mfisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+028902,Lockhart ISD,Caldwell County,48055,https://www.lockhartisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+028903,Luling ISD,Caldwell County,48055,https://www.luling.txed.net/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+028906,Prairie Lea ISD,Caldwell County,48055,https://www.plisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+029901,Calhoun County ISD,Calhoun County,48057,https://www.calcoisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+030901,Cross Plains ISD,Callahan County,48059,https://www.crossplainsisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+030902,Clyde CISD,Callahan County,48059,https://www.clydeisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+030903,Baird ISD,Callahan County,48059,https://www.bairdisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+030906,Eula ISD,Callahan County,48059,https://www.eulaisd.us/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+031901,Brownsville ISD,Cameron County,48061,https://www.bisd.us,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+031903,Harlingen CISD,Cameron County,48061,https://www.hcisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+031905,La Feria ISD,Cameron County,48061,https://www.laferiaisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+031906,Los Fresnos CISD,Cameron County,48061,https://www.lfcisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+031909,Point Isabel ISD,Cameron County,48061,https://www.pi-isd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+031911,Rio Hondo ISD,Cameron County,48061,https://www.rhisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+031912,San Benito CISD,Cameron County,48061,https://www.sbcisd.net/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+031913,Santa Maria ISD,Cameron County,48061,https://www2.smisd.net/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+031914,Santa Rosa ISD,Cameron County,48061,https://www.srtx.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+031916,South Texas ISD,Cameron County,48061,https://www.stisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+032902,Pittsburg ISD,Camp County,48063,https://www.pittsburgisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+033901,Groom ISD,Carson County,48065,https://www.groomisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+033902,Panhandle ISD,Carson County,48065,https://www.panhandleisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+033904,White Deer ISD,Carson County,48065,https://www.whitedeerisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+034901,Atlanta ISD,Cass County,48067,https://www.atlisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+034902,Avinger ISD,Cass County,48067,https://www.avingerisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+034903,Hughes Springs ISD,Cass County,48067,https://www.hsisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+034905,Linden-Kildare CISD,Cass County,48067,https://www.lkcisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+034906,McLeod ISD,Cass County,48067,https://www.mcleodisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+034907,Queen City ISD,Cass County,48067,https://www.qcisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+034909,Bloomburg ISD,Cass County,48067,https://www.bloomburgisd.net/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+035901,Dimmitt ISD,Castro County,48069,https://www.dimmittisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+035902,Hart ISD,Castro County,48069,https://www.hartisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+035903,Nazareth ISD,Castro County,48069,https://www.nazarethisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+036901,Anahuac ISD,Chambers County,48071,https://www.aisdpanthers.com/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+036902,Barbers Hill ISD,Chambers County,48071,https://www.bhisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+036903,East Chambers ISD,Chambers County,48071,https://www.eastchambers.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+037901,Alto ISD,Cherokee County,48073,https://www.alto.esc7.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+037904,Jacksonville ISD,Cherokee County,48073,https://www.jisd.org/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+037907,Rusk ISD,Cherokee County,48073,https://www.ruskisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+037908,New Summerfield ISD,Cherokee County,48073,https://www.newsummerfieldisd.org/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+037909,Wells ISD,Cherokee County,48073,https://www.wells.esc7.net/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+038901,Childress ISD,Childress County,48075,https://www.childressisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+039902,Henrietta ISD,Clay County,48077,https://www.henrietta-isd.net/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+039903,Petrolia CISD,Clay County,48077,https://petroliaisd.org/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+039904,Bellevue ISD,Clay County,48077,https://www.bellevueisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+039905,Midway ISD,Clay County,48077,https://wwwmidwayisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+040901,Morton ISD,Cochran County,48079,https://www.mortonisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+040902,Whiteface CISD,Cochran County,48079,https://www.whitefaceschool.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+041901,Bronte ISD,Coke County,48081,https://www.bronteisd.net/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+041902,Robert Lee ISD,Coke County,48081,https://www.rlisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+042901,Coleman ISD,Coleman County,48083,https://www.colemanisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+042903,Santa Anna ISD,Coleman County,48083,https://www.santaannaisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+042905,Panther Creek CISD,Coleman County,48083,https://www.pcreek.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+043901,Allen ISD,Collin County,48085,https://www.allenisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+043902,Anna ISD,Collin County,48085,https://www.annaisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+043903,Celina ISD,Collin County,48085,https://www.celinaisd.com,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+043904,Farmersville ISD,Collin County,48085,https://www.farmersvilleisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+043905,Frisco ISD,Collin County,48085,https://www.friscoisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+043907,McKinney ISD,Collin County,48085,https://www.mckinneyisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+043908,Melissa ISD,Collin County,48085,https://www.melissaisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+043910,Plano ISD,Collin County,48085,https://www.pisd.edu/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+043911,Princeton ISD,Collin County,48085,https://www.princetonisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+043912,Prosper ISD,Collin County,48085,https://www.prosper-isd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+043914,Wylie ISD,Collin County,48085,https://www.wylieisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+043917,Blue Ridge ISD,Collin County,48085,https://www.brisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+043918,Community ISD,Collin County,48085,https://www.communityisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+043919,Lovejoy ISD,Collin County,48085,https://www.lovejoyisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+044902,Wellington ISD,Collingsworth County,48087,https://www.wellingtonisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+045902,Columbus ISD,Colorado County,48089,https://www.columbusisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+045903,Rice CISD,Colorado County,48089,https://www.ricecisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+045905,Weimar ISD,Colorado County,48089,https://www.weimarisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+046901,New Braunfels ISD,Comal County,48091,https://www.nbisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+046902,Comal ISD,Comal County,48091,https://www.comalisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+047901,Comanche ISD,Comanche County,48093,https://www.comancheisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+047902,De Leon ISD,Comanche County,48093,https://www.deleonisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+047903,Gustine ISD,Comanche County,48093,https://www.gustine.esc14.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+047905,Sidney ISD,Comanche County,48093,https://www.sidney.esc14.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+048901,Eden CISD,Concho County,48095,https://www.edencisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+048903,Paint Rock ISD,Concho County,48095,https://www.paintrockisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+049901,Gainesville ISD,Cooke County,48097,https://www.gainesvilleisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+049902,Muenster ISD,Cooke County,48097,https://www.MuensterISD.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+049903,Valley View ISD,Cooke County,48097,https://www.vvisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+049905,Callisburg ISD,Cooke County,48097,https://www.cisdtx.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+049906,Era ISD,Cooke County,48097,https://www.eraisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+049907,Lindsay ISD,Cooke County,48097,https://www.lindsayisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+049908,Walnut Bend ISD,Cooke County,48097,https://www.walnutbendisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+049909,Sivells Bend ISD,Cooke County,48097,https://www.sivellsbendisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+050901,Evant ISD,Coryell County,48099,https://www.evantisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+050902,Gatesville ISD,Coryell County,48099,https://www.gatesvilleisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+050904,Oglesby ISD,Coryell County,48099,https://www.oglesbyisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+050909,Jonesboro ISD,Coryell County,48099,https://www.jonesboroisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+050910,Copperas Cove ISD,Coryell County,48099,https://www.ccisd.com,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+051901,Paducah ISD,Cottle County,48101,https://www.paducahisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+052901,Crane ISD,Crane County,48103,https://www.craneisd.com,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+053001,Crockett County Consolidated CSD,Crockett County,48105,https://www.ozonaschools.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+054901,Crosbyton CISD,Crosby County,48107,https://www.crosbyton.k12.tx.us,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+054902,Lorenzo ISD,Crosby County,48107,https://www.lorenzoisd.net/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+054903,Ralls ISD,Crosby County,48107,https://rallsisd.org/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+055901,Culberson County-Allamoore ISD,Culberson County,48109,https://www.ccaisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+056901,Dalhart ISD,Dallam County,48111,https://www.dalhartisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+056902,Texline ISD,Dallam County,48111,https://texlineisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+057903,Carrollton-Farmers Branch ISD,Dallas County,48113,https://www.cfbisd.edu/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+057904,Cedar Hill ISD,Dallas County,48113,https://www.chisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+057905,Dallas ISD,Dallas County,48113,https://www.dallasisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+057906,Desoto ISD,Dallas County,48113,https://www.desotoisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+057907,Duncanville ISD,Dallas County,48113,https://www.duncanvilleisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+057909,Garland ISD,Dallas County,48113,https://www.garlandisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+057910,Grand Prairie ISD,Dallas County,48113,https://www.gpisd.org/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+057911,Highland Park ISD,Dallas County,48113,https://www.hpisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+057912,Irving ISD,Dallas County,48113,https://www.irvingisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+057913,Lancaster ISD,Dallas County,48113,https://www.lancasterisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+057914,Mesquite ISD,Dallas County,48113,https://www.mesquiteisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+057916,Richardson ISD,Dallas County,48113,https://www.risd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+057919,Sunnyvale ISD,Dallas County,48113,https://www.sunnyvaleisd.com/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+057922,Coppell ISD,Dallas County,48113,https://www.coppellisd.com,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+058902,Dawson ISD,Dawson County,48115,https://dawsonisd.us,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+058905,Klondike ISD,Dawson County,48115,https://www.klondike.esc17.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+058906,Lamesa ISD,Dawson County,48115,https://www.lamesa.esc17.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+058909,Sands CISD,Dawson County,48115,https://sands.esc17.net/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+059901,Hereford ISD,Deaf Smith County,48117,https://www.herefordisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+059902,Walcott ISD,Deaf Smith County,48117,https://www.walcottisd.com,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+060902,Cooper ISD,Delta County,48119,https://www.cooperisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+060914,Fannindel ISD,Delta County,48119,https://www.fannindel.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+061901,Denton ISD,Denton County,48121,https://www.dentonisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+061902,Lewisville ISD,Denton County,48121,https://www.lisd.net/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+061903,Pilot Point ISD,Denton County,48121,https://www.pilotpointisd.com,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+061905,Krum ISD,Denton County,48121,https://www.krumisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+061906,Ponder ISD,Denton County,48121,https://www.ponderisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+061907,Aubrey ISD,Denton County,48121,https://www.aubreyisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+061908,Sanger ISD,Denton County,48121,https://sangerisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+061910,Argyle ISD,Denton County,48121,https://www.argyleisd.com,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+061911,Northwest ISD,Denton County,48121,https://www.nisdtx.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+061912,Lake Dallas ISD,Denton County,48121,https://www.ldisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+061914,Little Elm ISD,Denton County,48121,https://www.littleelmisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+062901,Cuero ISD,DeWitt County,48123,https://www.cueroisd.org/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+062902,Nordheim ISD,DeWitt County,48123,https://www.nordheimisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+062903,Yoakum ISD,DeWitt County,48123,https://www.yoakumisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+062904,Yorktown ISD,DeWitt County,48123,https://www.yisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+062905,Westhoff ISD,DeWitt County,48123,https://westhoffisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+062906,Meyersville ISD,DeWitt County,48123,https://www.meyersvilleisd.org/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+063903,Spur ISD,Dickens County,48125,https://www.spurbulldogs.com,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+063906,Patton Springs ISD,Dickens County,48125,https://www.pattonsprings.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+064903,Carrizo Springs CISD,Dimmit County,48127,https://www.cscisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+065901,Clarendon ISD,Donley County,48129,https://www.clarendonisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+065902,Hedley ISD,Donley County,48129,https://www.hedleyisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+066005,Ramirez CSD,Duval County,48131,https://www.ramirezcsd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+066901,Benavides ISD,Duval County,48131,https://www.benavidesisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+066902,San Diego ISD,Duval County,48131,https://www.sdisd.us,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+066903,Freer ISD,Duval County,48131,https://www.freerisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+067902,Cisco ISD,Eastland County,48133,https://www.ciscoisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+067903,Eastland ISD,Eastland County,48133,https://www.eastlandisd.net/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+067904,Gorman ISD,Eastland County,48133,https://www.gormanisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+067907,Ranger ISD,Eastland County,48133,https://www.ranger.esc14.net/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+067908,Rising Star ISD,Eastland County,48133,https://www.risingstarisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+068901,Ector County ISD,Ector County,48135,https://www.ectorcountyisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+069901,Rocksprings ISD,Edwards County,48137,https://www.rockspringsisd.net/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+069902,Nueces Canyon CISD,Edwards County,48137,https://www.nccisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+070901,Avalon ISD,Ellis County,48139,https://avalonisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+070903,Ennis ISD,Ellis County,48139,https://www.ennis.k12.tx.us/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+070905,Ferris ISD,Ellis County,48139,https://www.ferrisisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+070907,Italy ISD,Ellis County,48139,https://www.italyisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+070908,Midlothian ISD,Ellis County,48139,https://WWW.MIDLOTHIANISD.ORG,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+070909,Milford ISD,Ellis County,48139,https://www.milfordisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+070910,Palmer ISD,Ellis County,48139,https://www.palmer-isd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+070911,Red Oak ISD,Ellis County,48139,https://www.redoakisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+070912,Waxahachie ISD,Ellis County,48139,https://www.wisd.org/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+070915,Maypearl ISD,Ellis County,48139,https://www.maypearlisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+071901,Clint ISD,El Paso County,48141,https://www.clintweb.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+071902,El Paso ISD,El Paso County,48141,https://www.episd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+071903,Fabens ISD,El Paso County,48141,https://www.fabensisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+071904,San Elizario ISD,El Paso County,48141,https://www.seisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+071905,Ysleta ISD,El Paso County,48141,https://www.yisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+071906,Anthony ISD,El Paso County,48141,https://www.anthonyisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+071907,Canutillo ISD,El Paso County,48141,https://www.canutillo-isd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+071908,Tornillo ISD,El Paso County,48141,https://www.tisd.us,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+071909,Socorro ISD,El Paso County,48141,https://www.sisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+072901,Three Way ISD,Erath County,48143,https://www.twisd.us,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+072902,Dublin ISD,Erath County,48143,https://www.dublinisd.us,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+072903,Stephenville ISD,Erath County,48143,https://www.sville.us/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+072904,Bluff Dale ISD,Erath County,48143,https://www.bdisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+072908,Huckabay ISD,Erath County,48143,https://www.hisd.us,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+072909,Lingleville ISD,Erath County,48143,https://www.lingleville.us,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+072910,Morgan Mill ISD,Erath County,48143,https://www.mmisd.us,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+073901,Chilton ISD,Falls County,48145,https://www.chiltonisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+073903,Marlin ISD,Falls County,48145,https://www.marlinisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+073904,Westphalia ISD,Falls County,48145,https://www.westphaliaisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+073905,Rosebud-Lott ISD,Falls County,48145,https://www.rlisd.org/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+074903,Bonham ISD,Fannin County,48147,https://www.bonhamisd.org/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+074904,Dodd City ISD,Fannin County,48147,https://www.doddcityisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+074905,Ector ISD,Fannin County,48147,https://www.ectorisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+074907,Honey Grove ISD,Fannin County,48147,https://honeygroveisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+074909,Leonard ISD,Fannin County,48147,https://www.leonardisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+074911,Savoy ISD,Fannin County,48147,https://www.savoyisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+074912,Trenton ISD,Fannin County,48147,https://www.trentonisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+074917,Sam Rayburn ISD,Fannin County,48147,https://www.srisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+075901,Flatonia ISD,Fayette County,48149,https://www.flatoniaisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+075902,La Grange ISD,Fayette County,48149,https://www.lgisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+075903,Schulenburg ISD,Fayette County,48149,https://www.schulenburgisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+075906,Fayetteville ISD,Fayette County,48149,https://www.fayettevilleisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+075908,Round Top-Carmine ISD,Fayette County,48149,https://www.rtcisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+076903,Roby CISD,Fisher County,48151,https://www.robycisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+076904,Rotan ISD,Fisher County,48151,https://www.rotan.org/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+077901,Floydada Collegiate ISD,Floyd County,48153,https://www.floydadaisd.esc17.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+077902,Lockney ISD,Floyd County,48153,https://www.lockneyisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+078901,Crowell ISD,Foard County,48155,https://www.crowellisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+079901,Lamar CISD,Fort Bend County,48157,https://www.lcisd.org/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+079906,Needville ISD,Fort Bend County,48157,https://www.needvilleisd.com,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+079907,Fort Bend ISD,Fort Bend County,48157,https://www.fortbendisd.gov/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+079910,Stafford MSD,Fort Bend County,48157,https://www.staffordmsd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+080901,Mount Vernon ISD,Franklin County,48159,https://www.mtvernonisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+081902,Fairfield ISD,Freestone County,48161,https://www.fairfieldisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+081904,Teague ISD,Freestone County,48161,https://www.teagueisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+081905,Wortham ISD,Freestone County,48161,https://www.worthamisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+081906,Dew ISD,Freestone County,48161,https://www.dewisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+082902,Dilley ISD,Frio County,48163,https://www.dilleyisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+082903,Pearsall ISD,Frio County,48163,https://www.pearsallisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+083901,Seagraves ISD,Gaines County,48165,https://www.seagravesisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+083902,Loop ISD,Gaines County,48165,https://www.loopisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+083903,Seminole ISD,Gaines County,48165,https://www.seminoleisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+084901,Dickinson ISD,Galveston County,48167,https://www.dickinsonisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+084902,Galveston ISD,Galveston County,48167,https://www.gisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+084903,High Island ISD,Galveston County,48167,https://www.highislandisd.com,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+084906,Texas City ISD,Galveston County,48167,https://www.tcisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+084908,Hitchcock ISD,Galveston County,48167,https://www.hitchcockisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+084909,Santa Fe ISD,Galveston County,48167,https://www.sfisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+084910,Clear Creek ISD,Galveston County,48167,https://www.ccisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+084911,Friendswood ISD,Galveston County,48167,https://www.myfisd.com,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+085902,Post ISD,Garza County,48169,https://www.postisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+085903,Southland ISD,Garza County,48169,https://www.southlandisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+086024,Doss Consolidated CSD,Gillespie County,48171,https://dossccsd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+086901,Fredericksburg ISD,Gillespie County,48171,https://www.fisd.org/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+086902,Harper ISD,Gillespie County,48171,https://www.harperisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+087901,Glasscock County ISD,Glasscock County,48173,https://www.gckats.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+088902,Goliad ISD,Goliad County,48175,https://www.goliadisd.org/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+089901,Gonzales ISD,Gonzales County,48177,https://www.gonzalesisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+089903,Nixon-Smiley CISD,Gonzales County,48177,https://www.nixonsmiley.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+089905,Waelder ISD,Gonzales County,48177,https://www.waelderisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+090902,Lefors ISD,Gray County,48179,https://www.leforsisd.net/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+090903,McLean ISD,Gray County,48179,https://www.mcleanisd.com,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+090904,Pampa ISD,Gray County,48179,https://www.pampaisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+090905,Grandview-Hopkins ISD,Gray County,48179,https://gvhisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+091901,Bells ISD,Grayson County,48181,https://www.bellsisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+091902,Collinsville ISD,Grayson County,48181,https://www.collinsvilleisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+091903,Denison ISD,Grayson County,48181,https://www.denisonisd.net/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+091905,Howe ISD,Grayson County,48181,https://www.howeisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+091906,Sherman ISD,Grayson County,48181,https://www.shermanisd.net/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+091907,Tioga ISD,Grayson County,48181,https://www.tiogaisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+091908,Van Alstyne ISD,Grayson County,48181,https://www.vanalstyneisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+091909,Whitesboro ISD,Grayson County,48181,https://www.whitesboroisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+091910,Whitewright ISD,Grayson County,48181,https://www.whitewrightisd.com,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+091913,Pottsboro ISD,Grayson County,48181,https://www.pottsboroisd.org/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+091914,S and S CISD,Grayson County,48181,https://www.sscisd.net/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+091917,Gunter ISD,Grayson County,48181,https://www.gunterisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+091918,Tom Bean ISD,Grayson County,48181,https://www.tbisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+092901,Gladewater ISD,Gregg County,48183,https://www.gladewaterisd.com,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+092902,Kilgore ISD,Gregg County,48183,https://www.kisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+092903,Longview ISD,Gregg County,48183,https://www.lisd.org/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+092904,Pine Tree ISD,Gregg County,48183,https://www.ptisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+092906,Sabine ISD,Gregg County,48183,https://www.sabineisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+092907,Spring Hill ISD,Gregg County,48183,https://www.shisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+092908,White Oak ISD,Gregg County,48183,https://www.woisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+093901,Anderson-Shiro CISD,Grimes County,48185,https://ascisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+093903,Iola ISD,Grimes County,48185,https://www.iolaisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+093904,Navasota ISD,Grimes County,48185,https://www.navasotaisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+093905,Richards ISD,Grimes County,48185,https://www.richardsisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+094901,Seguin ISD,Guadalupe County,48187,https://www.seguin.k12.tx.us,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+094902,Schertz-Cibolo-U City ISD,Guadalupe County,48187,https://www.scucisd.org/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+094903,Navarro ISD,Guadalupe County,48187,https://www.nisd.us,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+094904,Marion ISD,Guadalupe County,48187,https://www.marionisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+095901,Abernathy ISD,Hale County,48189,https://www.abernathyisd.com/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+095902,Cotton Center ISD,Hale County,48189,https://www.ccelks.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+095903,Hale Center ISD,Hale County,48189,https://www.hcisdowls.net/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+095904,Petersburg ISD,Hale County,48189,https://www.petersburgisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+095905,Plainview ISD,Hale County,48189,https://www.plainviewisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+096904,Memphis ISD,Hall County,48191,https://www.memphisisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+096905,Turkey-Quitaque ISD,Hall County,48191,https://www.valleypatriots.com/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+097902,Hamilton ISD,Hamilton County,48193,https://www.hamiltonisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+097903,Hico ISD,Hamilton County,48193,https://www.hico-isd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+098901,Gruver ISD,Hansford County,48195,https://www.gruverisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+098903,Pringle-Morse CISD,Hansford County,48195,https://www.pringlemorsecisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+098904,Spearman ISD,Hansford County,48195,https://spearmanisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+099902,Chillicothe ISD,Hardeman County,48197,https://www.cisd-tx.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+099903,Quanah ISD,Hardeman County,48197,https://www.qisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+100903,Kountze ISD,Hardin County,48199,https://www.kountzeisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+100904,Silsbee ISD,Hardin County,48199,https://www.silsbeeisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+100905,Hardin-Jefferson ISD,Hardin County,48199,https://www.hjisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+100907,Lumberton ISD,Hardin County,48199,https://www.lumbertonisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+100908,West Hardin County CISD,Hardin County,48199,https://www.westhardin.org/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+101902,Aldine ISD,Harris County,48201,https://www.aldineisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+101903,Alief ISD,Harris County,48201,https://www.aliefisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+101905,Channelview ISD,Harris County,48201,https://www.cvisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+101906,Crosby ISD,Harris County,48201,https://www.crosbyisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+101907,Cypress-Fairbanks ISD,Harris County,48201,https://www.cfisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+101908,Deer Park ISD,Harris County,48201,https://www.dpisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+101910,Galena Park ISD,Harris County,48201,https://www.galenaparkisd.com,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+101911,Goose Creek CISD,Harris County,48201,https://www.gccisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+101912,Houston ISD,Harris County,48201,https://www.houstonisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+101913,Humble ISD,Harris County,48201,https://www.humbleisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+101914,Katy ISD,Harris County,48201,https://www.katyisd.org/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+101915,Klein ISD,Harris County,48201,https://www.kleinisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+101916,La Porte ISD,Harris County,48201,https://www.lpisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+101917,Pasadena ISD,Harris County,48201,https://www.pasadenaisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+101919,Spring ISD,Harris County,48201,https://www.springisd.org/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+101920,Spring Branch ISD,Harris County,48201,https://www.springbranchisd.com,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+101921,Tomball ISD,Harris County,48201,https://www.tomballisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+101924,Sheldon ISD,Harris County,48201,https://www.sheldonisd.com,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+101925,Huffman ISD,Harris County,48201,https://www.huffmanisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+102901,Karnack ISD,Harrison County,48203,https://www.karnackisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+102902,Marshall ISD,Harrison County,48203,https://www.marshallisd.com,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+102903,Waskom ISD,Harrison County,48203,https://www.waskomisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+102904,Hallsville ISD,Harrison County,48203,https://www.hisd.com,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+102905,Harleton ISD,Harrison County,48203,https://www.harletonisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+102906,Elysian Fields ISD,Harrison County,48203,https://www.efisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+103901,Channing ISD,Hartley County,48205,https://www.channingisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+103902,Hartley ISD,Hartley County,48205,https://www.hartleyisd.net/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+104901,Haskell CISD,Haskell County,48207,https://www.haskell.esc14.net/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+104903,Rule ISD,Haskell County,48207,https://www.rule.esc14.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+104907,Paint Creek ISD,Haskell County,48207,https://www.paintcreek.esc14.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+105902,San Marcos CISD,Hays County,48209,https://www.smcisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+105904,Dripping Springs ISD,Hays County,48209,https://www.dsisdtx.us,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+105905,Wimberley ISD,Hays County,48209,https://www.wimberleyisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+105906,Hays CISD,Hays County,48209,https://www.hayscisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+106901,Canadian ISD,Hemphill County,48211,https://www.canadianisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+107901,Athens ISD,Henderson County,48213,https://www.athensisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+107902,Brownsboro ISD,Henderson County,48213,https://www.gobearsgo.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+107904,Cross Roads ISD,Henderson County,48213,https://www.crossroadsisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+107905,Eustace ISD,Henderson County,48213,https://www.eustaceisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+107906,Malakoff ISD,Henderson County,48213,https://www.malakoffisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+107907,Trinidad ISD,Henderson County,48213,https://www.trinidadisd.com,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+107908,Murchison ISD,Henderson County,48213,https://www.murisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+107910,Lapoynor ISD,Henderson County,48213,https://www.lapoynorisd.net/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+108902,Donna ISD,Hidalgo County,48215,https://www.donnaisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+108903,Edcouch-Elsa ISD,Hidalgo County,48215,https://www.eeisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+108904,Edinburg CISD,Hidalgo County,48215,https://www.ecisd.us,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+108905,Hidalgo ISD,Hidalgo County,48215,https://www.hidalgo-isd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+108906,McAllen ISD,Hidalgo County,48215,https://www.mcallenisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+108907,Mercedes ISD,Hidalgo County,48215,https://www.misdtx.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+108908,Mission CISD,Hidalgo County,48215,https://www.mcisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+108909,Pharr-San Juan-Alamo ISD,Hidalgo County,48215,https://www.psjaisd.us,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+108910,Progreso ISD,Hidalgo County,48215,https://www.progresoedu.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+108911,Sharyland ISD,Hidalgo County,48215,https://www.sharylandisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+108912,La Joya ISD,Hidalgo County,48215,https://www.lajoyaisd.com/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+108913,Weslaco ISD,Hidalgo County,48215,https://www.wisd.us,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+108914,La Villa ISD,Hidalgo County,48215,https://www.lavillaisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+108915,Monte Alto ISD,Hidalgo County,48215,https://www.montealtoisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+108916,Valley View ISD,Hidalgo County,48215,https://www.vviewisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+109901,Abbott ISD,Hill County,48217,https://www.abbottisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+109902,Bynum ISD,Hill County,48217,https://www.bynumisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+109903,Covington ISD,Hill County,48217,https://www.covingtonisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+109904,Hillsboro ISD,Hill County,48217,https://www.hillsboroisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+109905,Hubbard ISD,Hill County,48217,https://www.hubbardisd.com,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+109907,Itasca ISD,Hill County,48217,https://www.itascaisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+109908,Malone ISD,Hill County,48217,https://www.maloneisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+109910,Mount Calm ISD,Hill County,48217,https://www.mcisd1.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+109911,Whitney ISD,Hill County,48217,https://www.whitney.isd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+109912,Aquilla ISD,Hill County,48217,https://www.aquillaisd.net/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+109913,Blum ISD,Hill County,48217,https://www.blumisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+109914,Penelope ISD,Hill County,48217,https://www.penelopeisd.org/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+110901,Anton ISD,Hockley County,48219,https://antonisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+110902,Levelland ISD,Hockley County,48219,https://www.levellandisd.net/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+110905,Ropes ISD,Hockley County,48219,https://www.ropesisd.us,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+110906,Smyer ISD,Hockley County,48219,https://www.smyer-isd.org/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+110907,Sundown ISD,Hockley County,48219,https://www.sundownisd.com,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+110908,Whitharral ISD,Hockley County,48219,https://www.whitharralisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+111901,Granbury ISD,Hood County,48221,https://www.granburyisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+111902,Lipan ISD,Hood County,48221,https://www.lipanindians.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+111903,Tolar ISD,Hood County,48221,https://www.tolarisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+112901,Sulphur Springs ISD,Hopkins County,48223,https://www.ssisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+112905,Cumby Collegiate ISD,Hopkins County,48223,https://www.cumbyisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+112906,North Hopkins ISD,Hopkins County,48223,https://www.northhopkins.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+112907,Miller Grove ISD,Hopkins County,48223,https://www.mgisd.net/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+112908,Como-Pickton CISD,Hopkins County,48223,https://www.cpcisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+112909,Saltillo ISD,Hopkins County,48223,https://www.saltilloisd.net/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+112910,Sulphur Bluff ISD,Hopkins County,48223,https://www.sulphurbluffisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+113901,Crockett ISD,Houston County,48225,https://www.crockettisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+113902,Grapeland ISD,Houston County,48225,https://www.grapelandisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+113903,Lovelady ISD,Houston County,48225,https://www.loveladyisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+113905,Latexo ISD,Houston County,48225,https://www.latexoisd.net/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+113906,Kennard ISD,Houston County,48225,https://www.kennardisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+114901,Big Spring ISD,Howard County,48227,https://www.bsisd.esc18.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+114902,Coahoma ISD,Howard County,48227,https://www.coahomaisd.com,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+114904,Forsan ISD,Howard County,48227,https://forsan.esc18.net/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+115901,Ft Hancock ISD,Hudspeth County,48229,https://www.fhisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+115902,Sierra Blanca ISD,Hudspeth County,48229,https://www.sierrablancaisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+115903,Dell City ISD,Hudspeth County,48229,https://www.dellcityisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+116901,Caddo Mills ISD,Hunt County,48231,https://CaddoMillsisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+116902,Celeste ISD,Hunt County,48231,https://www.celesteisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+116903,Commerce ISD,Hunt County,48231,https://www.commerceisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+116905,Greenville ISD,Hunt County,48231,https://www.greenvilleisd.com,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+116906,Lone Oak ISD,Hunt County,48231,https://www.loneoakisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+116908,Quinlan ISD,Hunt County,48231,https://www.quinlanisd.net/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+116909,Wolfe City ISD,Hunt County,48231,https://www.wcisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+116910,Campbell ISD,Hunt County,48231,https://www.campbellisd.org/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+116915,Bland ISD,Hunt County,48231,https://www.blandisd.us,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+116916,Boles ISD,Hunt County,48231,https://bolesisd.com,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+117901,Borger ISD,Hutchinson County,48233,https://www.borgerisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+117903,Sanford-Fritch ISD,Hutchinson County,48233,https://www.sfisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+117904,Plemons-Stinnett-Phillips CISD,Hutchinson County,48233,https://www.pspcisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+118902,Irion County ISD,Irion County,48235,https://www.irion-isd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+119901,Bryson ISD,Jack County,48237,https://www.brysonisd.net/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+119902,Jacksboro ISD,Jack County,48237,https://www.jacksboroisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+119903,Perrin-Whitt CISD,Jack County,48237,https://www.pwcisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+120901,Edna ISD,Jackson County,48239,https://www.ednaisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+120902,Ganado ISD,Jackson County,48239,https://www.ganadoisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+120905,Industrial ISD,Jackson County,48239,https://www.industrialisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+121902,Brookeland ISD,Jasper County,48241,https://www.brookelandisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+121903,Buna ISD,Jasper County,48241,https://www.bunaisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+121904,Jasper ISD,Jasper County,48241,https://www.jasperisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+121905,Kirbyville CISD,Jasper County,48241,https://www.kirbyvillecisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+121906,Evadale ISD,Jasper County,48241,https://www.evadalek12.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+122901,Ft Davis ISD,Jeff Davis County,48243,https://www.fdisd.com,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+122902,Valentine ISD,Jeff Davis County,48243,https://valentineisd.com,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+123905,Nederland ISD,Jefferson County,48245,https://www.nederlandisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+123907,Port Arthur ISD,Jefferson County,48245,https://www.paisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+123908,Port Neches-Groves ISD,Jefferson County,48245,https://www.pngisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+123910,Beaumont ISD,Jefferson County,48245,https://www.bmtisd.com/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+123913,Sabine Pass ISD,Jefferson County,48245,https://www.sabinepass.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+123914,Hamshire-Fannett ISD,Jefferson County,48245,https://www.hfisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+124901,Jim Hogg County ISD,Jim Hogg County,48247,https://www.jhcisdpk12.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+125901,Alice ISD,Jim Wells County,48249,https://www.aliceisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+125902,Ben Bolt-Palito Blanco ISD,Jim Wells County,48249,https://bbpbschools.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+125903,Orange Grove ISD,Jim Wells County,48249,https://www.ogisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+125905,Premont ISD,Jim Wells County,48249,https://www.premontisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+125906,La Gloria ISD,Jim Wells County,48249,https://www.lagloriaisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+126901,Alvarado ISD,Johnson County,48251,https://www.alvaradoisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+126902,Burleson ISD,Johnson County,48251,https://www.burlesonisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+126903,Cleburne ISD,Johnson County,48251,https://www.c-isd.com,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+126904,Grandview ISD,Johnson County,48251,https://www.gvisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+126905,Joshua ISD,Johnson County,48251,https://www.joshuaisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+126906,Keene ISD,Johnson County,48251,https://www.keeneisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+126907,Rio Vista ISD,Johnson County,48251,https://www.rvisd.net/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+126908,Venus ISD,Johnson County,48251,https://www.venusisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+126911,Godley ISD,Johnson County,48251,https://www.godleyisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+127901,Anson ISD,Jones County,48253,https://www.ansontigers.com,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+127903,Hamlin Collegiate ISD,Jones County,48253,https://www.gohamlin.com,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+127904,Hawley ISD,Jones County,48253,https://www.hawley.esc14.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+127905,Lueders-Avoca ISD,Jones County,48253,https://www.laisd.esc14.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+127906,Stamford ISD,Jones County,48253,https://www.stamford.esc14.net/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+128901,Karnes City ISD,Karnes County,48255,https://www.kcisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+128902,Kenedy ISD,Karnes County,48255,https://www.kenedyisd.com/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+128903,Runge ISD,Karnes County,48255,https://www.rungeisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+128904,Falls City ISD,Karnes County,48255,https://www.fcisd.net/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+129901,Crandall ISD,Kaufman County,48257,https://www.crandall-isd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+129902,Forney ISD,Kaufman County,48257,https://www.forneyisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+129903,Kaufman ISD,Kaufman County,48257,https://www.kaufmanisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+129904,Kemp ISD,Kaufman County,48257,https://www.kempisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+129905,Mabank ISD,Kaufman County,48257,https://www.mabankisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+129906,Terrell ISD,Kaufman County,48257,https://www.terrellisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+129910,Scurry-Rosser ISD,Kaufman County,48257,https://www.scurry-rosser.com,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+130901,Boerne ISD,Kendall County,48259,https://boerneisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+130902,Comfort ISD,Kendall County,48259,https://www.comfort.txed.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+131001,Kenedy County Wide CSD,Kenedy County,48261,https://www.saritaschool.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+132902,Jayton-Girard ISD,Kent County,48263,https://www.jaytonjaybirds.com/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+133901,Center Point ISD,Kerr County,48265,https://www.cpisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+133902,Hunt ISD,Kerr County,48265,https://www.huntisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+133903,Kerrville ISD,Kerr County,48265,https://www.kerrvilleisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+133904,Ingram ISD,Kerr County,48265,https://www.ingramisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+133905,Divide ISD,Kerr County,48265,https://divideisd.net/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+134901,Junction ISD,Kimble County,48267,https://www.junctionisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+135001,Guthrie CSD,King County,48269,https://www.guthriejags.com,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+136901,Brackett ISD,Kinney County,48271,https://www.brackettisd.net/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+137901,Kingsville ISD,Kleberg County,48273,https://www.kingsvilleisd.com,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+137902,Ricardo ISD,Kleberg County,48273,https://www.ricardoisd.us,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+137903,Riviera ISD,Kleberg County,48273,https://www.rivieraisd.us,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+137904,Santa Gertrudis ISD,Kleberg County,48273,https://www.sgisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+138902,Knox City-O'Brien CISD,Knox County,48275,https://www.knoxcityschools.net/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+138903,Munday CISD,Knox County,48275,https://www.mundaycisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+138904,Benjamin ISD,Knox County,48275,https://www.benjaminisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+139905,Chisum ISD,Lamar County,48277,https://www.chisumisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+139909,Paris ISD,Lamar County,48277,https://www.parisisd.net/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+139911,North Lamar ISD,Lamar County,48277,https://www.northlamar.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+139912,Prairiland ISD,Lamar County,48277,https://www.prairiland.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+140901,Amherst ISD,Lamb County,48279,https://www.amherstisd.com,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+140904,Littlefield ISD,Lamb County,48279,https://www.lfdisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+140905,Olton ISD,Lamb County,48279,https://www.oltonisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+140907,Springlake-Earth ISD,Lamb County,48279,https://www.springlake-earth.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+140908,Sudan ISD,Lamb County,48279,https://www.sudanisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+141901,Lampasas ISD,Lampasas County,48281,https://www.lisdtx.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+141902,Lometa ISD,Lampasas County,48281,https://www.lometaisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+142901,Cotulla ISD,La Salle County,48283,https://www.cotullaisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+143901,Hallettsville ISD,Lavaca County,48285,https://www.hisdbrahmas.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+143902,Moulton ISD,Lavaca County,48285,https://www.moultonisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+143903,Shiner ISD,Lavaca County,48285,https://www.shinerisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+143904,Vysehrad ISD,Lavaca County,48285,https://www.vysehrad.k12.tx.us,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+143905,Sweet Home ISD,Lavaca County,48285,https://www.sweethomeisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+143906,Ezzell ISD,Lavaca County,48285,https://www.ezzellisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+144901,Giddings ISD,Lee County,48287,https://www.giddings.txed.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+144902,Lexington ISD,Lee County,48287,https://www.lexingtonisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+144903,Dime Box ISD,Lee County,48287,https://dimeboxisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+145901,Buffalo ISD,Leon County,48289,https://www.buffaloisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+145902,Centerville ISD,Leon County,48289,https://www.centerville.k12.tx.us,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+145906,Normangee ISD,Leon County,48289,https://www.normangeeisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+145907,Oakwood ISD,Leon County,48289,https://www.oakwoodisd.net/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+145911,Leon ISD,Leon County,48289,https://leonisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+146901,Cleveland ISD,Liberty County,48291,https://www.clevelandisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+146902,Dayton ISD,Liberty County,48291,https://www.daytonisd.net/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+146903,Devers ISD,Liberty County,48291,https://www.deversisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+146904,Hardin ISD,Liberty County,48291,https://www.hardinisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+146905,Hull-Daisetta ISD,Liberty County,48291,https://www.hdisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+146906,Liberty ISD,Liberty County,48291,https://www.libertyisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+146907,Tarkington ISD,Liberty County,48291,https://www.tarkingtonisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+147901,Coolidge ISD,Limestone County,48293,https://www.coolidgeisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+147902,Groesbeck ISD,Limestone County,48293,https://groesbeckisdtx.sites.thrillshare.com/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+147903,Mexia ISD,Limestone County,48293,https://www.mexiaisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+148901,Booker ISD,Lipscomb County,48295,https://www.bookerisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+148902,Follett ISD,Lipscomb County,48295,https://www.follettisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+148905,Darrouzett ISD,Lipscomb County,48295,https://www.darrouzettisd.gov,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+149901,George West ISD,Live Oak County,48297,https://www.gwisd.us,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+149902,Three Rivers ISD,Live Oak County,48297,https://www.trisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+150901,Llano ISD,Llano County,48299,https://www.llanoisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+152901,Lubbock ISD,Lubbock County,48303,https://www.lubbockisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+152902,New Deal ISD,Lubbock County,48303,https://www.ndisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+152903,Slaton ISD,Lubbock County,48303,https://www.slatonisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+152906,Lubbock-Cooper ISD,Lubbock County,48303,https://www.lcisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+152907,Frenship ISD,Lubbock County,48303,https://www.frenship.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+152908,Roosevelt ISD,Lubbock County,48303,https://www.risdtx.us,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+152909,Shallowater ISD,Lubbock County,48303,https://www.shallowaterisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+152910,Idalou ISD,Lubbock County,48303,https://www.idalouisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+153903,O'Donnell ISD,Lynn County,48305,https://odonnell.esc17.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+153904,Tahoka ISD,Lynn County,48305,https://www.tahokaisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+153905,New Home ISD,Lynn County,48305,https://newhomeisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+153907,Wilson ISD,Lynn County,48305,https://www.wilson.esc17.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+154901,Madisonville CISD,McCulloch County,48307,https://www.madisonvillecisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+154903,North Zulch ISD,McCulloch County,48307,https://www.nzisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+155901,Jefferson ISD,McLennan County,48309,https://www.jeffersonisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+156902,Stanton ISD,McMullen County,48311,https://www.stanton.esc18.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+156905,Grady ISD,McMullen County,48311,https://gradyisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+157901,Mason ISD,Madison County,48313,https://www.masonisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+158901,Bay City ISD,Marion County,48315,https://www.bcblackcats.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+158902,Tidehaven ISD,Marion County,48315,https://www.tidehavenisd.com/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+158904,Matagorda ISD,Marion County,48315,https://www.matagordaisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+158905,Palacios ISD,Marion County,48315,https://www.palaciosisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+158906,Van Vleck ISD,Marion County,48315,https://www.vvisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+159901,Eagle Pass ISD,Martin County,48317,https://www.eaglepassisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+160901,Brady ISD,Mason County,48319,https://www.bradyisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+160904,Rochelle ISD,Mason County,48319,https://www.rochelleisd.net/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+160905,Lohn ISD,Mason County,48319,https://www.lohnisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+161901,Crawford ISD,Matagorda County,48321,https://www.crawford-isd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+161903,Midway ISD,Matagorda County,48321,https://www.midwayisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+161906,La Vega ISD,Matagorda County,48321,https://www.lavegaisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+161907,Lorena ISD,Matagorda County,48321,https://www.lorenaisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+161908,Mart ISD,Matagorda County,48321,https://www.martisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+161909,McGregor ISD,Matagorda County,48321,https://www.mcgregor-isd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+161910,Moody ISD,Matagorda County,48321,https://www.moodyisd.org/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+161912,Riesel ISD,Matagorda County,48321,https://www.rieselisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+161914,Waco ISD,Matagorda County,48321,https://www.wacoisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+161916,West ISD,Matagorda County,48321,https://www.westisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+161918,Axtell ISD,Matagorda County,48321,https://www.axtellisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+161919,Bruceville-Eddy ISD,Matagorda County,48321,https://www.beisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+161920,China Spring ISD,Matagorda County,48321,https://www.chinaspringisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+161921,Connally ISD,Matagorda County,48321,https://www.connally.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+161922,Robinson ISD,Matagorda County,48321,https://www.risdweb.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+161923,Bosqueville ISD,Matagorda County,48321,https://www.bosquevilleisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+161924,Hallsburg ISD,Matagorda County,48321,https://www.hallsburgisd.com,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+161925,Gholson ISD,Matagorda County,48321,https://www.gholsonisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+162904,McMullen County ISD,Maverick County,48323,https://www.mcisd.us,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+163901,Devine ISD,Medina County,48325,https://www.devineisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+163902,D'Hanis ISD,Medina County,48325,https://www.dhanisisd.net/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+163903,Natalia ISD,Medina County,48325,https://www.nataliaisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+163904,Hondo ISD,Medina County,48325,https://www.hondoisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+163908,Medina Valley ISD,Medina County,48325,https://www.mvisd.com,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+164901,Menard ISD,Menard County,48327,https://www.menardisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+165901,Midland ISD,Midland County,48329,https://www.midlandisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+165902,Greenwood ISD,Midland County,48329,https://www.greenwood.esc18.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+166901,Cameron ISD,Milam County,48331,https://cameronisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+166902,Gause ISD,Milam County,48331,https://www.gauseisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+166903,Milano ISD,Milam County,48331,https://www.milanoisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+166904,Rockdale ISD,Milam County,48331,https://www.rockdaleisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+166905,Thorndale ISD,Milam County,48331,https://www.thorndale.txed.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+166907,Buckholts ISD,Milam County,48331,https://buckholts.gabbarthost.com,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+167901,Goldthwaite ISD,Mills County,48333,https://www.goldisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+167902,Mullin ISD,Mills County,48333,https://www.mullinisd.net/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+167904,Priddy ISD,Mills County,48333,https://www.priddyisd.net/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+168901,Colorado ISD,Mitchell County,48335,https://www.ccity.esc14.net/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+168902,Loraine ISD,Mitchell County,48335,https://www.loraine.esc14.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+168903,Westbrook ISD,Mitchell County,48335,https://www.westbrookisd.com,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+169901,Bowie ISD,Montague County,48337,https://www.bowieisd.net/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+169902,Nocona ISD,Montague County,48337,https://www.noconaisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+169906,Gold Burg ISD,Montague County,48337,https://www.goldburgisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+169908,Montague ISD,Montague County,48337,https://www.montagueisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+169909,Prairie Valley ISD,Montague County,48337,https://www.prairievalleyisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+169910,Forestburg ISD,Montague County,48337,https://www.forestburgisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+169911,Saint Jo ISD,Montague County,48337,https://www.saintjoisd.net/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+170902,Conroe ISD,Montgomery County,48339,https://www.conroeisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+170903,Montgomery ISD,Montgomery County,48339,https://www.misd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+170904,Willis ISD,Montgomery County,48339,https://www.willisisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+170906,Magnolia ISD,Montgomery County,48339,https://www.magnoliaisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+170907,Splendora ISD,Montgomery County,48339,https://www.splendoraisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+170908,New Caney ISD,Montgomery County,48339,https://www.newcaneyisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+171901,Dumas ISD,Moore County,48341,https://www.dumasisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+171902,Sunray Collegiate ISD,Moore County,48341,https://www.sunrayisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+172902,Daingerfield-Lone Star ISD,Morris County,48343,https://dlsisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+172905,Pewitt CISD,Morris County,48343,https://www.pewittcisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+173901,Motley County ISD,Motley County,48345,https://www.motleyco.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+174901,Chireno ISD,Nacogdoches County,48347,https://www.chirenoisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+174902,Cushing ISD,Nacogdoches County,48347,https://www.cushingisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+174903,Garrison ISD,Nacogdoches County,48347,https://www.garrisonisd.com,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+174904,Nacogdoches ISD,Nacogdoches County,48347,https://www.nacisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+174906,Woden ISD,Nacogdoches County,48347,https://www.wodenisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+174908,Central Heights ISD,Nacogdoches County,48347,https://centralhts.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+174909,Martinsville ISD,Nacogdoches County,48347,https://www.martinsvilleisd.com,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+174911,Douglass ISD,Nacogdoches County,48347,https://www.douglassisd.com,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+175902,Blooming Grove ISD,Navarro County,48349,https://www.BGISD.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+175903,Corsicana ISD,Navarro County,48349,https://www.cisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+175904,Dawson ISD,Navarro County,48349,https://www.dawsonisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+175905,Frost ISD,Navarro County,48349,https://www.frostisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+175907,Kerens ISD,Navarro County,48349,https://www.kerensisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+175910,Mildred ISD,Navarro County,48349,https://www.mildredisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+175911,Rice ISD,Navarro County,48349,https://www.rice-isd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+176901,Burkeville ISD,Newton County,48351,https://www.burkevilleisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+176902,Newton ISD,Newton County,48351,https://www.newtonisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+176903,Deweyville ISD,Newton County,48351,https://www.deweyvilleisd.com,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+177901,Roscoe Collegiate ISD,Nolan County,48353,https://www.roscoe.esc14.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+177902,Sweetwater ISD,Nolan County,48353,https://www.sweetwaterisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+177903,Blackwell CISD,Nolan County,48353,https://www.blackwellhornets.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+177905,Highland ISD,Nolan County,48353,https://www.highland.esc14.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+178901,Agua Dulce ISD,Nueces County,48355,https://adisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+178902,Bishop CISD,Nueces County,48355,https://www.bishopcisd.net/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+178903,Calallen ISD,Nueces County,48355,https://www.calallen.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+178904,Corpus Christi ISD,Nueces County,48355,https://www.ccisd.us,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+178905,Driscoll ISD,Nueces County,48355,https://www.driscollisd.us,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+178906,London ISD,Nueces County,48355,https://www.londonisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+178908,Port Aransas ISD,Nueces County,48355,https://www.paisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+178909,Robstown ISD,Nueces County,48355,https://www.robstownisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+178912,Tuloso-Midway ISD,Nueces County,48355,https://www.tmisd.us/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+178913,Banquete ISD,Nueces County,48355,https://www.banqueteisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+178914,Flour Bluff ISD,Nueces County,48355,https://www.flourbluffschools.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+178915,West Oso ISD,Nueces County,48355,https://www.westosoisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+179901,Perryton ISD,Ochiltree County,48357,https://www.perrytonisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+180901,Boys Ranch ISD,Oldham County,48359,https://www.boysranchisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+180902,Vega ISD,Oldham County,48359,https://www.vegalonghorn.com,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+180903,Adrian ISD,Oldham County,48359,https://www.adrianisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+180904,Wildorado ISD,Oldham County,48359,https://www.wildoradoisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+181901,Bridge City ISD,Orange County,48361,https://www.bridgecityisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+181905,Orangefield ISD,Orange County,48361,https://www.orangefieldisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+181906,West Orange-Cove CISD,Orange County,48361,https://www.woccisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+181907,Vidor ISD,Orange County,48361,https://www.vidorisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+181908,Little Cypress-Mauriceville CISD,Orange County,48361,https://www.lcmcisd.org/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+182901,Gordon ISD,Palo Pinto County,48363,https://www.gordonisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+182902,Graford ISD,Palo Pinto County,48363,https://www.grafordisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+182903,Mineral Wells ISD,Palo Pinto County,48363,https://www.mwisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+182904,Santo ISD,Palo Pinto County,48363,https://www.santoisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+182905,Strawn ISD,Palo Pinto County,48363,https://www.strawnschool.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+182906,Palo Pinto ISD,Palo Pinto County,48363,https://www.palopintoisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+183901,Beckville ISD,Panola County,48365,https://www.beckvilleisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+183902,Carthage ISD,Panola County,48365,https://www.carthageisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+183904,Gary ISD,Panola County,48365,https://www.garyisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+184901,Poolville ISD,Parker County,48367,https://www.poolville.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+184902,Springtown ISD,Parker County,48367,https://www.springtownisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+184903,Weatherford ISD,Parker County,48367,https://www.weatherfordisd.com,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+184904,Millsap ISD,Parker County,48367,https://www.millsapisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+184907,Aledo ISD,Parker County,48367,https://aledoisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+184908,Peaster ISD,Parker County,48367,https://www.peaster.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+184909,Brock ISD,Parker County,48367,https://www.brockisd.net/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+184911,Garner ISD,Parker County,48367,https://www.garnerisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+185901,Bovina ISD,Parmer County,48369,https://www.bovinaisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+185902,Farwell ISD,Parmer County,48369,https://www.farwellschools.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+185903,Friona ISD,Parmer County,48369,https://www.frionaisd.com/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+185904,Lazbuddie ISD,Parmer County,48369,https://www.lazbuddieisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+186901,Buena Vista ISD,Pecos County,48371,https://www.bvisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+186902,Fort Stockton ISD,Pecos County,48371,https://www.fsisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+186903,Iraan-Sheffield Collegiate ISD,Pecos County,48371,https://isisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+187901,Big Sandy ISD,Polk County,48373,https://www.bigsandyisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+187903,Goodrich ISD,Polk County,48373,https://www.goodrichisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+187904,Corrigan-Camden ISD,Polk County,48373,https://www.ccisdtx.com,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+187906,Leggett ISD,Polk County,48373,https://www.leggettisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+187907,Livingston ISD,Polk County,48373,https://www.livingstonisd.com,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+187910,Onalaska ISD,Polk County,48373,https://www.onalaskaisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+188901,Amarillo ISD,Potter County,48375,https://www.amaisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+188902,River Road ISD,Potter County,48375,https://www.rrisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+188903,Highland Park ISD,Potter County,48375,https://www.hpisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+188904,Bushland ISD,Potter County,48375,https://www.bushlandisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+189901,Marfa ISD,Presidio County,48377,https://www.marfaisd.com,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+189902,Presidio ISD,Presidio County,48377,https://www.presidio-isd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+190903,Rains ISD,Rains County,48379,https://www.rainsisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+191901,Canyon ISD,Randall County,48381,https://www.canyonisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+192901,Reagan County ISD,Reagan County,48383,https://www.reagancountyisd.net/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+193902,Leakey ISD,Real County,48385,https://www.leakeyisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+194902,Avery ISD,Red River County,48387,https://www.averyisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+194903,Rivercrest ISD,Red River County,48387,https://www.rivercrestisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+194904,Clarksville ISD,Red River County,48387,https://www.clarksvilleisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+194905,Detroit ISD,Red River County,48387,https://detroiteagles.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+195901,Pecos-Barstow-Toyah ISD,Reeves County,48389,https://www.pbtisd.net/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+195902,Balmorhea ISD,Reeves County,48389,https://www.bisdbears.esc18.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+196901,Austwell-Tivoli ISD,Refugio County,48391,https://www.atisd.net/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+196902,Woodsboro ISD,Refugio County,48391,https://www.wisd.net/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+196903,Refugio ISD,Refugio County,48391,https://www.refugioisd.net/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+197902,Miami ISD,Roberts County,48393,https://www.miamiisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+198901,Bremond ISD,Robertson County,48395,https://www.bremondisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+198902,Calvert ISD,Robertson County,48395,https://www.calvertisd.com,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+198903,Franklin ISD,Robertson County,48395,https://www.franklinisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+198905,Hearne ISD,Robertson County,48395,https://www.hearneisd.com/en-us,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+198906,Mumford ISD,Robertson County,48395,https://www.mumford.k12.tx.us/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+199901,Rockwall ISD,Rockwall County,48397,https://www.rockwallisd.com/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+199902,Royse City ISD,Rockwall County,48397,https://www.rcisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+200901,Ballinger ISD,Runnels County,48399,https://www.ballingerisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+200902,Miles ISD,Runnels County,48399,https://www.milesisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+200904,Winters ISD,Runnels County,48399,https://www.wintersisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+200906,Olfen ISD,Runnels County,48399,https://olfenisd.net/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+201902,Henderson ISD,Rusk County,48401,https://www.hendersonisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+201903,Laneville ISD,Rusk County,48401,https://www.lanevilleisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+201904,Leveretts Chapel ISD,Rusk County,48401,https://www.leverettschapelisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+201907,Mount Enterprise ISD,Rusk County,48401,https://www.meisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+201908,Overton ISD,Rusk County,48401,https://www.overtonisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+201910,Tatum ISD,Rusk County,48401,https://www.tatumisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+201913,Carlisle ISD,Rusk County,48401,https://www.carlisleisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+201914,West Rusk County Consolidated ISD,Rusk County,48401,https://www.westruskisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+202903,Hemphill ISD,Sabine County,48403,https://www.hemphillisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+202905,West Sabine ISD,Sabine County,48403,https://www.westsabineisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+203901,San Augustine ISD,San Augustine County,48405,https://www.saisd.us,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+203902,Broaddus ISD,San Augustine County,48405,https://www.broaddusisd.com,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+204901,Coldspring-Oakhurst CISD,San Jacinto County,48407,https://www.cocisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+204904,Shepherd ISD,San Jacinto County,48407,https://www.shepherdisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+205901,Aransas Pass ISD,San Patricio County,48409,https://www.apisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+205902,Gregory-Portland ISD,San Patricio County,48409,https://www.g-pisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+205903,Ingleside ISD,San Patricio County,48409,https://www.inglesideisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+205904,Mathis ISD,San Patricio County,48409,https://www.mathisisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+205905,Odem-Edroy ISD,San Patricio County,48409,https://www.oeisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+205906,Sinton ISD,San Patricio County,48409,https://www.sintonisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+205907,Taft ISD,San Patricio County,48409,https://www.taftisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+206901,San Saba ISD,San Saba County,48411,https://www.san-saba.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+206902,Richland Springs ISD,San Saba County,48411,https://www.rscoyotes.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+206903,Cherokee ISD,San Saba County,48411,https://www.cherokeeisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+207901,Schleicher ISD,Schleicher County,48413,https://www.scisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+208901,Hermleigh ISD,Scurry County,48415,https://www.hermleigh.esc14.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+208902,Snyder ISD,Scurry County,48415,https://www.snyderisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+208903,Ira ISD,Scurry County,48415,https://www.ira.esc14.net/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+209901,Albany ISD,Shackelford County,48417,https://www.albany.esc14.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+209902,Moran ISD,Shackelford County,48417,https://www.moran.esc14.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+210901,Center ISD,Shelby County,48419,https://www.centerisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+210902,Joaquin ISD,Shelby County,48419,https://www.joaquinisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+210903,Shelbyville ISD,Shelby County,48419,https://www.shelbyville.k12.tx.us/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+210904,Tenaha ISD,Shelby County,48419,https://www.tenahaisd.com,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+210905,Timpson ISD,Shelby County,48419,https://www.timpsonisd.com,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+210906,Excelsior ISD,Shelby County,48419,https://www.excelsiorisd.com,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+211901,Texhoma ISD,Sherman County,48421,https://www.texhomaisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+211902,Stratford ISD,Sherman County,48421,https://www.stratfordisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+212901,Arp ISD,Smith County,48423,https://www.arpisd.org/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+212902,Bullard ISD,Smith County,48423,https://www.bullardisd.net/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+212903,Lindale ISD,Smith County,48423,https://www.lindaleeagles.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+212904,Troup ISD,Smith County,48423,https://www.troupisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+212905,Tyler ISD,Smith County,48423,https://www.tylerisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+212906,Whitehouse ISD,Smith County,48423,https://www.whitehouseisd.org/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+212909,Chapel Hill ISD,Smith County,48423,https://www.chapelhillisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+212910,Winona ISD,Smith County,48423,https://www.winonaisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+213901,Glen Rose ISD,Somervell County,48425,https://www.grisd.net/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+214901,Rio Grande City Grulla ISD,Starr County,48427,https://www.myrgcgisd.org/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+214902,San Isidro ISD,Starr County,48427,https://www.sanisidroisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+214903,Roma ISD,Starr County,48427,https://romaisd.com,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+215901,Breckenridge ISD,Stephens County,48429,https://www.breckenridgeisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+216901,Sterling City ISD,Sterling County,48431,https://www.sterlingcityisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+217901,Aspermont ISD,Stonewall County,48433,https://www.aspermontisd.com,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+218901,Sonora ISD,Sutton County,48435,https://www.sonoraisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+219901,Happy ISD,Swisher County,48437,https://happyisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+219903,Tulia ISD,Swisher County,48437,https://www.tuliaisd.net/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+219905,Kress ISD,Swisher County,48437,https://www.kressonline.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+220901,Arlington ISD,Tarrant County,48439,https://www.aisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+220902,Birdville ISD,Tarrant County,48439,https://www.birdvilleschools.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+220904,Everman ISD,Tarrant County,48439,https://www.eisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+220905,Fort Worth ISD,Tarrant County,48439,https://www.fwisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+220906,Grapevine-Colleyville ISD,Tarrant County,48439,https://www.gcisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+220907,Keller ISD,Tarrant County,48439,https://www.kellerisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+220908,Mansfield ISD,Tarrant County,48439,https://www.mansfieldisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+220910,Lake Worth ISD,Tarrant County,48439,https://www.lwisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+220912,Crowley ISD,Tarrant County,48439,https://www.crowleyisdtx.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+220914,Kennedale ISD,Tarrant County,48439,https://www.kennedaleisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+220915,Azle ISD,Tarrant County,48439,https://www.azleisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+220916,Hurst-Euless-Bedford ISD,Tarrant County,48439,https://www.hebisd.edu,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+220917,Castleberry ISD,Tarrant County,48439,https://www.castleberryisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+220918,Eagle Mt-Saginaw ISD,Tarrant County,48439,https://www.emsisd.com,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+220919,Carroll ISD,Tarrant County,48439,https://www.southlakecarroll.edu,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+220920,White Settlement ISD,Tarrant County,48439,https://wsisd.com,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+221901,Abilene ISD,Taylor County,48441,https://www.abileneisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+221904,Merkel ISD,Taylor County,48441,https://www.merkelisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+221905,Trent ISD,Taylor County,48441,https://www.TRENTISD.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+221911,Jim Ned CISD,Taylor County,48441,https://www.jimned.esc14.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+221912,Wylie ISD,Taylor County,48441,https://www.wyliebulldogs.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+222901,Terrell County ISD,Terrell County,48443,https://terrell.esc18.net/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+223901,Brownfield ISD,Terry County,48445,https://www.brownfieldisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+223902,Meadow ISD,Terry County,48445,https://www.meadowisd.net/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+223904,Wellman-Union CISD,Terry County,48445,https://wellman.esc17.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+224901,Throckmorton Collegiate ISD,Throckmorton County,48447,https://www.throck.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+224902,Woodson ISD,Throckmorton County,48447,https://www.woodsonisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+225902,Mount Pleasant ISD,Titus County,48449,https://www.mpisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+225906,Chapel Hill ISD,Titus County,48449,https://chisddevils.com/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+225907,Harts Bluff ISD,Titus County,48449,https://www.hbisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+226901,Christoval ISD,Tom Green County,48451,https://www.christovalisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+226903,San Angelo ISD,Tom Green County,48451,https://www.saisd.org/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+226905,Water Valley ISD,Tom Green County,48451,https://www.wvisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+226906,Wall ISD,Tom Green County,48451,https://www.wallisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+226907,Grape Creek ISD,Tom Green County,48451,https://www.grapecreekisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+226908,Veribest ISD,Tom Green County,48451,https://veribest.netxv.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+227901,Austin ISD,Travis County,48453,https://www.austinisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+227904,Pflugerville ISD,Travis County,48453,https://www.pflugervilleisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+227907,Manor ISD,Travis County,48453,https://www.manorisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+227909,Eanes ISD,Travis County,48453,https://www.eanesisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+227910,Del Valle ISD,Travis County,48453,https://www.dvisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+227912,Lago Vista ISD,Travis County,48453,https://www.lagovistaisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+227913,Lake Travis ISD,Travis County,48453,https://www.ltisdschools.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+228901,Groveton ISD,Trinity County,48455,https://www.grovetonisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+228903,Trinity ISD,Trinity County,48455,https://www.trinityisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+228904,Centerville ISD,Trinity County,48455,https://www.centervilleisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+228905,Apple Springs ISD,Trinity County,48455,https://www.asisd.com,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+229901,Colmesneil ISD,Tyler County,48457,https://www.colmesneilisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+229903,Woodville ISD,Tyler County,48457,https://www.woodvilleeagles.org/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+229904,Warren ISD,Tyler County,48457,https://www.warrenisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+229905,Spurger ISD,Tyler County,48457,https://www.spurgerisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+229906,Chester ISD,Tyler County,48457,https://chesterisd.com,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+230901,Big Sandy ISD,Upshur County,48459,https://www.bigsandyisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+230902,Gilmer ISD,Upshur County,48459,https://www.gilmerisd.org/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+230903,Ore City ISD,Upshur County,48459,https://www.ocisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+230904,Union Hill ISD,Upshur County,48459,https://www.uhisd.com,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+230905,Harmony ISD,Upshur County,48459,https://www.harmonyisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+230906,New Diana ISD,Upshur County,48459,https://www.ndisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+230908,Union Grove ISD,Upshur County,48459,https://www.ugisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+231901,McCamey ISD,Upton County,48461,https://www.mcisd.esc18.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+231902,Rankin ISD,Upton County,48461,https://www.rankinisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+232901,Knippa ISD,Uvalde County,48463,https://www.knippaisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+232902,Sabinal ISD,Uvalde County,48463,https://www.sabinalisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+232903,Uvalde CISD,Uvalde County,48463,https://www.ucisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+232904,Utopia ISD,Uvalde County,48463,https://www.utopiaisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+233901,San Felipe-Del Rio CISD,Val Verde County,48465,https://www.sfdr-cisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+233903,Comstock ISD,Val Verde County,48465,https://www.comstockisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+234902,Canton ISD,Van Zandt County,48467,https://www.cantonisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+234903,Edgewood ISD,Van Zandt County,48467,https://www.edgewood-isd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+234904,Grand Saline ISD,Van Zandt County,48467,https://www.grandsalineisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+234905,Martins Mill ISD,Van Zandt County,48467,https://www.martinsmillisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+234906,Van ISD,Van Zandt County,48467,https://www.vanisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+234907,Wills Point ISD,Van Zandt County,48467,https://www.wpisd.com,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+234909,Fruitvale ISD,Van Zandt County,48467,https://www.fruitvaleisd.com,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+235901,Bloomington ISD,Victoria County,48469,https://www.bisd-tx.org/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+235902,Victoria ISD,Victoria County,48469,https://www.visd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+235904,Nursery ISD,Victoria County,48469,https://www.nurseryisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+236901,New Waverly ISD,Walker County,48471,https://www.new-waverly.k12.tx.us,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+236902,Huntsville ISD,Walker County,48471,https://www.huntsville-isd.org/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+237902,Hempstead ISD,Waller County,48473,https://www.hempsteadisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+237904,Waller ISD,Waller County,48473,https://www.wallerisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+237905,Royal ISD,Waller County,48473,https://www.royal-isd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+238902,Monahans-Wickett-Pyote ISD,Ward County,48475,https://www.mwpisd.esc18.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+238904,Grandfalls-Royalty ISD,Ward County,48475,https://www.grisd.com/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+239901,Brenham ISD,Washington County,48477,https://www.brenhamisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+239903,Burton ISD,Washington County,48477,https://www.burtonisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+240901,Laredo ISD,Webb County,48479,https://www.laredoisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+240903,United ISD,Webb County,48479,https://www.uisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+240904,Webb CISD,Webb County,48479,https://www.webbcisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+241901,Boling ISD,Wharton County,48481,https://www.bolingisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+241902,East Bernard ISD,Wharton County,48481,https://www.ebisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+241903,El Campo ISD,Wharton County,48481,https://www.ecisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+241904,Wharton ISD,Wharton County,48481,https://www.whartonisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+241906,Louise ISD,Wharton County,48481,https://louiseisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+242902,Shamrock ISD,Wheeler County,48483,https://www.shamrockisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+242903,Wheeler ISD,Wheeler County,48483,https://www.wheelerschools.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+242905,Kelton ISD,Wheeler County,48483,https://www.keltonisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+242906,Fort Elliott CISD,Wheeler County,48483,https://fecisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+243901,Burkburnett ISD,Wichita County,48485,https://www.burkburnettisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+243902,Electra ISD,Wichita County,48485,https://www.electraisd.net/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+243903,Iowa Park CISD,Wichita County,48485,https://www.ipcisd.net/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+243905,Wichita Falls ISD,Wichita County,48485,https://www.wfisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+243906,City View ISD,Wichita County,48485,https://www.cityview-isd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+244901,Harrold ISD,Wilbarger County,48487,https://www.harroldisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+244903,Vernon ISD,Wilbarger County,48487,https://www.vernonisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+244905,Northside ISD,Wilbarger County,48487,https://northsideisd.us/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+245901,Lasara ISD,Willacy County,48489,https://www.lasaraisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+245902,Lyford CISD,Willacy County,48489,https://www.lyfordcisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+245903,Raymondville ISD,Willacy County,48489,https://www.raymondvilleisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+245904,San Perlita ISD,Willacy County,48489,https://www.spisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+246902,Florence ISD,Williamson County,48491,https://florenceisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+246904,Georgetown ISD,Williamson County,48491,https://www.georgetownisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+246905,Granger ISD,Williamson County,48491,https://www.grangerisd.net/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+246906,Hutto ISD,Williamson County,48491,https://www.hipponation.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+246907,Jarrell ISD,Williamson County,48491,https://www.jarrellisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+246908,Liberty Hill ISD,Williamson County,48491,https://www.libertyhill.txed.net/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+246909,Round Rock ISD,Williamson County,48491,https://www.roundrockisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+246911,Taylor ISD,Williamson County,48491,https://www.taylorisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+246912,Thrall ISD,Williamson County,48491,https://www.thrallisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+246913,Leander ISD,Williamson County,48491,https://www.leanderisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+246914,Coupland ISD,Williamson County,48491,https://www.couplandisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+247901,Floresville ISD,Wilson County,48493,https://www.fisd.us,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+247903,La Vernia ISD,Wilson County,48493,https://www.lvisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+247904,Poth ISD,Wilson County,48493,https://www.pothisd.us,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+247906,Stockdale ISD,Wilson County,48493,https://www.stockdaleisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+248901,Kermit ISD,Winkler County,48495,https://www.kermitisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+248902,Wink-Loving ISD,Winkler County,48495,https://www.wlisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+249901,Alvord ISD,Wise County,48497,https://www.alvordisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+249902,Boyd ISD,Wise County,48497,https://www.boydisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+249903,Bridgeport ISD,Wise County,48497,https://www.bridgeportisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+249904,Chico ISD,Wise County,48497,https://www.chicoisdtx.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+249905,Decatur ISD,Wise County,48497,https://www.decaturisd.us,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+249906,Paradise ISD,Wise County,48497,https://www.pisd.net/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+249908,Slidell ISD,Wise County,48497,https://www.slidellisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+250902,Hawkins ISD,Wood County,48499,https://www.hawkinsisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+250903,Mineola ISD,Wood County,48499,https://www.mineolaisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+250904,Quitman ISD,Wood County,48499,https://www.quitmanisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+250905,Yantis ISD,Wood County,48499,https://www.yantisisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+250906,Alba-Golden ISD,Wood County,48499,https://www.agisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+250907,Winnsboro ISD,Wood County,48499,https://www.winnsboroisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+251901,Denver City ISD,Yoakum County,48501,https://www.dcisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+251902,Plains ISD,Yoakum County,48501,https://www.plainsisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+252901,Graham ISD,Young County,48503,https://www.grahamisd.com,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+252902,Newcastle ISD,Young County,48503,https://www.newcastleisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+252903,Olney ISD,Young County,48503,https://www.olneyisd.net/,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+253901,Zapata County ISD,Zapata County,48505,https://www.zcisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+254901,Crystal City ISD,Zavala County,48507,https://www.crystalcityisd.org,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
+254902,La Pryor ISD,Zavala County,48507,https://www.lapryorisd.net,https://services2.arcgis.com/5MVN2jsqIrNZD4tP/arcgis/rest/services/districts_schools_20261005_D/FeatureServer/0/query
