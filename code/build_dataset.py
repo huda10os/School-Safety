@@ -16,6 +16,7 @@ Coverage flags, per district (the "short history" follow-up list):
 from __future__ import annotations
 
 import csv
+import fcntl
 import json
 from collections import defaultdict
 from datetime import date
@@ -108,6 +109,15 @@ def coverage_row(district: dict, platforms: set, rows: list[dict]) -> dict:
 
 
 def build() -> dict:
+    """Build both Parquet files; concurrent callers (each collection service
+    ends with a build, plus the hourly timer) wait for one another."""
+    DATA.mkdir(parents=True, exist_ok=True)
+    with open(DATA / ".build.lock", "w") as lock:
+        fcntl.flock(lock, fcntl.LOCK_EX)
+        return _build()
+
+
+def _build() -> dict:
     with open(REFERENCE / "districts.csv", newline="") as handle:
         districts = list(csv.DictReader(handle))
     stems = defaultdict(set)
