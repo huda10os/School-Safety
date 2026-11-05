@@ -247,6 +247,13 @@ def resolve(record: dict, fetcher) -> dict:
         result = _fields(response)
         # A custom-minutes page with nothing attached is a published but empty
         # record, not a failure to retry.
-        empty = "/Documents/CustomMinutesForMeeting/" in response.url
-        result.update(text_status="empty" if empty else "error", error=str(exc))
+        if "/Documents/CustomMinutesForMeeting/" in response.url:
+            status = "empty"
+        elif "redirected to organization listing" in str(exc):
+            # BoardBook stopped publishing this document (common for old
+            # projector views); retrying will not change that.
+            status = "unavailable"
+        else:
+            status = "error"
+        result.update(text_status=status, error=str(exc))
         return result

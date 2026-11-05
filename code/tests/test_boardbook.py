@@ -54,11 +54,11 @@ def test_discover_direct_rows_all_history_and_source_metadata():
     assert fetcher.calls == [(url, {"refresh": True})]
 
 
-def test_minutes_redirect_to_listing_is_an_error_without_text():
+def test_redirect_to_listing_is_unavailable_without_text():
     source = BASE + "/Public/Minutes/741?meeting=999"
     fetcher = Fetcher({source: response("listing.html", BASE + "/Public/Organization/741")})
     result = boardbook.resolve(dict(source_link=source, detail="Minutes"), fetcher)
-    assert result["text_status"] == "error"
+    assert result["text_status"] == "unavailable"
     assert result["text"] is None
     assert "organization listing" in result["error"]
     assert "not published" in result["error"]

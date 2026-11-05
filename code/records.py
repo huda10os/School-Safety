@@ -49,7 +49,7 @@ FIELDS = {
     "raw_path": ("string", "Repo-relative path of the cached gzip body that was parsed."),
     "content_sha256": ("string", "SHA-256 of the parsed document bytes."),
     "text": ("string", "Extracted text; null when text_status is not ok."),
-    "text_status": ("string", "ok | needs_ocr | partial_ocr | empty | too_large | unsupported | error | pending"),
+    "text_status": ("string", "ok | needs_ocr | partial_ocr | empty | too_large | unsupported | unavailable (source no longer publishes it) | error | pending"),
     "text_method": ("string", "html | pdf | docx | plain"),
     "page_count": ("int32", "Pages in a PDF document."),
     "char_count": ("int32", "Characters in text."),
