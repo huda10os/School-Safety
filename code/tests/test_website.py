@@ -220,6 +220,8 @@ def test_month_day_uses_calendar_or_school_year_folder(context, expected):
     ("Agenda", "https://x/120246", "", None),
     ("3271932", "https://x/a.pdf", "", None),
     ("Minutes", "https://x/2026-09-16_-_06_-_att_1_-_2029-08-19_board_meeting_minutes_1.pdf", "", "2026-09-16"),
+    ("May 26", "https://x/2026-May-26%2C--Agenda.pdf", "2026-2027 Board Agenda/Minutes", "2026-05-26"),
+    ("Code of Conduct", "https://x/EPISD%20CODE%202026-2027%207-9-26%20BOARD%20APPROVED%207-14-26.pdf", "", "2026-07-09"),
 ])
 def test_dates_reject_implausible_years_and_prefer_reliable_sources(label, url, context, expected):
     assert website.date_for(label, url, context)[0] == expected

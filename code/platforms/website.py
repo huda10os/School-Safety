@@ -49,14 +49,14 @@ def _words(value: str) -> str:
 # years and run-together digits. A name can hold several dates (a plan's
 # "2023-2028" span next to its "4-18-2023" meeting date); the most reliable
 # plausible one wins, not the leftmost.
-_RANK = {"named": 0, "mdy4": 1, "ymd": 1, "compact": 2, "mdy2": 3, "short": 4, "ambiguous": 5}
+_RANK = {"named": 0, "named_ymd": 0, "mdy4": 1, "ymd": 1, "compact": 2, "mdy2": 3, "short": 4, "ambiguous": 5}
 
 
 def _plausible(value: date) -> bool:
-    """Meetings in this archive run from 2000 to about a year ahead (posted
-    upcoming meetings); anything else is a misread string, not a meeting."""
-    today = date.today()
-    return date(2000, 1, 1) <= value <= date(today.year + 1, 12, 31) and (value - today).days <= 400
+    """Meetings in this archive run from 2000 to a few months past the run
+    date (boards post upcoming agendas days or weeks ahead); anything else is
+    a misread string, not a meeting."""
+    return date(2000, 1, 1) <= value and (value - date.today()).days <= 120
 
 
 def _explicit_dates(text: str) -> list[tuple[int, int, str, str]]:
@@ -65,6 +65,7 @@ def _explicit_dates(text: str) -> list[tuple[int, int, str, str]]:
         (r"(?<!\d)((?:19|20)\d{2})[-./ ](\d{1,2})[-./ ](\d{1,2})(?!\d)", "ymd"),
         (r"(?<!\d)(\d{1,2})[-./ ]+(\d{1,2})[-./ ]+(\d{4}|\d{2})(?!\d)", "mdy"),
         (rf"\b({_MONTH})\.?\s*(\d{{1,2}})(?:st|nd|rd|th)?[,.\s-]+((?:19|20)\d{{2}})\b", "named"),
+        (rf"\b((?:19|20)\d{{2}})[-\s]+({_MONTH})\.?[-\s]+(\d{{1,2}})\b", "named_ymd"),
         (r"(?<!\d)(\d{8})(?!\d)", "compact"),
         (r"(?<!\d)(\d{6})(?!\d)", "short"),
         (r"(?<!\d)(\d{7})(?!\d)", "ambiguous"),
@@ -86,6 +87,8 @@ def _explicit_dates(text: str) -> list[tuple[int, int, str, str]]:
                     candidates = [date(year, month, day)]
                 elif order == "named":
                     candidates = [date(int(g[2]), _MONTHS[g[0].lower()], int(g[1]))]
+                elif order == "named_ymd":
+                    candidates = [date(int(g[0]), _MONTHS[g[1].lower()], int(g[2]))]
                 elif order in ("compact", "short"):
                     token = g[0]
                     if order == "compact" and token[:4].startswith(("19", "20")):
