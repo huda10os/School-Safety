@@ -15,6 +15,7 @@ from datetime import date
 from urllib.parse import parse_qs, urlencode, unquote, urljoin, urlparse, urldefrag
 
 from bs4 import BeautifulSoup, NavigableString
+from requests.exceptions import HTTPError, RetryError, SSLError
 
 import browser
 from extract import clean_text
@@ -26,12 +27,14 @@ DISCOVERY_STATS: dict[str, dict] = {}
 _LOG = logging.getLogger(__name__)
 # Up to BROWSER_SLOTS districts may run a browser session at once; each holds
 # its slot for the whole open-read-close sequence of one page.
-_BROWSER_LOCK = threading.BoundedSemaphore(browser.BROWSER_SLOTS)
+_BROWSER_LOCK = threading.BoundedSemaphore(min(2, browser.BROWSER_SLOTS))
 _DOC = re.compile(r"\.(?:pdf|docx?|txt|rtf|jpe?g|png)(?:$|[?#])", re.I)
 _TOPIC = re.compile(r"minutes?|\bmins\b|agendas?|packets?|supporting|attachments?|meeting\s+(?:notice|material)|notice\s+(?:of\s+)?(?:public\s+)?meeting|bulletins?", re.I)
 _BOARD = re.compile(r"board|trustees?", re.I)
 _EXCLUDE = re.compile(r"staff\s+directory|operations\s+plan|public\s+comment|sign\s+up|lunch|breakfast|menu|calendar|policy|policies|manual|operating\s+procedures|election|ballot|candidate|qualifications|conflict\s+of\s+interest|check\s+register|report\s+card|\btapr\b|\bfirst\s+rating|superintendent\s+contract|tax\s+rate\s+calculation|adopted\s+budget|proposed\s+budget|curriculum|innovation\s+plan", re.I)
 _CDNS = ("thrillshare.com", "apptegy.net", "5il.co", "aptg.co", "finalsite.net", "edl.io", "parentsquare.com", "sharpschool.com", "cdn-website.com", "filesusr.com", "wixstatic.com", "core-docs.s3.amazonaws.com", "core-docs.s3.us-east-1.amazonaws.com", "docs.google.com", "drive.google.com")
+_CDNS += ("myconnectsuite.com", "schoolinsites.com", "ucarecd.net",
+          "ecs-cluster-bucket-wsos-prod-two.s3.us-west-2.amazonaws.com")
 _MONTHS = {name.lower(): n for n, names in enumerate([
     (), ("January", "Jan"), ("February", "Feb"), ("March", "Mar"),
     ("April", "Apr"), ("May",), ("June", "Jun"), ("July", "Jul"),
@@ -203,10 +206,55 @@ def _allowed(url: str, entry: str) -> bool:
         or any(host == suffix or host.endswith("." + suffix) for suffix in _CDNS))
 
 
+def _paperless_agenda(url: str) -> bool:
+    parsed = urlparse(url)
+    return parsed.hostname in ("www.mywebschooltools.com", "mywebschooltools.com") and parsed.path.endswith("/viewagenda.php")
+
+
+def _novus_agenda(url: str) -> bool:
+    parsed = urlparse(url)
+    return (parsed.hostname or "").endswith(".novusagenda.com") and parsed.path.lower().endswith("/meetingview.aspx")
+
+
 def _document_url(url: str) -> bool:
     p = urlparse(url)
     return bool(_DOC.search(url) or p.hostname in ("5il.co", "aptg.co")
-                or re.search(r"/fs/resource-manager/(?:view|download)/|/document/d/|/file/d/|/file/|file\.ashx|/uc\?", url, re.I))
+                or _paperless_agenda(url) or _novus_agenda(url)
+                or (p.hostname == "drive.google.com" and p.path in ("/open", "/uc") and parse_qs(p.query).get("id"))
+                or (p.hostname or "").endswith(".ucarecd.net")
+                or re.search(r"/fs/resource-manager/(?:view|download)/|/api/documents/|/document/d/|/file/d/|/file/|file\.ashx|/uc\?|/(?:Agenda|Minutes)Viewer\.php|/videos/\d+/agenda", url, re.I))
+
+
+def _drive_folder(url: str) -> str | None:
+    parsed = urlparse(url)
+    if parsed.hostname not in ("drive.google.com", "docs.google.com"):
+        return None
+    match = re.search(r"/folders/([\w-]+)", parsed.path)
+    params = parse_qs(parsed.query)
+    folder_id = match[1] if match else None
+    if not folder_id and parsed.path in ("/embeddedfolderview", "/folderview"):
+        folder_id = params.get("id", [None])[0]
+    if not folder_id:
+        return None
+    query = {"id": folder_id}
+    if params.get("resourcekey"):
+        query["resourcekey"] = params["resourcekey"][0]
+    return "https://drive.google.com/embeddedfolderview?" + urlencode(query)
+
+
+def _drive_file(url: str) -> str:
+    parsed = urlparse(url)
+    if parsed.hostname != "drive.google.com":
+        return url
+    match = re.search(r"/file/d/([\w-]+)", parsed.path)
+    params = parse_qs(parsed.query)
+    file_id = match[1] if match else params.get("id", [None])[0] if parsed.path in ("/open", "/uc") else None
+    if not file_id:
+        return url
+    # Sharing UI adds different usp values for the same file in embedded and
+    # hydrated listings. Keep the resource key, which can grant public access.
+    query = urlencode({"resourcekey": params["resourcekey"][0]}) if params.get("resourcekey") else ""
+    return "https://drive.google.com/file/d/" + file_id + "/view" + ("?" + query if query else "")
 
 
 def _board_document(label: str, context: str) -> bool:
@@ -218,7 +266,8 @@ def _board_document(label: str, context: str) -> bool:
     if _TOPIC.search(label):
         return True
     return bool(_TOPIC.search(context) and (
-        parse_date(label, context)[0] or re.search(r"\b(?:meeting|regular|called|special|workshop|training|part\s*\d|notice)\b", label, re.I)))
+        parse_date(label, context)[0] or re.search(r"\b(?:meeting|regular|called|special|workshop|training|part\s*\d|notice)\b", label, re.I)
+        or re.fullmatch(rf"(?:{_MONTH})(?:[- ](?:19|20)\d{{2}})?(?:\.pdf)?", label.strip(), re.I)))
 
 
 def _page_context(soup, inherited: str) -> str:
@@ -235,14 +284,14 @@ def _link_context(a, page_context: str) -> str:
         cells = cell.parent.find_all(["td", "th"], recursive=False)
         header = table.find("tr")
         headers = header.find_all(["td", "th"], recursive=False) if header else []
-        if len(headers) == len(cells):
+        if header is not cell.parent and len(headers) == len(cells):
             index = next((i for i, item in enumerate(cells) if item is cell), None)
             if index is not None:
                 pieces.append(headers[index].get_text(" ", strip=True))
     for parent in a.parents:
         if parent.name in ("li", "tr", "article") or "fsPostItem" in parent.get("class", []):
             text = parent.get_text(" ", strip=True)
-            if len(text) < 1800:
+            if len(text) < 500:
                 pieces.append(text)
                 break
         if parent.name in ("main", "body"):
@@ -260,7 +309,9 @@ def _link_context(a, page_context: str) -> str:
         nearby = " ".join(prefix).rsplit("|", 1)[-1].strip()
         if nearby and len(nearby) < 120:
             pieces.append(nearby)
-    for heading in ([] if table else a.find_all_previous(re.compile(r"^h[1-6]$"), limit=20)):
+    for heading in ([] if table else a.find_all_previous(re.compile(r"^h[1-6]$|^strong$"), limit=20)):
+        if heading.find_parent("a"):
+            continue
         if table and heading.find_parent("table") is table:
             continue
         prefix = []
@@ -303,18 +354,39 @@ def _nuxt_data(values):
         return value
 
     root = decode(0)
+    if isinstance(root, dict):
+        page = root.get("pinia", {}).get("main", {}).get("page")
+        if page:
+            return page
     return root.get("data", root) if isinstance(root, dict) else root
 
 
 def _json_links(value, base: str, context: str = ""):
     """Yield embedded Apptegy files/folders and HTML stored in CMS JSON."""
     if isinstance(value, list):
+        local = context
         for item in value:
-            yield from _json_links(item, base, context)
+            if isinstance(item, dict):
+                content = item.get("content")
+                html = content.get("html", "") if isinstance(content, dict) else ""
+                heading = BeautifulSoup(html, "lxml").find(["h1", "h2", "h3", "h4", "strong"]) if html else None
+                if heading:
+                    text = heading.get_text(" ", strip=True)
+                    if _TOPIC.search(text) or re.fullmatch(r"20\d{2}(?:[-–]\d{2,4})?", text):
+                        local = text + " | " + context
+            yield from _json_links(item, base, local)
     elif isinstance(value, dict):
-        label = str(value.get("file_name") or value.get("folder_name") or value.get("name") or value.get("title") or "")
+        properties = value.get("properties") or {}
+        label = str(value.get("file_name") or value.get("folder_name") or properties.get("text") or value.get("title") or value.get("text") or value.get("name") or "")
         local = " | ".join(x for x in (label, context) if x)[:1000]
-        url = value.get("url") or value.get("file_url") or value.get("download_url") or value.get("short_url") or value.get("href")
+        if str(value.get("type", "")).startswith("LAYOUT_NODE_"):
+            columns = value.get("nodes", [])
+            nodes = columns[0].get("nodes", []) if columns else []
+            html = nodes[0].get("content", {}).get("html", "") if nodes else ""
+            heading = BeautifulSoup(html, "lxml").find(["h1", "h2", "h3", "h4", "strong"]) if html else None
+            if heading and _TOPIC.search(heading.get_text()):
+                local = heading.get_text(" ", strip=True) + " | " + local
+        url = value.get("viewLink") or value.get("external_url") or value.get("url") or value.get("file_url") or value.get("download_url") or value.get("short_url") or value.get("href") or value.get("link")
         if isinstance(url, str):
             yield urljoin(base, url), label, context
         folder_id = value.get("id") or value.get("folder_id")
@@ -329,35 +401,83 @@ def _json_links(value, base: str, context: str = ""):
                     yield urljoin(base, a["href"]), a.get_text(" ", strip=True), _link_context(a, local)
 
 
-def _read(fetcher, url: str, stats: dict) -> tuple[object, str, str]:
-    _LOG.info("website listing %s", url)
-    response = fetcher.get(url, refresh=True, timeout=35)
-    html, final_url = response.text, response.url
-    legacy_tree = "new ContentItemListUI(" in html
-    if browser.is_challenge(html) or legacy_tree:
-        with _BROWSER_LOCK:
-            session = "website-" + re.sub(r"\W", "", _district_host(url))
+def _flight_payloads(soup):
+    """Read JSON records from Next.js hydration, without executing scripts.
+
+    SchoolBlocks includes public Drive file titles/viewLinks here. Text
+    records may end immediately before a JSON record rather than a newline.
+    """
+    chunks = []
+    for script in soup.select("script"):
+        match = re.fullmatch(r"\s*self\.__next_f\.push\((\[.*\])\)\s*;?\s*", script.get_text(), re.S)
+        if match:
+            try:
+                value = json.loads(match[1])
+                if len(value) > 1 and isinstance(value[1], str):
+                    chunks.append(value[1])
+            except (ValueError, TypeError):
+                continue
+    stream = "".join(chunks)
+    decoder = json.JSONDecoder()
+    for match in re.finditer(r"(?:^|\n|(?<=[>}\]]))[a-f0-9]+:(?=[{\[])", stream):
+        try:
+            payload, _ = decoder.raw_decode(stream, match.end())
+            yield payload
+        except ValueError:
+            continue
+
+
+def _render(fetcher, url: str, stats: dict) -> tuple[str, str]:
+    with _BROWSER_LOCK:
+        session = "website-" + str(threading.get_ident()) + "-" + re.sub(r"\W", "", _district_host(url))
+        try:
             try:
                 final_url, html = browser.page_html(url, session=session)
-                cookies = browser.cookies(session)
-                if cookies and hasattr(fetcher, "_session"):
-                    fetcher._session().cookies.update(cookies)
-                stats["browser_pages"] += 1
-                stats["browser_sources"].append(url)
-                if browser.is_challenge(html):
-                    raise RuntimeError("browser did not clear Client Challenge: " + url)
-            finally:
+            except RuntimeError as exc:
+                if not any(marker in str(exc) for marker in ("ERR_NETWORK_CHANGED", "ERR_CERT_VERIFIER_CHANGED")):
+                    raise
                 browser.close(session)
+                final_url, html = browser.page_html(url, session=session)
+            cookies = browser.cookies(session)
+            if cookies and hasattr(fetcher, "_session"):
+                host = urlparse(final_url).hostname or urlparse(url).hostname
+                if host:
+                    for name, value in cookies.items():
+                        fetcher._session().cookies.set(name, value, domain=host, path="/")
+            stats["browser_pages"] += 1
+            stats["browser_sources"].append(url)
+            if browser.is_challenge(html):
+                raise RuntimeError("browser did not clear Client Challenge: " + url)
+            return final_url, html
+        finally:
+            browser.close(session)
+
+
+def _read(fetcher, url: str, stats: dict) -> tuple[object, str, str]:
+    _LOG.info("website listing %s", url)
+    try:
+        response = fetcher.get(url, refresh=True, timeout=35)
+    except HTTPError as exc:
+        if exc.response is None or exc.response.status_code not in (403, 404):
+            raise
+        final_url, html = _render(fetcher, url, stats)
+        return None, final_url, html
+    html, final_url = response.text, response.url
+    if browser.is_challenge(html) or "new ContentItemListUI(" in html:
+        final_url, html = _render(fetcher, url, stats)
     return response, final_url, html
 
 
 def _listing_link(url: str, label: str, context: str, entry: str, current: str) -> bool:
-    if _district_host(url) != _district_host(entry) and not (urlparse(url).hostname or "").endswith("." + _district_host(entry)):
+    alias = (urlparse(url).hostname or "").endswith(".sites.thrillshare.com") and "/documents/" in urlparse(url).path
+    if _district_host(url) != _district_host(entry) and not (urlparse(url).hostname or "").endswith("." + _district_host(entry)) and not alias:
         return False
     path = unquote(urlparse(url).path).lower()
     words = _words(label + " " + path)
     if _EXCLUDE.search(label) or re.search(r"members?|elections?|polic|training.hours|videos?$|contact|login|search|/portlets/", path):
         return False
+    if re.search(r"/(?:documents|browse)/", path) and _BOARD.search(words) and re.search(r"meetings?|agenda|minute", words, re.I):
+        return True
     entry_parts = urlparse(entry).path.strip("/").split("/")
     for index, part in enumerate(entry_parts):
         if part in ("board", "school-board", "school_board"):
@@ -374,26 +494,42 @@ def _listing_link(url: str, label: str, context: str, entry: str, current: str) 
     # Root-level year/archive routes used by SmartSites and Duda.
     if _TOPIC.search(words) and (_BOARD.search(context + " " + entry) or _TOPIC.search(entry)):
         return True
-    if (re.fullmatch(r"\s*(?:(?:19|20)\d\d(?:\s*[-–]\s*(?:(?:19|20)?\d\d))?|next|older|previous|page\s*\d+)\s*", label, re.I)
-            and (_BOARD.search(context) or _TOPIC.search(context))):
+    if (re.fullmatch(r"\s*(?:(?:19|20)\d\d(?:\s*[-–]\s*(?:(?:19|20)?\d\d))?(?:\s+School Year)?|next|older|previous|page\s*\d+)\s*", label, re.I)
+            and (_BOARD.search(context) or _TOPIC.search(context) or re.search(r"/meetings(?:[/?]|$)", current))):
         return True
-    return urlparse(url)._replace(query="", fragment="") == urlparse(current)._replace(query="", fragment="") and bool(urlparse(url).query)
+    same_page = urlparse(url)._replace(query="", fragment="") == urlparse(current)._replace(query="", fragment="")
+    params = parse_qs(urlparse(url).query)
+    return same_page and any(key in ("page", "page_no", "p", "offset", "start")
+                             and value[0].isdigit() for key, value in params.items())
+
+
+def _archive_folder(label: str, context: str) -> bool:
+    if _EXCLUDE.search(label):
+        return False
+    if _BOARD.search(label) or _TOPIC.search(label):
+        return True
+    return bool((_BOARD.search(context) or _TOPIC.search(context)) and (
+        re.fullmatch(r"20\d{2}(?:\s*[-–]\s*(?:20)?\d{2})?(?: School Year)?", label.strip(), re.I)
+        or re.fullmatch(rf"{_MONTH}(?:\s+20\d{{2}})?", label.strip(), re.I)))
 
 
 def discover(district: dict, entry_url: str, fetcher) -> list[dict]:
     stats = dict(pages=0, cap_hit=False, browser_pages=0, browser_sources=[], failed_pages=[], warnings=[])
     DISCOVERY_STATS[district["tea_id"] + "|" + entry_url] = stats
-    queue = deque([(entry_url, "")])
-    queued, seen, records = {entry_url}, set(), {}
+    entry_url = entry_url.rstrip("\\")
+    start = _drive_folder(entry_url) or entry_url
+    queue = deque([(start, "Board meeting materials" if _drive_folder(start) else "")])
+    queued, seen, records = {start}, set(), {}
 
     def enqueue(url, context):
-        url = urldefrag(url)[0]
+        url = _drive_folder(url) or urldefrag(url)[0]
         if url and url not in queued and _allowed(url, entry_url):
             queued.add(url)
             queue.append((url, context))
 
     def collect(url, label, context, listing):
-        if not _allowed(url, entry_url) or not _board_document(label + " " + unquote(urlparse(url).path.split("/")[-1]), context):
+        url = _drive_file(url)
+        if not _allowed(url, entry_url) or not (_board_document(label, context) or _board_document(label + " " + unquote(urlparse(url).path.split("/")[-1]), context)):
             return
         filename = unquote(urlparse(url).path.split("/")[-1])
         stem = re.sub(r"\.[a-z0-9]+$", "", filename, flags=re.I)
@@ -422,11 +558,39 @@ def discover(district: dict, entry_url: str, fetcher) -> list[dict]:
             if stats["pages"] == 1:
                 raise
             continue
-        if _DOC.search(final_url) or response.content.startswith((b"%PDF", b"PK\x03\x04", b"\xd0\xcf\x11\xe0")):
+        if _DOC.search(final_url) or (response and response.content.startswith((b"%PDF", b"PK\x03\x04", b"\xd0\xcf\x11\xe0"))):
             collect(final_url, inherited, inherited, url)
             continue
         soup = BeautifulSoup(html, "lxml")
+        # Some CMSs hydrate their document blocks only after page load.
+        # Embedded bootstrap/JSON is handled below without opening a browser.
+        if (not _drive_folder(final_url) and not html.lstrip().startswith(("{", "["))
+                and final_url not in stats["browser_sources"] and soup.select_one("script[src]")
+                and not soup.select_one("script#__NUXT_DATA__") and "clientWorkStateTemp" not in html and "self.__next_f.push" not in html
+                and not any(_document_url(urljoin(final_url, a["href"]))
+                            and (_board_document(a.get_text(" ", strip=True), _link_context(a, _page_context(soup, inherited)))
+                                 or _board_document(a.get_text(" ", strip=True) + " " + unquote(urlparse(a["href"]).path.split("/")[-1]),
+                                                    _link_context(a, _page_context(soup, inherited))))
+                            for a in soup.select("a[href]"))
+                and not any(_drive_folder(urljoin(final_url, a.get("href") or a.get("src")))
+                            for a in soup.select("a[href], iframe[src]"))):
+            try:
+                final_url, html = _render(fetcher, final_url, stats)
+            except Exception as exc:
+                stats["failed_pages"].append(dict(url=url, error="browser render: " + str(exc)[:220]))
+                if stats["pages"] == 1:
+                    raise
+                continue
+            soup = BeautifulSoup(html, "lxml")
         context = _page_context(soup, inherited)
+        for payload in _flight_payloads(soup):
+            for link, label, local in _json_links(payload, final_url, context):
+                if _drive_folder(link) and not _EXCLUDE.search(label) and (_BOARD.search(local) or _TOPIC.search(local)):
+                    enqueue(link, label + " | " + local)
+                elif _document_url(link):
+                    collect(link, label, local, final_url)
+                elif not _EXCLUDE.search(label) and _listing_link(link, label, local, entry_url, final_url):
+                    enqueue(link, label + " | " + local)
         # SchoolMessenger has no navigable folder hrefs. Its rendered "Copy
         # Link" controls expose stable URLs for the same folder and file tree.
         for item in soup.select(".documentList a.copyLink[data-clipboard-text]"):
@@ -458,7 +622,11 @@ def discover(district: dict, entry_url: str, fetcher) -> list[dict]:
             html_document = (re.search(r"\.html?$", urlparse(link).path, re.I)
                              and _TOPIC.search(label + " " + unquote(urlparse(link).path))
                              and parse_date(unquote(urlparse(link).path.split("/")[-1]))[0])
-            if _document_url(link) or html_document:
+            folder = _drive_folder(link)
+            if folder:
+                if not _EXCLUDE.search(label) and (_drive_folder(final_url) or _BOARD.search(context) or _TOPIC.search(local)):
+                    enqueue(folder, label + " | " + local)
+            elif _document_url(link) or html_document:
                 collect(link, label, local, final_url)
             elif _listing_link(link, label, local, entry_url, final_url):
                 # Date-specific HTML minutes are records; archives remain listings.
@@ -466,16 +634,25 @@ def discover(district: dict, entry_url: str, fetcher) -> list[dict]:
                     collect(link, label, local, final_url)
                 else:
                     enqueue(link, label + " | " + local)
-        for script in soup.select('script[type="application/json"], script#__NUXT_DATA__'):
+        for script in soup.select('script'):
             try:
-                payload = json.loads(script.get_text())
+                text = script.get_text()
+                bootstrap = re.search(r'window\.clientWorkStateTemp\s*=\s*JSON\.parse\(("(?:\\.|[^"\\])*")\)', text)
+                if bootstrap:
+                    payload = json.loads(json.loads(bootstrap[1])).get("page", {})
+                elif script.get("type") == "application/json" or script.get("id") == "__NUXT_DATA__":
+                    payload = json.loads(text)
+                else:
+                    continue
                 if script.get("id") == "__NUXT_DATA__" and isinstance(payload, list):
                     payload = _nuxt_data(payload)
                 for link, label, local in _json_links(payload, final_url, context):
-                    if _document_url(link):
+                    if _drive_folder(link) and not _EXCLUDE.search(label) and (_BOARD.search(local) or _TOPIC.search(local)):
+                        enqueue(link, label + " | " + local)
+                    elif _document_url(link):
                         collect(link, label, local, final_url)
-                    elif "/documents/" in link and not _EXCLUDE.search(label) and _TOPIC.search(label + " " + local):
-                        enqueue(link, local + " | " + label)
+                    elif not _EXCLUDE.search(label) and _listing_link(link, label, local, entry_url, final_url):
+                        enqueue(link, label + " | " + local)
             except (ValueError, TypeError, RecursionError) as exc:
                 stats["failed_pages"].append(dict(url=final_url, error="embedded JSON: " + str(exc)[:150]))
         # Apptegy's bootstrap advertises its public JSON API. Reuse it for
@@ -514,7 +691,7 @@ def discover(district: dict, entry_url: str, fetcher) -> list[dict]:
                 for link, label, local in _json_links(payload, entry_url, local_context):
                     if _document_url(link):
                         collect(link, label, local, final_url)
-                    elif "/documents/" in link and not _EXCLUDE.search(label) and _TOPIC.search(label + " " + local):
+                    elif "/documents/" in link and _archive_folder(label, local):
                         if (urlparse(final_url).hostname or "").endswith("thrillshare.com"):
                             folder = re.search(r"/(\d+)/?$", urlparse(link).path)
                             if folder:
@@ -537,23 +714,74 @@ def discover(district: dict, entry_url: str, fetcher) -> list[dict]:
 def _export_url(url: str) -> str:
     match = re.search(r"docs\.google\.com/document/d/([^/]+)", url)
     if match:
-        return "https://docs.google.com/document/d/" + match[1] + "/export?format=txt"
+        return "https://docs.google.com/document/d/" + match[1] + "/export?format=pdf"
     match = re.search(r"drive\.google\.com/file/d/([^/]+)", url)
     file_id = match[1] if match else parse_qs(urlparse(url).query).get("id", [None])[0]
     if file_id and urlparse(url).hostname == "drive.google.com":
-        return "https://drive.google.com/uc?export=download&id=" + file_id
+        params = dict(id=file_id, export="download")
+        resource_key = parse_qs(urlparse(url).query).get("resourcekey")
+        if resource_key:
+            params["resourcekey"] = resource_key[0]
+        return "https://drive.usercontent.google.com/download?" + urlencode(params)
     return url
 
 
 def resolve(record: dict, fetcher) -> dict:
     url = _export_url(record["source_link"])
+    browser_stats = dict(browser_pages=0, browser_sources=[])
+    if _paperless_agenda(url):
+        # This public portal initializes an anonymous guest at its meeting
+        # index. Direct agenda requests without that cookie return HTTP 500.
+        index = urljoin(url, "meetings.php")
+        session = fetcher._session() if hasattr(fetcher, "_session") else None
+        primed = getattr(session, "_website_public_roots", set())
+        if index not in primed:
+            fetcher.get(index, refresh=True, timeout=35)
+            if session is not None:
+                primed.add(index)
+                session._website_public_roots = primed
     for _ in range(4):
         # Legacy district file servers often publish http links on https pages.
         # Prefer TLS without changing the source's original URL in the record.
         if url.startswith("http://"):
             url = "https://" + url[7:]
-        response = fetcher.get(url)
+        try:
+            response = fetcher.get(url)
+        except SSLError as exc:
+            # This published bucket contains an underscore, which is not a
+            # valid TLS hostname. S3's path-style endpoint keeps TLS verified.
+            failed = urlparse(exc.request.url) if exc.request is not None else None
+            if not failed or failed.hostname != "granicus_production_attachments.s3.amazonaws.com":
+                raise
+            url = "https://s3.amazonaws.com/granicus_production_attachments" + failed.path
+            if failed.query:
+                url += "?" + failed.query
+            continue
+        except RetryError:
+            # Native Google documents can be shared through /file/d aliases;
+            # the binary download endpoint returns 5xx instead of exporting.
+            parsed = urlparse(url)
+            params = parse_qs(parsed.query)
+            file_id = params.get("id", [""])[0]
+            if parsed.hostname != "drive.usercontent.google.com" or not re.fullmatch(r"[\w-]+", file_id):
+                raise
+            query = {"format": "pdf"}
+            if params.get("resourcekey"):
+                query["resourcekey"] = params["resourcekey"][0]
+            url = "https://docs.google.com/document/d/" + file_id + "/export?" + urlencode(query)
+            continue
+        except HTTPError as exc:
+            if exc.response is None or exc.response.status_code != 403 or url in browser_stats["browser_sources"]:
+                raise
+            _render(fetcher, url, browser_stats)
+            fetcher.get(url, refresh=True)
+            continue
         content_type = response.headers.get("Content-Type", response.headers.get("content-type", ""))
+        disposition = response.headers.get("Content-Disposition", response.headers.get("content-disposition", ""))
+        filename = unquote(disposition + " " + (record.get("detail_raw") or ""))
+        if (content_type.split(";", 1)[0].lower() in ("", "application/octet-stream", "binary/octet-stream", "application/zip")
+                and response.content.startswith(b"PK\x03\x04") and re.search(r"\.docx\b", filename, re.I)):
+            content_type = "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
         result = dict(raw_path=response.raw_path, content_type=content_type,
                       document_link=response.url, content_sha256=response.sha256, text=None)
         binary = response.content.startswith((b"%PDF", b"PK\x03\x04", b"\xd0\xcf\x11\xe0"))
@@ -561,6 +789,10 @@ def resolve(record: dict, fetcher) -> dict:
         if binary or not is_html:
             return result
         if browser.is_challenge(response.text):
+            if url not in browser_stats["browser_sources"]:
+                _render(fetcher, url, browser_stats)
+                fetcher.get(url, refresh=True)
+                continue
             raise RuntimeError("document download returned a bot challenge: " + response.url)
         soup = BeautifulSoup(response.content, "lxml")
         if urlparse(response.url).hostname in ("accounts.google.com", "drive.google.com", "docs.google.com"):
@@ -574,9 +806,24 @@ def resolve(record: dict, fetcher) -> dict:
             continue
         for tag in soup.select("script, style, nav, header, footer, aside, .fsNavigation, .fsBreadcrumb"):
             tag.decompose()
-        main = soup.select_one("main, article, #content, #fsPageContent, .content") or soup.body or soup
+        main = (soup.select_one("#agenda") if _paperless_agenda(record["source_link"]) else None)
+        if _paperless_agenda(record["source_link"]) and main is None:
+            raise RuntimeError("public Paperless agenda was not returned: " + response.url)
+        novus = _novus_agenda(response.url)
+        if novus:
+            main = soup.select_one("form#Form1")
+            messages = soup.select("#lblMVMessage, #labelMessage")
+            if main is None or any(m.get_text(strip=True) for m in messages) or not _BOARD.search(main.get_text(" ", strip=True)):
+                raise RuntimeError("public Novus agenda was not returned: " + response.url)
+            attachments = []
+            for link in main.select('a[href*="CoverSheet.aspx"]'):
+                target = urljoin(response.url, link["href"])
+                if urlparse(target).scheme in ("http", "https") and _district_host(target) == _district_host(response.url):
+                    attachments.append(target)
+            result["attachment_links"] = list(dict.fromkeys(attachments))
+        main = main or soup.select_one("main, article, #content, #fsPageContent, .content") or soup.body or soup
         text = clean_text(main.get_text("\n", strip=True))
-        if _document_url(record["source_link"]):
+        if _document_url(record["source_link"]) and not (_paperless_agenda(record["source_link"]) or novus):
             raise RuntimeError("document URL returned an HTML page instead of file bytes: " + response.url)
         return {**result, "text": text or None, "text_method": "html", "text_status": "ok" if text else "empty"}
     raise RuntimeError("document viewer redirect limit exceeded")

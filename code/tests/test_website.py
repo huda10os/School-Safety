@@ -103,8 +103,8 @@ def test_crawl_cap_is_observable(monkeypatch):
 
 def test_binary_google_export_and_html_resolution():
     source = "https://docs.google.com/document/d/abc/edit"
-    export = "https://docs.google.com/document/d/abc/export?format=txt"
-    raw = Response(export, 200, {"Content-Type": "text/plain"}, b"Board minutes", "data/raw/a.gz", "hash", True)
+    export = "https://docs.google.com/document/d/abc/export?format=pdf"
+    raw = Response(export, 200, {"Content-Type": "application/pdf"}, b"%PDF Board minutes", "data/raw/a.gz", "hash", True)
     resolved = website.resolve({"source_link": source, "listing_url": BASE}, Fetcher({export: raw}))
     assert resolved["text"] is None
     assert resolved["raw_path"] == "data/raw/a.gz"
@@ -225,3 +225,328 @@ def test_month_day_uses_calendar_or_school_year_folder(context, expected):
 ])
 def test_dates_reject_implausible_years_and_prefer_reliable_sources(label, url, context, expected):
     assert website.date_for(label, url, context)[0] == expected
+
+
+def test_public_drive_folders_recurse_and_preserve_dates_and_resource_keys():
+    entry = 'https://drive.google.com/drive/folders/root'
+    embedded = 'https://drive.google.com/embeddedfolderview?id=root'
+    child = 'https://drive.google.com/embeddedfolderview?id=child&resourcekey=0-key'
+    rows = website.discover(DISTRICT, entry, Fetcher({embedded: fixture('drive_folder.html'), child: fixture('drive_child.html')}))
+    assert {(r['date'], r['detail']) for r in rows} == {('2023-08-14', 'Minutes'), ('2023-09-18', 'Minutes'), ('2024-01-15', 'Minutes')}
+    assert len(rows) == 3
+    assert all('policy' not in r['detail_raw'] for r in rows)
+
+
+def test_cms_download_hosts_and_extensionless_documents():
+    entry = BASE + '/board'
+    rows = website.discover(DISTRICT, entry, Fetcher({entry: fixture('cms_hosts.html')}))
+    assert {r['date'] for r in rows} == {'2023-08-14', '2023-09-18', '2023-10-16', '2023-11-13'}
+    assert len(rows) == 4
+
+
+def test_apptegy_collapsed_accordion_bootstrap():
+    entry = BASE + '/page/board-meeting-information'
+    rows = website.discover(DISTRICT, entry, Fetcher({entry: fixture('apptegy_bootstrap.html')}))
+    assert [(r['date'], r['detail'], r['source_link']) for r in rows] == [('2024-01-15', 'Extras', 'https://5il.co/packet')]
+
+
+@pytest.mark.parametrize('blocked', [False, True])
+def test_browser_fallback_for_js_shell_and_http_403(monkeypatch, blocked):
+    import requests
+    entry = BASE + '/board'
+    closed = []
+    class ShellFetcher(Fetcher):
+        def get(self, url, **kwargs):
+            if blocked:
+                response = requests.Response()
+                response.status_code = 403
+                raise requests.HTTPError('403 Forbidden', response=response)
+            return super().get(url, **kwargs)
+    monkeypatch.setattr(website.browser, 'page_html', lambda url, session: (url, fixture('archive.html')))
+    monkeypatch.setattr(website.browser, 'cookies', lambda session: {})
+    monkeypatch.setattr(website.browser, 'close', closed.append)
+    rows = website.discover(DISTRICT, entry, ShellFetcher({entry: '<title>Board Minutes</title><div id="app"></div><script src="/app.js"></script>'}))
+    assert rows
+    assert len(closed) == 1
+
+
+def test_granicus_viewers_are_documents_and_escaped_entry_is_normalized():
+    entry = 'https://episd.granicus.com/ViewPublisher.php?view_id=1'
+    rows = website.discover(DISTRICT, entry + '\\\\', Fetcher({entry: fixture('granicus.html')}))
+    assert {(r['date'], r['detail']) for r in rows} == {('2026-10-20', 'Agenda'), ('2026-10-20', 'Minutes')}
+    assert len(rows) == 2
+
+
+def test_swagit_agendas_use_meeting_row_dates():
+    entry = 'https://crowleyisdtx.new.swagit.com/views/75/'
+    rows = website.discover(DISTRICT, entry, Fetcher({entry: fixture('swagit.html')}))
+    assert [(r['date'], r['detail']) for r in rows] == [('2026-10-29', 'Agenda')]
+
+
+def test_apptegy_nodes_keep_accordion_and_bold_date_context():
+    entry = BASE + '/board'
+    html = '<h1>School Board</h1><script type="application/json">' + fixture('apptegy_nodes.json') + '</script>'
+    rows = website.discover(DISTRICT, entry, Fetcher({entry: html}))
+    assert {(r['source_link'], r['date'], r['detail']) for r in rows} == {
+        ('https://aptg.co/agenda', '2025-09-15', 'Agenda'),
+        ('https://aptg.co/second', '2025-10-20', 'Agenda'),
+        ('https://aptg.co/minutes', None, 'Minutes'),
+    }
+
+
+def test_drive_downloads_and_granicus_tls_redirect():
+    import requests
+    source = 'https://drive.google.com/file/d/pdf/view?resourcekey=0-key'
+    download = 'https://drive.usercontent.google.com/download?id=pdf&export=download&resourcekey=0-key'
+    pdf = Response(download, 200, {'Content-Type': 'application/pdf'}, b'%PDF bytes', 'data/raw/pdf.gz', 'pdfhash', True)
+    assert website.resolve({'source_link': source, 'listing_url': BASE}, Fetcher({download: pdf}))['document_link'] == download
+    urls = json.loads(fixture('granicus_download.json'))
+    class RedirectFetcher(Fetcher):
+        def get(self, url, **kwargs):
+            if url == urls['viewer']:
+                raise requests.exceptions.SSLError('hostname mismatch', request=requests.Request('GET', urls['redirect']).prepare())
+            return super().get(url, **kwargs)
+    result = website.resolve({'source_link': urls['viewer'], 'listing_url': 'https://episd.granicus.com'}, RedirectFetcher({urls['download']: pdf}))
+    assert result['raw_path'] == 'data/raw/pdf.gz'
+
+
+def test_layout_table_policy_navigation_does_not_hide_agendas():
+    entry = BASE + '/board'
+    rows = website.discover(DISTRICT, entry, Fetcher({entry: fixture('socs_layout.html')}))
+    assert [(r['date'], r['detail']) for r in rows] == [('2024-10-16', 'Agenda')]
+
+
+def test_schoolblocks_flight_files_use_titles_not_modified_timestamps():
+    entry = BASE + '/schoolboard'
+    rows = website.discover(DISTRICT, entry, Fetcher({entry: fixture('schoolblocks_flight.html')}))
+    assert [(r['date'], r['detail'], r['source_link']) for r in rows] == [
+        ('2026-09-14', 'Minutes', 'https://drive.google.com/file/d/axtell/view')]
+
+
+def test_apptegy_two_column_minutes_keep_month_only_dates_unknown():
+    entry = BASE + '/board'
+    html = '<h1>School Board</h1><script type="application/json">' + fixture('apptegy_columns.json') + '</script>'
+    rows = website.discover(DISTRICT, entry, Fetcher({entry: html}))
+    assert len(rows) == 13
+    assert {r['detail'] for r in rows} == {'Minutes'}
+    assert sum(r['date'] is None for r in rows) == 12
+    assert next(r['date'] for r in rows if 'Special Session' in r['detail_raw']) == '2026-08-31'
+
+
+def test_apptegy_indexed_pinia_page_is_not_hidden_by_empty_data():
+    entry = BASE + '/board'
+    html = '<script id="__NUXT_DATA__" type="application/json">' + fixture('apptegy_pinia.json') + '</script>'
+    rows = website.discover(DISTRICT, entry, Fetcher({entry: html}))
+    assert [(r['date'], r['detail']) for r in rows] == [('2025-09-15', 'Minutes')]
+
+
+def test_apptegy_tenant_alias_and_browse_school_year_archives():
+    entry = BASE + '/page/meetings'
+    folder = 'https://example.sites.thrillshare.com/documents/district/school-board/meetings/2026-27-school-year/42'
+    archive = BASE + '/browse/43'
+    rows = website.discover(DISTRICT, entry, Fetcher({
+        entry: '<h1>Board Meetings</h1><a href="' + folder + '">2026-27 School Year</a><a href="/browse/43">2025-26 School Year</a>',
+        folder: '<h1>Board Minutes</h1><a href="https://5il.co/first">Minutes September 14, 2026</a>',
+        archive: '<h1>Board Minutes</h1><a href="https://5il.co/second">Minutes September 15, 2025</a>',
+    }))
+    assert {r['date'] for r in rows} == {'2025-09-15', '2026-09-14'}
+
+
+def test_drive_tracking_links_do_not_duplicate_the_same_document():
+    entry = BASE + '/board'
+    rows = website.discover(DISTRICT, entry, Fetcher({entry: '''<h1>Board Minutes</h1>
+        <a href="https://drive.google.com/file/d/same/view?usp=sharing">Minutes August 14, 2023</a>
+        <a href="https://drive.google.com/file/d/same/view?usp=drive_web">Minutes August 14, 2023</a>
+        <a href="https://drive.google.com/open?id=same">Minutes August 14, 2023</a>'''}))
+    assert len(rows) == 1
+    assert rows[0]['source_link'] == 'https://drive.google.com/file/d/same/view'
+
+
+def test_board_context_does_not_admit_unrelated_district_folders():
+    entry = BASE + '/page/school-board'
+    staar = BASE + '/documents/district-info/staar/42'
+    minutes = BASE + '/documents/district-info/school-board/meeting-minutes/43'
+    fetcher = Fetcher({
+        entry: '<h1>School Board Minutes</h1><script type="application/json">' + fixture('apptegy_navigation.json') + '</script>',
+        staar: '<h1>Assessment</h1><a href="https://5il.co/assessment">Agenda August 14, 2023</a>',
+        minutes: '<h1>Board Minutes</h1><a href="https://5il.co/minutes">Minutes August 14, 2023</a>',
+    })
+    rows = website.discover(DISTRICT, entry, fetcher)
+    assert len(rows) == 1
+    assert rows[0]['source_link'] == 'https://5il.co/minutes'
+    assert staar not in {url for url, _ in fetcher.calls}
+
+
+def test_browser_transient_network_change_retries_without_losing_documents(monkeypatch):
+    entry = BASE + '/board'
+    opened, closed = [], []
+    def render(url, session):
+        opened.append(url)
+        if len(opened) == 1:
+            raise RuntimeError('agent-browser open failed: net::ERR_NETWORK_CHANGED')
+        return url, '<h1>Board Minutes</h1><a href="https://5il.co/minutes">Minutes August 14, 2023</a>'
+    monkeypatch.setattr(website.browser, 'page_html', render)
+    monkeypatch.setattr(website.browser, 'cookies', lambda session: {})
+    monkeypatch.setattr(website.browser, 'close', closed.append)
+    rows = website.discover(DISTRICT, entry, Fetcher({entry: '<title>Client Challenge</title>'}))
+    assert len(rows) == 1 and rows[0]['date'] == '2023-08-14'
+    assert len(opened) == 2 and len(closed) == 2
+
+
+def test_php_content_routes_are_not_mistaken_for_pagination():
+    entry = BASE + '/index.php?page=school-board'
+    employment = BASE + '/index.php?page=employment&mo=11&yr=2026'
+    fetcher = Fetcher({entry: fixture('php_board.html'),
+                       employment: '<h1>Employment</h1><a href="https://5il.co/hiring">Hiring Agenda August 14, 2023</a>',
+                       BASE + '/index.php?page=2': '<h1>Board Minutes</h1><a href="https://5il.co/next">Minutes September 18, 2023</a>'})
+    rows = website.discover(DISTRICT, entry, fetcher)
+    assert {r['date'] for r in rows} == {'2023-08-14', '2023-09-18'}
+    assert employment not in {url for url, _ in fetcher.calls}
+
+
+def test_public_drive_iframe_does_not_require_browser_rendering(monkeypatch):
+    entry = BASE + '/board'
+    def unexpected(*args, **kwargs):
+        raise AssertionError('public Drive folder already present in HTML')
+    monkeypatch.setattr(website.browser, 'page_html', unexpected)
+    monkeypatch.setattr(website.browser, 'close', lambda session: None)
+    rows = website.discover(DISTRICT, entry, Fetcher({
+        entry: fixture('drive_iframe.html'),
+        'https://drive.google.com/embeddedfolderview?id=root': fixture('drive_folder.html'),
+        'https://drive.google.com/embeddedfolderview?id=child&resourcekey=0-key': fixture('drive_child.html'),
+    }))
+    assert len(rows) == 3
+
+
+def test_failed_optional_child_render_keeps_already_discovered_documents(monkeypatch):
+    entry = BASE + '/board'
+    def unavailable(*args, **kwargs):
+        raise RuntimeError('browser unavailable')
+    monkeypatch.setattr(website.browser, 'page_html', unavailable)
+    monkeypatch.setattr(website.browser, 'close', lambda session: None)
+    rows = website.discover(DISTRICT, entry, Fetcher({
+        entry: '<h1>Board Minutes</h1><a href="https://5il.co/minutes">Minutes August 14, 2023</a><a href="/board/archive">Minutes Archive</a>',
+        BASE + '/board/archive': '<h1>Board Minutes</h1><script src="/app.js"></script>',
+    }))
+    assert len(rows) == 1
+    assert website.DISCOVERY_STATS['123456|' + entry]['failed_pages']
+
+
+def test_drive_octet_stream_docx_reaches_text_extractor(tmp_path):
+    import gzip
+    import extract
+    source = 'https://drive.google.com/file/d/word/view'
+    download = 'https://drive.usercontent.google.com/download?id=word&export=download'
+    body = (FIXTURES / 'drive_minutes.docx').read_bytes()
+    raw = tmp_path / 'minutes.gz'
+    raw.write_bytes(gzip.compress(body))
+    response = Response(download, 200, {'Content-Type': 'application/octet-stream',
+                        'Content-Disposition': 'attachment; filename="Board Minutes 2023-08-14.docx"'},
+                        body, str(raw), hashlib.sha256(body).hexdigest(), True)
+    resolved = website.resolve({'source_link': source, 'listing_url': BASE}, Fetcher({download: response}))
+    parsed = extract.extract_file(resolved['raw_path'], resolved['content_type'], resolved['document_link'])
+    assert parsed['text_status'] == 'ok'
+    assert 'The board approved the school safety plan.' in parsed['text']
+
+
+def test_paperless_public_agendas_use_listing_dates_and_anonymous_session(monkeypatch):
+    def unexpected_browser(*args, **kwargs):
+        raise AssertionError("published HTML agendas do not need rendering")
+    monkeypatch.setattr(website.browser, "page_html", unexpected_browser)
+    monkeypatch.setattr(website.browser, "close", lambda session: None)
+    entry = 'https://www.mywebschooltools.com/schools/Charlotte/BoardMeeting/meetings.php'
+    first = entry.replace('meetings.php', 'viewagenda.php?tblName=meeting0928202648')
+    second = entry.replace('meetings.php', 'viewagenda.php?tblName=meeting0908202613')
+    rows = website.discover(DISTRICT, entry, Fetcher({entry: fixture('paperless_meetings.html')}))
+    assert {(r['date'], r['detail']) for r in rows} == {('2026-10-21', 'Agenda'), ('2026-09-16', 'Agenda')}
+    assert len(rows) == 2
+    class PublicSessionFetcher(Fetcher):
+        primed = False
+        def get(self, url, **kwargs):
+            if url == entry:
+                self.primed = True
+            elif not self.primed:
+                raise RuntimeError('public guest session must be initialized at meetings.php')
+            return super().get(url, **kwargs)
+    fetcher = PublicSessionFetcher({entry: fixture('paperless_meetings.html'), second: fixture('paperless_agenda.html')})
+    resolved = website.resolve(next(r for r in rows if r['source_link'] == second), fetcher)
+    assert resolved['text_status'] == 'ok'
+    assert 'Call to Order' in resolved['text']
+    assert 'Logout' not in resolved['text']
+
+
+def test_paperless_login_html_is_not_reported_as_agenda_text():
+    entry = 'https://www.mywebschooltools.com/schools/Charlotte/BoardMeeting/meetings.php'
+    source = entry.replace('meetings.php', 'viewagenda.php?tblName=meeting0928202648')
+    with pytest.raises(RuntimeError, match='agenda'):
+        website.resolve({'source_link': source, 'listing_url': entry}, Fetcher({
+            entry: fixture('paperless_meetings.html'), source: fixture('paperless_unavailable.html')}))
+
+
+def test_granicus_redirected_novus_agenda_is_real_html_document():
+    source = 'https://episd.granicus.com/AgendaViewer.php?view_id=1&clip_id=268'
+    target = 'https://episd.novusagenda.com/agendapublic/MeetingView.aspx?MeetingID=1376'
+    body = fixture('novus_agenda.html').encode()
+    response = Response(target, 200, {'Content-Type': 'text/html'}, body, 'data/raw/novus.gz', 'hash', True)
+    result = website.resolve({'source_link': source, 'listing_url': 'https://episd.granicus.com'}, Fetcher({source: response}))
+    assert result['text_status'] == 'ok'
+    assert 'Governance Team Training Session' in result['text']
+    assert result['document_link'] == target
+    assert result['attachment_links'] == ['https://episd.novusagenda.com/agendapublic/CoverSheet.aspx?ItemID=8211&MeetingID=1376']
+
+
+def test_novus_unavailable_form_is_not_reported_as_agenda_text():
+    source = 'https://episd.granicus.com/AgendaViewer.php?view_id=1&clip_id=268'
+    target = 'https://episd.novusagenda.com/agendapublic/MeetingView.aspx?MeetingID=1376'
+    response = Response(target, 200, {'Content-Type': 'text/html'}, fixture('novus_unavailable.html').encode(), 'data/raw/novus.gz', 'hash', True)
+    with pytest.raises(RuntimeError, match='agenda'):
+        website.resolve({'source_link': source, 'listing_url': 'https://episd.granicus.com'}, Fetcher({source: response}))
+
+
+@pytest.mark.parametrize('blocked', [False, True])
+def test_document_download_retries_browser_challenge_and_403_with_scoped_cookies(monkeypatch, blocked):
+    import requests
+    source = BASE + '/minutes.pdf'
+    closed = []
+    pdf = Response(source, 200, {'Content-Type': 'application/pdf'}, b'%PDF bytes', 'data/raw/pdf.gz', 'pdfhash', True)
+    class ProtectedFetcher(Fetcher):
+        def __init__(self):
+            super().__init__({})
+            self.session = requests.Session()
+        def _session(self):
+            return self.session
+        def get(self, url, **kwargs):
+            self.calls.append((url, kwargs))
+            if self.session.cookies.get('clearance', domain='www.example.edu'):
+                return pdf
+            if blocked:
+                response = requests.Response()
+                response.status_code = 403
+                raise requests.HTTPError('403 Forbidden', response=response)
+            body = fixture('download_challenge.html').encode()
+            return Response(source, 200, {'Content-Type': 'text/html'}, body, 'data/raw/challenge.gz', 'challengehash', True)
+    monkeypatch.setattr(website.browser, 'page_html', lambda url, session: (url, '<html><body>File viewer</body></html>'))
+    monkeypatch.setattr(website.browser, 'cookies', lambda session: {'clearance': 'anonymous'})
+    monkeypatch.setattr(website.browser, 'close', closed.append)
+    fetcher = ProtectedFetcher()
+    result = website.resolve({'source_link': source, 'listing_url': BASE}, fetcher)
+    assert result['raw_path'] == 'data/raw/pdf.gz'
+    assert len(closed) == 1
+    assert any(kwargs.get('refresh') for _, kwargs in fetcher.calls)
+    assert fetcher.session.cookies.get_dict(domain='unrelated.example') == {}
+
+
+def test_drive_native_document_alias_falls_back_to_pdf_export():
+    import requests
+    source = 'https://drive.google.com/file/d/native/view'
+    download = 'https://drive.usercontent.google.com/download?id=native&export=download'
+    export = 'https://docs.google.com/document/d/native/export?format=pdf'
+    pdf = Response(export, 200, {'Content-Type': 'application/pdf'}, b'%PDF bytes', 'data/raw/native.gz', 'pdfhash', True)
+    class NativeFetcher(Fetcher):
+        def get(self, url, **kwargs):
+            if url == download:
+                raise requests.exceptions.RetryError('too many 500 error responses')
+            return super().get(url, **kwargs)
+    result = website.resolve({'source_link': source, 'listing_url': BASE}, NativeFetcher({export: pdf}))
+    assert result['raw_path'] == 'data/raw/native.gz'
+    assert result['document_link'] == export
