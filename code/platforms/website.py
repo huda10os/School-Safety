@@ -44,13 +44,23 @@ def _words(value: str) -> str:
     return re.sub(r"\s+", " ", unquote(value).replace("_", " ").replace("\xa0", " ")).strip()
 
 
-def parse_date(value: str, context: str = "") -> tuple[str | None, str | None]:
-    """Parse only explicit dates; use a folder year for month/day-only labels.
+# Format reliability, most trusted first: a written month name with a
+# four-digit year, then numeric forms with a four-digit year, then two-digit
+# years and run-together digits. A name can hold several dates (a plan's
+# "2023-2028" span next to its "4-18-2023" meeting date); the most reliable
+# plausible one wins, not the leftmost.
+_RANK = {"named": 0, "mdy4": 1, "ymd": 1, "compact": 2, "mdy2": 3, "short": 4, "ambiguous": 5}
 
-    Compact seven-digit dates (1022017) can mean Jan 02 or Oct 2. Leave
-    genuinely ambiguous values null rather than inventing a meeting date.
-    """
-    text = _words(value)
+
+def _plausible(value: date) -> bool:
+    """Meetings in this archive run from 2000 to about a year ahead (posted
+    upcoming meetings); anything else is a misread string, not a meeting."""
+    today = date.today()
+    return date(2000, 1, 1) <= value <= date(today.year + 1, 12, 31) and (value - today).days <= 400
+
+
+def _explicit_dates(text: str) -> list[tuple[int, int, str, str]]:
+    """Return (rank, position, iso date, matched text) for each full date in text."""
     patterns = [
         (r"(?<!\d)((?:19|20)\d{2})[-./ ](\d{1,2})[-./ ](\d{1,2})(?!\d)", "ymd"),
         (r"(?<!\d)(\d{1,2})[-./ ]+(\d{1,2})[-./ ]+(\d{4}|\d{2})(?!\d)", "mdy"),
@@ -61,60 +71,100 @@ def parse_date(value: str, context: str = "") -> tuple[str | None, str | None]:
     ]
     found = []
     for pattern, order in patterns:
-        for match in re.finditer(pattern, text, re.I):
+        # A lookahead lets matches overlap, so a rejected "1. 9-28" (2028) does
+        # not hide the "9-28-22" that follows it.
+        for match in re.finditer(rf"(?={pattern})", text, re.I):
             g = match.groups()
+            matched = text[match.start(1):match.end(len(g))]
             try:
                 if order == "ymd":
-                    year, month, day = map(int, g)
+                    candidates = [date(*map(int, g))]
                 elif order == "mdy":
                     month, day, year = map(int, g)
-                    year = year + (2000 if year < 70 else 1900) if year < 100 else year
+                    order = "mdy4" if len(g[2]) == 4 else "mdy2"
+                    year = year + 2000 if year < 100 else year
+                    candidates = [date(year, month, day)]
                 elif order == "named":
-                    month, day, year = _MONTHS[g[0].lower()], int(g[1]), int(g[2])
+                    candidates = [date(int(g[2]), _MONTHS[g[0].lower()], int(g[1]))]
                 elif order in ("compact", "short"):
                     token = g[0]
                     if order == "compact" and token[:4].startswith(("19", "20")):
-                        year, month, day = int(token[:4]), int(token[4:6]), int(token[6:])
+                        candidates = [date(int(token[:4]), int(token[4:6]), int(token[6:]))]
+                    elif order == "compact":
+                        candidates = [date(int(token[4:]), int(token[:2]), int(token[2:4]))]
                     else:
-                        month, day, year = int(token[:2]), int(token[2:4]), int(token[4:])
-                        if order == "short":
-                            year += 2000 if year < 70 else 1900
+                        candidates = [date(2000 + int(token[4:]), int(token[:2]), int(token[2:4]))]
                 else:
-                    token = g[0]
-                    candidates = set()
+                    # Seven digits (1022017) can mean Jan 02 or Oct 2: keep only if one reading is valid.
+                    token, candidates = g[0], []
                     for split in (1, 2):
                         try:
-                            if 1900 <= int(token[-4:]) <= 2100:
-                                candidates.add(date(int(token[-4:]), int(token[:split]), int(token[split:-4])).isoformat())
+                            candidates.append(date(int(token[-4:]), int(token[:split]), int(token[split:-4])))
                         except ValueError:
                             pass
-                    if len(candidates) == 1:
-                        found.append((match.start(), candidates.pop(), match.group()))
-                    continue
-                if 1900 <= year <= 2100:
-                    found.append((match.start(), date(year, month, day).isoformat(), match.group()))
+                    if len({c for c in candidates if _plausible(c)}) != 1:
+                        continue
             except (ValueError, KeyError):
                 continue
+            candidates = [c for c in candidates if _plausible(c)]
+            if len(candidates) == 1:
+                found.append((_RANK[order], match.start(), candidates[0].isoformat(), matched))
+            order = "mdy" if order in ("mdy4", "mdy2") else order
+    return found
+
+
+def parse_date(value: str, context: str = "", partial: bool = True) -> tuple[str | None, str | None]:
+    """Parse a plausible explicit date from value; optionally fall back to a
+    month/day label plus a year from the folder or heading context.
+
+    Genuinely ambiguous or implausible values stay null rather than inventing
+    a meeting date.
+    """
+    text = _words(value)
+    found = _explicit_dates(text)
     if found:
-        _, parsed, raw = min(found, key=lambda item: item[0])
+        _, _, parsed, raw = min(found)
         return parsed, raw
-    partial = re.search(rf"\b({_MONTH})\.?\s*(\d{{1,2}})(?:st|nd|rd|th)?\b", text, re.I)
+    if not partial:
+        return None, None
+    label = re.search(rf"\b({_MONTH})\.?\s*(\d{{1,2}})(?:st|nd|rd|th)?\b", text, re.I)
     years = re.findall(r"\b(?:19|20)\d{2}\b", context)
     short_year = re.search(r"\b((?:19|20)\d{2})\s*[-–]\s*(\d{2})(?!\d)", context)
     if short_year and len(years) == 1:
         end = int(short_year[1]) // 100 * 100 + int(short_year[2])
         if end == int(short_year[1]) + 1:
             years.append(str(end))
-    if partial and years:
-        month, day = _MONTHS[partial[1].lower()], int(partial[2])
+    if label and years:
+        month, day = _MONTHS[label[1].lower()], int(label[2])
         year = int(years[0])
         # School-year folders run July through June; a single year is calendar year.
         if len(years) >= 2 and int(years[1]) == year + 1 and month < 7:
             year += 1
         try:
-            return date(year, month, day).isoformat(), partial.group() + " | " + context
+            value = date(year, month, day)
         except ValueError:
-            pass
+            return None, None
+        if _plausible(value):
+            return value.isoformat(), label.group() + " | " + context
+    return None, None
+
+
+def date_for(label: str, url: str, context: str) -> tuple[str | None, str | None]:
+    """Meeting date for a website document, most trusted source first: a full
+    date in the link text, then in the file name, then a month/day label with
+    a context year, then a date in the listing context (a "February 20"
+    heading above links named "Part 1", with the year from an "Agendas 2024"
+    heading).
+
+    Also used by build_dataset to re-date already-collected rows."""
+    filename = unquote(urlparse(url).path.split("/")[-1])
+    stem = re.sub(r"\.[a-z0-9]+$", "", filename, flags=re.I)
+    if re.fullmatch(r"[0-9a-f_-]{20,}", stem, re.I):
+        filename = ""  # CMS resource identifiers are not date-bearing names.
+    for value, ctx, partial in ((label, "", False), (filename, "", False), (label, context, True), (context, context, True)):
+        parsed, raw = parse_date(value, ctx, partial)
+        if parsed:
+            return parsed, raw
     return None, None
 
 
@@ -347,11 +397,7 @@ def discover(district: dict, entry_url: str, fetcher) -> list[dict]:
         if re.fullmatch(r"[0-9a-f_-]{20,}", stem, re.I):
             filename = ""  # CMS resource identifiers are not date-bearing names.
         detail = classify_detail(label, filename + " | " + context)
-        parsed, raw = parse_date(label, context)
-        if not parsed:
-            parsed, raw = parse_date(filename, context)
-        if not parsed:
-            parsed, raw = parse_date(context, context)
+        parsed, raw = date_for(label, url, context)
         row = make_record(district, PLATFORM, source_link=url, listing_url=listing,
                           listing_row_text=(label + " | " + context)[:1000], detail=detail,
                           detail_raw=label, date=parsed, date_raw=raw,

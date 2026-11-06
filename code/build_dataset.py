@@ -26,6 +26,7 @@ import pyarrow as pa
 import pyarrow.parquet as pq
 
 from config import DATA, REFERENCE, STAGING
+from platforms import website
 from records import FIELDS, LISTING_FIELDS, PREFERENCE, read_jsonl, record_id
 
 ARROW_TYPES = {"string": pa.string(), "date": pa.date32(), "int32": pa.int32(),
@@ -78,6 +79,35 @@ def _recording_rows(rows: list[dict]) -> list[dict]:
     return list(extra.values())
 
 
+HEADER_CHARS = 800  # a meeting's own date sits in its first lines (notice, title block)
+
+
+def _redate(row: dict) -> None:
+    """Set a reliable meeting date and record where it came from.
+
+    Platform meeting lists (BoardBook, Diligent, BoardDocs, Legistar) carry
+    the date as data. Website rows were dated from link text and file names
+    when collected; re-run the current rules on what was stored, so parser
+    fixes apply without re-crawling, then prefer the document's own header
+    date when it disagrees by more than a week.
+    """
+    if row.get("platform") != "website":
+        row["date_source"] = "listing"
+        return
+    context = (row.get("listing_row_text") or "").split(" | ", 1)[-1]
+    parsed, raw = website.date_for(row.get("detail_raw") or "", row.get("source_link") or "", context)
+    row.update(date=parsed, date_raw=raw, date_source="link_or_filename" if parsed else None)
+    text = row.get("text")
+    if not text or row.get("detail") not in ("Minutes", "Agenda", "Other"):
+        return
+    header = [f for f in website._explicit_dates(text[:HEADER_CHARS]) if f[0] <= 1]
+    if not header:
+        return
+    _, _, found, raw = min(header)
+    if not parsed or abs((date.fromisoformat(found) - date.fromisoformat(parsed)).days) > 7:
+        row.update(date=found, date_raw=raw, date_source="document_text")
+
+
 def district_records(tea_id_platform: str) -> list[dict]:
     collected: dict[str, dict] = {}
     for record in read_jsonl(STAGING / "records" / f"{tea_id_platform}.jsonl"):
@@ -86,6 +116,8 @@ def district_records(tea_id_platform: str) -> list[dict]:
         if record["record_id"] not in collected:
             collected[record["record_id"]] = {**record, "text_status": "pending"}
     rows = list(collected.values())
+    for row in rows:
+        _redate(row)
     rows += _recording_rows(rows)
     best: dict[tuple, dict] = {}
     for row in rows:

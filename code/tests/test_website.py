@@ -211,3 +211,15 @@ def test_legacy_html_minutes_are_documents_on_district_subdomain():
 ])
 def test_month_day_uses_calendar_or_school_year_folder(context, expected):
     assert website.parse_date("January 15", context)[0] == expected
+
+
+@pytest.mark.parametrize("label,url,context,expected", [
+    ("1. 9-28", "https://x/04.a1.%209-28-22%20Minutes.pdf", "", "2022-09-28"),
+    ("Public Hearing", "https://x/Public_Hearing_Innovation_2023-2028__4-18-2023.pdf", "", "2023-04-18"),
+    ("Nov 10", "https://x/11102025-WorkshopMeeting-Minutes.pdf", "Board Named a 2026 Texas Top 5 Honor Board", "2025-11-10"),
+    ("Agenda", "https://x/120246", "", None),
+    ("3271932", "https://x/a.pdf", "", None),
+    ("Minutes", "https://x/2026-09-16_-_06_-_att_1_-_2029-08-19_board_meeting_minutes_1.pdf", "", "2026-09-16"),
+])
+def test_dates_reject_implausible_years_and_prefer_reliable_sources(label, url, context, expected):
+    assert website.date_for(label, url, context)[0] == expected

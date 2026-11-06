@@ -36,6 +36,7 @@ FIELDS = {
     "platform": ("string", "boardbook | diligent | boarddocs | legistar | website"),
     "date": ("date", "Meeting date parsed from date_raw; null if the source gives none."),
     "date_raw": ("string", "Date text exactly as shown on the listing or document."),
+    "date_source": ("string", "listing (platform meeting list) | link_or_filename (website link text, file name or heading) | document_text (the document's own header, used when it disagreed with the link by more than a week)"),
     "meeting_type": ("string", "Source's meeting type, e.g. Regular, Special; null if not given."),
     "meeting_title": ("string", "Meeting title as shown on the listing."),
     "meeting_id": ("string", "Platform's meeting identifier when it has one."),

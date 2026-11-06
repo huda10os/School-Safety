@@ -25,3 +25,19 @@ def test_skipped_media_file_is_relabelled_as_a_recording():
     rows = [row(detail="Other", text_status="unsupported", error="media file not downloaded (audio/wav)")]
     build_dataset._recording_rows(rows)
     assert rows[0]["detail"] == "Recording" and rows[0]["text_status"] == "recording"
+
+
+def test_website_rows_are_redated_and_document_header_wins_when_far_off():
+    stale = row(platform="website", detail="Minutes", detail_raw="Nov 10",
+                source_link="https://x/11102025-WorkshopMeeting-Minutes.pdf",
+                listing_row_text="Nov 10 | Board Named a 2026 Texas Top 5 Honor Board",
+                date="2026-11-10", text="WORKSHOP MEETING\nNovember 10, 2025\nCall to order")
+    build_dataset._redate(stale)
+    assert stale["date"] == "2025-11-10" and stale["date_source"] == "link_or_filename"
+    wrong = row(platform="website", detail="Agenda", detail_raw="Agenda", source_link="https://x/a.pdf",
+                listing_row_text="Agenda | Board Agendas 2020", text="NOTICE OF REGULAR MEETING\nJanuary 27, 2022 at 6 PM")
+    build_dataset._redate(wrong)
+    assert wrong["date"] == "2022-01-27" and wrong["date_source"] == "document_text"
+    listed = row()
+    build_dataset._redate(listed)
+    assert listed["date"] == "2021-01-28" and listed["date_source"] == "listing"
