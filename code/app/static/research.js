@@ -63,6 +63,14 @@ function chipEl(chip, extra) {
     extra ? h("span", { class: "k" }, extra) : null,
     metaCache?.measures && !metaCache.calibrated ? h("span", { class: "k" }, "Version 1*: labels use starting cutoffs; accuracy not yet measured") : null);
 }
+// Chart slots that keep their box across updates, so new data morphs in place.
+function chartSlots() {
+  const slots = {};
+  return (name, cls = "chart-box") => {
+    const slot = slots[name] || (slots[name] = { box: h("div", { class: cls }) });
+    return { box: slot.box, show: draw => { slot.draw = draw; if (slot.redraw) slot.redraw(); else slot.redraw = mount(slot.box, w => slot.draw(w)); } };
+  };
+}
 function setHash(path, params) {
   const q = qs(params);
   history.replaceState(null, "", `#/${path}${q ? "?" + q : ""}`);
@@ -251,15 +259,14 @@ async function pageStory(token) {
       h("a", { href: "#/method" }, h("b", {}, "How we built this"), h("span", {}, "Definitions, accuracy, coverage and what the records cannot show."))),
     asOf(m)));
   const hl = { a: hlA?.key, b: hlB?.key };
-  const draw = (w, step) => storyGraphic(w, Math.min(560, Math.max(300, (sticky.clientHeight || window.innerHeight * 0.55))), s, m, step, hl);
+  const draw = (w, step) => storyGraphic(w, Math.min(820, Math.max(300, Math.round((graphic.clientHeight || window.innerHeight * 0.7) * 0.82))), s, m, step, hl);
   if (reducedMotion()) {
     stepEls.forEach((el, i) => mount(el.querySelector(".figure-static"), w => draw(w, i + 1)));
     return;
   }
-  sticky.style.setProperty("height", "100%");
   let current = 1;
   const played = new Set();
-  mount(sticky, w => draw(w, current));
+  mount(sticky, w => draw(w, current), graphic);
   // Scene entrances play once: the line draws as its first step arrives, the
   // subtopic panels settle in one after another.
   const enter = (svg, st) => {
@@ -285,7 +292,7 @@ function quoteCard(q) {
       q.source_link ? h("a", { href: q.source_link, target: "_blank", rel: "noopener noreferrer" }, "source ↗") : null));
 }
 function storyGraphic(width, height, s, m, step, hl = {}) {
-  const H = Math.max(300, Math.min(height, 620));
+  const H = Math.max(300, Math.min(height, 820));
   const scene = ["dots", "dots", "dots", "line", "line", "line", "multiples", "multiples", "tone"][step - 1];
   const svg = sv("svg", { class: "c sv", viewBox: `0 0 ${width} ${H}`, width, height: H, "data-step": step, "data-scene": scene, role: "img",
     "aria-label": "Story chart; each step's text describes what it shows." });
@@ -364,7 +371,8 @@ async function pageExplore(token, _parts, params) {
   const toggle = h("button", { type: "button", class: "filters-toggle", "aria-expanded": "false", onclick: () => {
     const open = rail.classList.toggle("open"); toggle.setAttribute("aria-expanded", String(open)); } }, "Filters");
   const update = () => { setHash("explore", st); drawRail(); drawMain(); };
-  let lastFinding = null, staggered = false;
+  let lastFinding = null, staggered = false, mainSeq = 0;
+  const slot = chartSlots();
   function drawRail() {
     const active = ["subtopic", "region", "size"].filter(k => st[k]).length + (st.measure !== "safety") + (st.sample !== "all");
     toggle.textContent = active ? `Filters (${active})` : "Filters";
@@ -389,11 +397,12 @@ async function pageExplore(token, _parts, params) {
       h("label", { class: "opt" }, (() => { const c = h("input", { type: "checkbox", onchange: e => { st.allev = e.target.checked ? "1" : ""; update(); } }); c.checked = !!st.allev; return c; })(), "Mark every event, not only Santa Fe and Uvalde"));
   }
   async function drawMain() {
+    const seq = ++mainSeq;
     const q = { measure: st.measure, subtopic: st.subtopic, region: st.region, size: st.size, from: st.from, to: st.to, sample: st.sample, grain: st.grain };
     const [t, subs, tone] = await Promise.all([api("trend", q),
       m.measures ? api("subtopics", { region: st.region, size: st.size, from: st.from, to: st.to }) : null,
       m.measures ? api("tone", { region: st.region, size: st.size, from: st.from, to: st.to }) : null]);
-    if (token !== routeToken) return;
+    if (token !== routeToken || seq !== mainSeq) return;
     const chips = [];
     const clear = k => () => { st[k] = k === "sample" ? "all" : k === "measure" ? "safety" : ""; if (k === "measure") st.subtopic = ""; update(); };
     if (st.subtopic) chips.push(["subtopic", m.subtopics[st.subtopic]]);
@@ -406,9 +415,9 @@ async function pageExplore(token, _parts, params) {
     const finding = trendFinding(t.rows, label, t.measures);
     const fmt = st.grain === "year" ? "year" : "month";
     const pLabel = p => st.grain === "quarter" ? `Q${Math.floor((+p.slice(5, 7) - 1) / 3) + 1} ${p.slice(0, 4)}` : dateLabel(p, fmt);
-    const box = h("div", { class: "chart-box" });
+    const trend = slot("trend"), box = trend.box;
     const stableNote = st.sample === "stable" ? ` Same-district sample: ${num(t.chip.stable_districts)} districts with readable meetings in every year ${st.from}–${st.to}.` : "";
-    mount(box, w => lineChart(w, {
+    trend.show(w => lineChart(w, {
       series: t.measures ? [{ key: "share", points: t.rows.map(r => ({ x: ms(r.period), y: r.share, lo: r.lo, hi: r.hi, thin: r.thin, r })) }] : [],
       yMax: t.measures ? undefined : 0.5, placeholder: t.measures ? null : "Share not computed yet",
       xDomain: [ms(`${st.from}-01-01`), ms(`${st.to}-12-31`)],
@@ -440,9 +449,9 @@ async function pageExplore(token, _parts, params) {
       }),
     ];
     if (subs) {
-      const sbox = h("div", { class: "chart-box multiples-box" });
+      const panels = slot("subtopics", "chart-box multiples-box"), sbox = panels.box;
       const labels = subs.labels;
-      mount(sbox, w => multiples(w, Object.keys(labels).map(k => ({ key: k, label: labels[k].replace(/ \(safety-related\)/, ""), short: SUB_SHORT[k],
+      panels.show(w => multiples(w, Object.keys(labels).map(k => ({ key: k, label: labels[k].replace(/ \(safety-related\)/, ""), short: SUB_SHORT[k],
         points: subs.series[k].map(p => ({ x: p.year, y: p.share, thin: p.thin })) })),
         { selected: st.subtopic || null, rules: events.map(e => ({ x: +e.date.slice(0, 4) + (+e.date.slice(5, 7) - 1) / 12 })), xLabel: x => String(Math.round(x)),
           onSelect: k => { st.measure = "safety"; st.subtopic = st.subtopic === k ? "" : k; update(); window.scrollTo({ top: 0 }); } }));
@@ -458,8 +467,8 @@ async function pageExplore(token, _parts, params) {
         csv: `api/subtopics?${qs({ region: st.region, size: st.size, from: st.from, to: st.to, format: "csv" })}` }));
     }
     if (tone) {
-      const tbox = h("div", { class: "chart-box" });
-      mount(tbox, w => diverging(w, tone.rows));
+      const toneSlot = slot("tone"), tbox = toneSlot.box;
+      toneSlot.show(w => diverging(w, tone.rows));
       const tYear = Math.min(+st.to, new Date().getUTCFullYear() - 1);
       const tE = toneShares(tone, [2014, 2015, 2016, 2017]), tL = toneShares(tone, [tYear]);
       parts.push(h("h2", {}, "How they described students and staff"), figure({
@@ -528,12 +537,21 @@ async function pageEvents(token, parts, params) {
   const body = h("div", { "aria-live": "polite" });
   const controls = h("form", { class: "ev-controls", "aria-label": "Event settings", onsubmit: ev => ev.preventDefault() });
   const update = () => { setHash(`events/${key}`, st); drawControls(); drawBody(); };
-  let lastFinding = null;
+  let lastFinding = null, dragTimer = 0, bodySeq = 0;
+  // The two charts keep their boxes across updates so new data morphs in place.
+  const slot = chartSlots(), line = slot("line"), bells = slot("dumbbell");
+  const box = line.box, dbox = bells.box;
   function drawControls() {
     const out = h("output", { for: "f-radius" }, `${st.radius} miles`);
     const fill = el => el.style.setProperty("--fill", `${(100 * (el.value - el.min) / (el.max - el.min)).toFixed(1)}%`);
     const range = h("input", { type: "range", id: "f-radius", min: 10, max: 200, step: 5, value: st.radius, disabled: st.same_county ? true : null,
-      oninput: ev => { out.textContent = `${ev.target.value} miles`; fill(ev.target); }, onchange: ev => { st.radius = ev.target.value; update(); } });
+      oninput: ev => {
+        out.textContent = `${ev.target.value} miles`; fill(ev.target);
+        // While dragging, only the charts follow (the controls stay put so the drag continues).
+        clearTimeout(dragTimer);
+        dragTimer = setTimeout(() => { st.radius = ev.target.value; setHash(`events/${key}`, st); drawBody(); }, 120);
+      },
+      onchange: ev => { clearTimeout(dragTimer); st.radius = ev.target.value; update(); } });
     fill(range);
     const county = h("input", { type: "checkbox", id: "f-county", onchange: ev => { st.same_county = ev.target.checked ? "1" : ""; update(); } });
     county.checked = !!st.same_county;
@@ -553,8 +571,9 @@ async function pageEvents(token, parts, params) {
   }
   async function drawBody() {
     const q = { key, radius: st.radius, same_county: st.same_county, window: st.window, sample: st.sample, measure: st.measure, subtopic: st.subtopic };
+    const seq = ++bodySeq;
     const [r, all] = await Promise.all([api("event", q), api("events_summary", { radius: st.radius, same_county: st.same_county, window: st.window, sample: st.sample, measure: st.measure, subtopic: st.subtopic })]);
-    if (token !== routeToken) return;
+    if (token !== routeToken || seq !== bodySeq) return;
     const W = +st.window;
     const near = r.summary.nearby || {}, rest = r.summary.comparison || {};
     const main = e.in_texas ? near : rest;
@@ -565,7 +584,6 @@ async function pageEvents(token, parts, params) {
     else finding = [`In the ${num(main.districts_qualifying)} ${e.in_texas ? "nearby " : ""}districts with readable meetings on both sides, ${r.label} came up in `,
       h("span", { class: "accent" }, `${shareText(main.after)} of meetings in the ${W} months after`), `, against ${shareText(main.before)} in the ${W} months before.`,
       e.in_texas && rest.before !== null && rest.before !== undefined ? ` Elsewhere in Texas: ${shareText(rest.before)} before, ${shareText(rest.after)} after.` : ""];
-    const box = h("div", { class: "chart-box" });
     const pt = (row, grp) => ({ x: row.rel + 0.5, y: row.share, lo: row.lo, hi: row.hi, thin: row.thin, row, grp });
     const relLabel = rel => rel >= 0 ? `Month ${rel + 1} after` : `${-rel} month${rel === -1 ? "" : "s"} before`;
     const series = [];
@@ -573,7 +591,7 @@ async function pageEvents(token, parts, params) {
       if (e.in_texas) series.push({ key: "nearby", points: r.series.nearby.map(x => pt(x, "nearby")), markers: true });
       series.push({ key: "comparison", cls: e.in_texas ? "grey" : "", points: r.series.comparison.map(x => pt(x, "comparison")), markers: true });
     }
-    mount(box, w => lineChart(w, {
+    line.show(w => lineChart(w, {
       series, xDomain: [-W, W], yMax: r.measures ? undefined : 0.5, band: true, placeholder: r.measures ? null : "Share not computed yet",
       rules: [{ x: 0, label: `${evShort(e)} · ${dateLabel(e.date)}`, short: evShort(e) }],
       projections: r.pretrend ? [{ cls: "pretrend", points: r.pretrend.map(p => ({ x: p.rel + 0.5, y: p.share })) }] : [],
@@ -584,10 +602,9 @@ async function pageEvents(token, parts, params) {
         `${PCT(p.y)} of ${num(p.row.meetings)} meetings (${num(p.row.yes)})`, p.row.lo !== null ? `95% interval ${PCT(p.row.lo)} to ${PCT(p.row.hi)}` : null,
         `${num(p.row.districts)} districts`, p.row.thin ? "Thin: fewer than 30 meetings" : null),
     }));
-    const dbox = h("div", { class: "chart-box" });
     const sortBy = st.sort || "severity";
     const rowsAll = all.rows.slice().sort(sortBy === "date" ? (a, b) => b.date.localeCompare(a.date) : sortBy === "change" ? (a, b) => (b.change ?? -9) - (a.change ?? -9) : (a, b) => (b.deaths || 0) - (a.deaths || 0));
-    mount(dbox, w => dumbbell(w, rowsAll.map(x => ({ key: x.key, label: SHORT[x.key] || x.label, sub: dateLabel(x.date), before: all.measures ? x.before : null, after: all.measures ? x.after : null,
+    bells.show(w => dumbbell(w, rowsAll.map(x => ({ key: x.key, label: SHORT[x.key] || x.label, sub: dateLabel(x.date), before: all.measures ? x.before : null, after: all.measures ? x.after : null,
       thin: x.thin, selected: x.key === key, nLabel: x.in_texas ? `n=${x.districts}${x.thin ? " (thin)" : ""}` : `all Texas, n=${x.districts}`,
       empty: all.measures ? "Not enough records on both sides" : "Measures not computed yet" })), { onSelect: row => { location.hash = `#/events/${row.key}?${qs({ ...st, key: undefined })}`; } }));
     const words = h("div", {});

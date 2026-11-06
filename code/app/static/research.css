@@ -51,9 +51,9 @@ svg.c text.placeholder { paint-order: stroke; stroke: var(--bg); stroke-width: 6
 .factrow b { font: 500 22px/28px var(--mono); letter-spacing: -0.01em; font-variant-numeric: tabular-nums; }
 .factrow span { font: 400 12px/16px var(--mono); color: var(--ink2); }
 .scrolly { position: relative; display: grid; grid-template-columns: minmax(280px, 380px) minmax(0, 1fr); gap: var(--s10); margin: var(--s8) 0; }
-.scrolly .graphic { position: sticky; top: 72px; height: calc(100vh - 96px); height: calc(100svh - 96px); max-height: 760px; display: flex; flex-direction: column; justify-content: center; order: 2; }
+.scrolly .graphic { position: sticky; top: var(--header-h); height: calc(100vh - var(--header-h)); height: calc(100svh - var(--header-h)); display: flex; flex-direction: column; justify-content: center; order: 2; }
 .scrolly .steps { order: 1; padding: 30vh 0 40vh; }
-.step { min-height: 75vh; display: flex; align-items: center; }
+.step { min-height: calc(100svh - var(--header-h)); display: flex; align-items: center; }
 /* Step text sits on the page, not in a box: a headline that makes the claim, then one or two lines. */
 .step .card { padding: var(--s4) 0; opacity: 0.3; transition: opacity 300ms var(--ease-out); }
 .step.on .card { opacity: 1; }
@@ -193,10 +193,11 @@ figure.r-fig { margin: var(--rhythm-block) 0 var(--s8); }
 
 /* ------------------------------------------------------------------ explorer */
 .explore { display: grid; grid-template-columns: 280px minmax(0, 1fr); gap: var(--s8); align-items: start; }
-.rail { position: sticky; top: 72px; display: flex; flex-direction: column; gap: var(--s5); font-size: 14px; }
+.rail { position: sticky; top: 72px; display: flex; flex-direction: column; gap: var(--s6); font-size: 14px; }
 .rail fieldset { border: 0; padding: 0; margin: 0; }
-.rail legend, .rail .lbl { font: 400 12px/16px var(--mono); color: var(--ink2); margin-bottom: var(--s2); padding: 0; }
-.rail label.opt { display: flex; align-items: flex-start; gap: var(--s2); padding: var(--s1) 0; cursor: pointer; }
+/* A control's label sits 8px above it; groups sit 24px apart, so each label reads as its control's. */
+.rail legend, .rail .lbl, .ev-controls .lbl { display: block; font: 400 12px/16px var(--mono); color: var(--ink2); margin-bottom: var(--s2); padding: 0; }
+.rail label.opt, .ev-controls label.opt { display: flex; align-items: flex-start; gap: var(--s2); padding: var(--s1) 0; cursor: pointer; }
 /* Controls line up with the first line of a wrapped label, not its middle. */
 label.opt > input { flex: none; margin-block: calc((1lh - 16px) / 2) 0; }
 .rail select, .rail input[type="number"] { width: 100%; }
@@ -235,9 +236,7 @@ input[type="range"]:disabled { opacity: 0.4; cursor: default; }
 .ev-head .crumbs { margin: 0; }
 .ev-head select { min-width: min(100%, 360px); }
 .ev-controls { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: var(--s4) var(--s6); border-top: 1px solid var(--hair); border-bottom: 1px solid var(--hair); padding: var(--s4) 0; margin: var(--s4) 0 var(--s6); max-width: 1040px; }
-.ev-controls .lbl { font: 400 12px/16px var(--mono); color: var(--ink2); display: block; margin-bottom: var(--s2); }
 .ev-controls output { display: block; font: 500 13px/20px var(--mono); font-variant-numeric: tabular-nums; margin: 0 0 var(--s1); }
-.ev-controls label.opt { display: flex; align-items: flex-start; gap: var(--s2); padding: var(--s1) 0; }
 .ev-controls select { width: 100%; }
 .finding { font-family: var(--serif); font-size: 24px; line-height: 32px; max-width: 820px; margin: var(--s6) 0 var(--s4); text-wrap: pretty; }
 .finding .accent, .chip > span:first-child { display: inline-block; }
@@ -361,3 +360,18 @@ input[type="range"]:disabled { opacity: 0.4; cursor: default; }
   .fig-tools a, .fig-tools summary, .chips button, .seg button { min-height: 44px; }
   .rail label.opt, .ev-controls label.opt { padding-block: var(--s3); }
 }
+
+/* Zoomable map */
+.map-wrap { position: relative; border-radius: var(--r-control); }
+.map-wrap:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+.map-wrap svg.map { overflow: hidden; touch-action: pan-y; user-select: none; -webkit-user-select: none; }
+.map-wrap svg.map.grabbing { cursor: grabbing; }
+.map-zoom { position: absolute; top: var(--s2); right: var(--s2); display: flex; gap: var(--s1); }
+.map-zoom button { min-width: 32px; height: 32px; padding: 0 var(--s2); font: 400 13px/1 var(--mono); color: var(--ink); background: var(--bg); border: 1px solid var(--line-strong); border-radius: var(--r-control); cursor: pointer; }
+.map-zoom button:disabled { color: var(--ink3); cursor: default; }
+@media (hover: hover) and (pointer: fine) { .map-zoom button:not(:disabled):hover { border-color: var(--ink2); } }
+@media (pointer: coarse) { .map-zoom button { min-width: 44px; height: 44px; } }
+.map-hint { position: absolute; left: 50%; top: var(--s2); transform: translateX(-50%); margin: 0; padding: var(--s1) var(--s3); font: 400 12px/16px var(--mono); color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: var(--r-control); opacity: 0; pointer-events: none; transition: opacity 150ms var(--ease-out); }
+.map-hint.show { opacity: 1; }
+@media (prefers-reduced-motion: reduce) { .map-hint { transition: none; } }
+svg.c text.dname { font: 400 10px/1 var(--sans); fill: var(--ink2); }

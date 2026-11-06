@@ -112,19 +112,26 @@ const Tip = (() => {
   return { show, hide, lines, atElement, get sheet() { return sheet; } };
 })();
 
-// Draw at the box's width now and again whenever it changes by more than 24 px.
-function mount(box, draw) {
+// Draw at the box's width now and again whenever it changes by more than 24 px,
+// or when the height of `tall` does (a chart sized to the window). Returns a
+// redraw function for new data, which morphs the chart already on screen.
+function mount(box, draw, tall) {
   ensureDefs();
-  let last = 0;
-  const run = () => {
-    const w = Math.round(box.clientWidth);
-    if (!w || Math.abs(w - last) < 24) return;
-    last = w;
-    box.replaceChildren(draw(w));
+  let lastW = 0, lastH = 0;
+  const run = data => {
+    const w = Math.round(box.clientWidth), hgt = tall ? Math.round(tall.clientHeight) : 0;
+    if (!w || (!data && Math.abs(w - lastW) < 24 && Math.abs(hgt - lastH) < 24)) return;
+    lastW = w; lastH = hgt;
+    if (data) morph(box, draw(w));
+    else box.replaceChildren(draw(w));
   };
-  if (window.ResizeObserver) new ResizeObserver(run).observe(box);
-  requestAnimationFrame(run);
-  return box;
+  if (window.ResizeObserver) {
+    const ro = new ResizeObserver(() => run());
+    ro.observe(box);
+    if (tall) ro.observe(tall);
+  }
+  requestAnimationFrame(() => run());
+  return () => run(true);
 }
 
 // ------------------------------------------------------------------ figure wrapper
@@ -230,7 +237,7 @@ function lineChart(width, o) {
   }
   for (const s of o.series) {
     if (!s.markers) continue;
-    for (const p of s.points) if (p.y !== null) svg.appendChild(sv("circle", { class: s.cls === "grey" ? "pt grey" : "pt", cx: x(p.x), cy: y(p.y), r: small ? 2.5 : 3 }));
+    for (const p of s.points) if (p.y !== null) svg.appendChild(sv("circle", { class: s.cls === "grey" ? "pt grey" : "pt", "data-key": `${s.key}${p.x}`, cx: x(p.x), cy: y(p.y), r: small ? 2.5 : 3 }));
   }
   // event rules with labels stacked to avoid collisions
   const placed = [];
@@ -255,7 +262,7 @@ function lineChart(width, o) {
     const top = plotB + 40, dmax = Math.max(1, ...o.denom.map(d => d.n));
     const dy = lin(0, dmax, top + denomH, top);
     const bw = Math.max(1, (width - M.l - M.r) / Math.max(1, o.denom.length) - (o.denom.length > 60 ? 0.5 : 2));
-    for (const d of o.denom) svg.appendChild(sv("rect", { class: `denom ${d.thin ? "thin" : ""}`, x: x(d.x) - bw / 2, y: dy(d.n), width: bw, height: Math.max(0.5, top + denomH - dy(d.n)) }));
+    for (const d of o.denom) svg.appendChild(sv("rect", { class: `denom ${d.thin ? "thin" : ""}`, "data-key": `n${d.x}`, x: x(d.x) - bw / 2, y: dy(d.n), width: bw, height: Math.max(0.5, top + denomH - dy(d.n)) }));
     svg.appendChild(sv("text", { x: M.l, y: top - 3 }, `${o.denomLabel || "readable meetings"} (scale to ${NUM.format(dmax)})`));
   }
   // hover and keyboard focus over the first series
@@ -339,7 +346,7 @@ function dumbbell(width, rows, o = {}) {
   rows.forEach((r, i) => {
     const top = M.t + i * rowH;
     const cy = small ? top + 40 : top + rowH / 2;
-    const g = sv("g", {});
+    const g = sv("g", { "data-key": r.key });
     const hit = sv("rect", { class: "row-hit", x: 0, y: top + 2, width, height: rowH - 4, rx: 6, tabindex: o.onSelect ? 0 : null,
       role: o.onSelect ? "link" : null,
       "aria-label": `${r.label}, ${r.sub}: ${PCT(r.before)} before, ${PCT(r.after)} after${r.n !== undefined ? `, ${r.n} districts` : ""}` });
@@ -409,6 +416,91 @@ function stagger(els, step = 50) {
 function swapIn(el) {
   if (!canAnimate(el)) return;
   el.animate([{ opacity: 0, transform: "translateY(4px)" }, { opacity: 1, transform: "none" }], { duration: 150, easing: EASE_OUT });
+}
+// The strong ease-out (--ease-out) for motion driven frame by frame.
+function bezier(x1, y1, x2, y2) {
+  const at = (t, a, b) => ((1 - 3 * b + 3 * a) * t + (3 * b - 6 * a)) * t * t + 3 * a * t;
+  return p => {
+    let lo = 0, hi = 1, t = p;
+    for (let i = 0; i < 20; i++) { t = (lo + hi) / 2; if (at(t, x1, x2) < p) lo = t; else hi = t; }
+    return at(t, y1, y2);
+  };
+}
+const easeOut = bezier(0.23, 1, 0.32, 1);
+// A chart redrawn with new data glides there (220 ms) instead of being swapped.
+// Marks pair by data-key (their own, else their row's), tag, class and order;
+// unclassed text, the axis ticks, pairs by its words so "10%" slides to where
+// 10% now is. Numbers in each geometry attribute tween when the rest of the
+// string matches; paths that differ in shape crossfade; unpaired marks fade.
+// A redraw mid-tween starts from the frame on screen.
+const GEOM = { svg: ["width", "height", "viewBox"], circle: ["cx", "cy", "r"], rect: ["x", "y", "width", "height"], line: ["x1", "y1", "x2", "y2"], text: ["x", "y"], path: ["d"] };
+const NUMS = /-?\d*\.?\d+/g;
+const morphing = new WeakMap();
+function morph(box, next, duration = 220) {
+  morphing.get(box)?.();
+  const prev = box.firstElementChild;
+  const marks = svg => [...svg.querySelectorAll("circle, rect, line, text, path")].filter(el => !el.closest(".ghosts"));
+  if (!prev || prev.tagName !== "svg" || next.tagName !== "svg" || !canAnimate(next) || marks(prev).length > 1500) {
+    box.replaceChildren(next);
+    return;
+  }
+  const key = el => {
+    const own = el.getAttribute("data-key");
+    if (own) return `${el.tagName}#${own}`;
+    const cls = el.getAttribute("class") || "";
+    return `${el.closest("[data-key]")?.getAttribute("data-key") || ""}|${el.tagName}.${cls}${el.tagName === "text" && !cls ? `|${el.textContent}` : ""}`;
+  };
+  const pool = new Map();
+  for (const el of marks(prev)) { const k = key(el); if (!pool.has(k)) pool.set(k, []); pool.get(k).push(el); }
+  const tweens = [], fades = [], ghosts = sv("g", { class: "ghosts", "pointer-events": "none" });
+  const plan = (from, el, attr) => {
+    const a = from.getAttribute(attr), b = el.getAttribute(attr);
+    if (a === null || b === null || a === b) return true;
+    const pa = a.split(NUMS), pb = b.split(NUMS);
+    if (pa.length !== pb.length || pa.some((s, i) => s !== pb[i])) return false;
+    tweens.push({ el, attr, parts: pb, from: a.match(NUMS).map(Number), to: b.match(NUMS).map(Number), end: b });
+    el.setAttribute(attr, a);
+    return true;
+  };
+  const opacity = el => +(el.style.opacity || 1);
+  const fadeOut = old => { fades.push([old, opacity(old), 0]); ghosts.appendChild(old); };
+  let refocus = null;
+  for (const a of GEOM.svg) plan(prev, next, a);
+  for (const el of marks(next)) {
+    const old = pool.get(key(el))?.shift();
+    if (!old) { fades.push([el, 0, 1]); continue; }
+    if (old === document.activeElement) refocus = el;
+    if (opacity(old) < 1) fades.push([el, opacity(old), 1]);
+    if (!GEOM[el.tagName].every(a => plan(old, el, a))) { fadeOut(old); fades.push([el, 0, 1]); }
+  }
+  for (const rest of pool.values()) rest.forEach(fadeOut);
+  next.insertBefore(ghosts, next.firstChild);
+  for (const [el, a] of fades) el.style.setProperty("opacity", a);
+  box.replaceChildren(next);
+  if (refocus) refocus.focus({ preventScroll: true });
+  const t0 = performance.now();
+  let raf = 0;
+  const stop = done => {
+    cancelAnimationFrame(raf);
+    morphing.delete(box);
+    if (!done) return;
+    ghosts.remove();
+    for (const t of tweens) t.el.setAttribute(t.attr, t.end);
+    for (const [el] of fades) el.style.removeProperty("opacity");
+  };
+  const frame = now => {
+    const p = Math.min(1, (now - t0) / duration), e = easeOut(p);
+    for (const t of tweens) {
+      let s = t.parts[0];
+      for (let i = 0; i < t.to.length; i++) s += +(t.from[i] + (t.to[i] - t.from[i]) * e).toFixed(2) + t.parts[i + 1];
+      t.el.setAttribute(t.attr, s);
+    }
+    for (const [el, a, b] of fades) el.style.setProperty("opacity", (a + (b - a) * e).toFixed(3));
+    if (p < 1) raf = requestAnimationFrame(frame);
+    else stop(true);
+  };
+  morphing.set(box, () => stop(false));
+  raf = requestAnimationFrame(frame);
 }
 // Run fn once when el is a quarter in view, with a timeout backstop so a chart
 // below the fold in a screenshot or background tab is never left mid-state.
@@ -687,45 +779,155 @@ function coverageGrid(width, grid, o = {}) {
 }
 
 // ------------------------------------------------------------------ Texas dot map
+// Zoom keeps dots at their on-screen size, so a dense metro spreads apart
+// instead of every dot growing. District names appear once there is room.
 function dotMap(width, data, outline, o = {}) {
-  const lat0 = 31.2, k = Math.cos(lat0 * Math.PI / 180);
+  const lat0 = 31.2, kx = Math.cos(lat0 * Math.PI / 180);
   const pts = outline.rings.flat();
-  const X = lon => lon * k, Y = lat => -lat;
+  const X = lon => lon * kx, Y = lat => -lat;
   const minX = Math.min(...pts.map(p => X(p[0]))), maxX = Math.max(...pts.map(p => X(p[0])));
   const minY = Math.min(...pts.map(p => Y(p[1]))), maxY = Math.max(...pts.map(p => Y(p[1])));
   const pad = 12;
   const scale = (width - 2 * pad) / (maxX - minX);
   const H = Math.round((maxY - minY) * scale + 2 * pad);
   const px = lon => pad + (X(lon) - minX) * scale, py = lat => pad + (Y(lat) - minY) * scale;
-  const svg = sv("svg", { class: "c", viewBox: `0 0 ${width} ${H}`, width, height: H });
-  for (const ring of outline.rings) svg.appendChild(sv("path", { class: "state", d: ring.map((p, i) => `${i ? "L" : "M"}${px(p[0]).toFixed(1)},${py(p[1]).toFixed(1)}`).join("") + "Z" }));
+  const svg = sv("svg", { class: "c map", viewBox: `0 0 ${width} ${H}`, width, height: H });
+  const land = sv("g", {});
+  for (const ring of outline.rings) land.appendChild(sv("path", { class: "state", "vector-effect": "non-scaling-stroke", d: ring.map((p, i) => `${i ? "L" : "M"}${px(p[0]).toFixed(1)},${py(p[1]).toFixed(1)}`).join("") + "Z" }));
+  svg.appendChild(land);
   const maxEnr = Math.max(1, ...data.districts.map(d => d.enrollment || 0));
   const rmax = Math.max(7, width / 70);
   const rad = e => Math.max(1.6, Math.sqrt((e || 0) / maxEnr) * rmax);
   const g = sv("g", {});
-  const sorted = data.districts.filter(d => d.lat !== null).sort((a, b) => (b.enrollment || 0) - (a.enrollment || 0));
-  for (const d of sorted) {
+  const dots = data.districts.filter(d => d.lat !== null).sort((a, b) => (b.enrollment || 0) - (a.enrollment || 0))
+    .map(d => ({ d, x: px(d.lon), y: py(d.lat), r: rad(d.enrollment) }));
+  for (const p of dots) {
+    const d = p.d;
     const cls = !d.all_meetings ? "none" : !d.passes ? "hollow" : d.share === null ? "ink" : `q${o.bin(d.share)}`;
-    const c = sv("circle", { class: `md ${cls}`, cx: px(d.lon).toFixed(1), cy: py(d.lat).toFixed(1), r: rad(d.enrollment).toFixed(1) });
-    c.addEventListener("pointerenter", ev => Tip.show(o.tip(d), { x: ev.clientX, y: ev.clientY }, ev.pointerType !== "mouse"));
-    c.addEventListener("pointerleave", ev => { if (ev.pointerType === "mouse") Tip.hide(); });
-    c.addEventListener("click", ev => { if (ev.pointerType === "mouse" || ev.detail === 0) o.onSelect && o.onSelect(d); else Tip.show(o.tip(d, true), null, true); });
-    g.appendChild(c);
+    p.el = sv("circle", { class: `md ${cls}`, r: p.r.toFixed(1) });
+    p.el.addEventListener("pointerenter", ev => Tip.show(o.tip(d), { x: ev.clientX, y: ev.clientY }, ev.pointerType !== "mouse"));
+    p.el.addEventListener("pointerleave", ev => { if (ev.pointerType === "mouse") Tip.hide(); });
+    p.el.addEventListener("click", ev => { if (moved) return; if (ev.pointerType === "mouse" || ev.detail === 0) o.onSelect && o.onSelect(d); else Tip.show(o.tip(d, true), null, true); });
+    g.appendChild(p.el);
   }
   svg.appendChild(g);
-  // Event rings, with labels tried right, left, below and above until they clear earlier labels.
-  const boxes = (data.events || []).map(e => ({ x0: px(e.lon) - 10, x1: px(e.lon) + 10, y0: py(e.lat) - 10, y1: py(e.lat) + 10 }));
-  for (const e of (data.events || []).slice().sort((a, b) => a.lon - b.lon)) {
-    const ex = px(e.lon), ey = py(e.lat);
-    svg.appendChild(sv("circle", { class: "evring", cx: ex, cy: ey, r: 9 }));
-    const text = narrow(width) ? e.short : `${e.short} · ${dateLabel(e.date)}`;
-    const w = text.length * 6.6, hgt = 12;
-    const tries = [[ex + 12, ey + 4, "start"], [ex - 12, ey + 4, "end"], [ex - w / 2, ey + 24, "start"], [ex - w / 2, ey - 16, "start"], [ex + 12, ey + 18, "start"], [ex + 12, ey - 10, "start"]];
-    const box = ([tx, ty, anchor]) => { const x0 = anchor === "end" ? tx - w : tx; return { x0, x1: x0 + w, y0: ty - hgt + 2, y1: ty + 2 }; };
-    const clear = b => b.x0 >= 0 && b.x1 <= width && !boxes.some(o => b.x0 < o.x1 && b.x1 > o.x0 && b.y0 < o.y1 && b.y1 > o.y0);
-    const pick = tries.find(t => clear(box(t))) || tries[0];
-    boxes.push(box(pick));
-    svg.appendChild(sv("text", { class: "lab halo", x: pick[0], y: pick[1], "text-anchor": pick[2] }, text));
-  }
-  return svg;
+  const names = sv("g", { class: "names", "aria-hidden": "true" }), rings = sv("g", {}), labels = sv("g", {});
+  svg.append(names, rings, labels);
+  const events = (data.events || []).slice().sort((a, b) => a.lon - b.lon).map(e => ({ e, x: px(e.lon), y: py(e.lat) }));
+  for (const ev of events) { ev.ring = sv("circle", { class: "evring", r: 9 }); rings.appendChild(ev.ring); }
+
+  // View state: screen = base * k + t. Clamped so Texas always fills the frame.
+  let k = 1, tx = 0, ty = 0, moved = false;
+  const KMAX = 12;
+  const clamp = () => { k = Math.min(KMAX, Math.max(1, k)); tx = Math.min(0, Math.max(width - width * k, tx)); ty = Math.min(0, Math.max(H - H * k, ty)); };
+  const overlaps = (b, list) => list.some(o => b.x0 < o.x1 && b.x1 > o.x0 && b.y0 < o.y1 && b.y1 > o.y0);
+  const render = () => {
+    land.setAttribute("transform", `translate(${tx.toFixed(2)},${ty.toFixed(2)}) scale(${k.toFixed(4)})`);
+    const grow = Math.pow(k, 0.3);  // dots grow a little so a zoomed view still reads as zoomed
+    for (const p of dots) { p.sx = p.x * k + tx; p.sy = p.y * k + ty; p.el.setAttribute("cx", p.sx.toFixed(1)); p.el.setAttribute("cy", p.sy.toFixed(1)); p.el.setAttribute("r", (p.r * grow).toFixed(1)); }
+    // Event rings and labels: tried right, left, below and above until they clear.
+    const boxes = [];
+    for (const ev of events) { ev.sx = ev.x * k + tx; ev.sy = ev.y * k + ty; ev.ring.setAttribute("cx", ev.sx); ev.ring.setAttribute("cy", ev.sy); boxes.push({ x0: ev.sx - 10, x1: ev.sx + 10, y0: ev.sy - 10, y1: ev.sy + 10 }); }
+    const evLabels = [];
+    for (const ev of events) {
+      const { sx: ex, sy: ey } = ev;
+      if (ex < 0 || ex > width || ey < 0 || ey > H) continue;
+      const text = narrow(width) ? ev.e.short : `${ev.e.short} · ${dateLabel(ev.e.date)}`;
+      const w = text.length * 6.6, hgt = 12;
+      const tries = [[ex + 12, ey + 4, "start"], [ex - 12, ey + 4, "end"], [ex - w / 2, ey + 24, "start"], [ex - w / 2, ey - 16, "start"], [ex + 12, ey + 18, "start"], [ex + 12, ey - 10, "start"]];
+      const box = ([x, y, anchor]) => { const x0 = anchor === "end" ? x - w : x; return { x0, x1: x0 + w, y0: y - hgt + 2, y1: y + 2 }; };
+      const pick = tries.find(t => { const b = box(t); return b.x0 >= 0 && b.x1 <= width && !overlaps(b, boxes); });
+      if (!pick) continue;
+      boxes.push(box(pick));
+      evLabels.push(sv("text", { class: "lab halo", x: pick[0], y: pick[1], "text-anchor": pick[2] }, text));
+    }
+    labels.replaceChildren(...evLabels);
+    // District names from about 3x, largest districts first, skipping any that would collide.
+    const nameEls = [];
+    if (k >= 3) {
+      const marks = dots.filter(p => p.sx > -20 && p.sx < width + 20 && p.sy > -20 && p.sy < H + 20)
+        .map(p => { const r = p.r * grow + 1; return { x0: p.sx - r, x1: p.sx + r, y0: p.sy - r, y1: p.sy + r }; });
+      for (const p of dots) {
+        if (p.sx < 0 || p.sx > width || p.sy < 0 || p.sy > H) continue;
+        const text = p.d.school_district, w = text.length * 5.6, r = p.r * grow;
+        const b = { x0: p.sx + r + 3, x1: p.sx + r + 3 + w, y0: p.sy - 6, y1: p.sy + 6 };
+        if (b.x1 > width || overlaps(b, boxes) || overlaps(b, marks)) continue;
+        boxes.push(b);
+        nameEls.push(sv("text", { class: "dname halo", x: b.x0, y: p.sy + 4 }, text));
+        if (nameEls.length >= 160) break;
+      }
+    }
+    names.replaceChildren(...nameEls);
+  };
+  let raf = 0;
+  const schedule = () => { if (!raf) raf = requestAnimationFrame(() => { raf = 0; render(); }); };
+  // Zoom by factor f about the screen point (cx, cy); buttons and double-click glide, gestures follow directly.
+  let anim = 0;
+  const zoomAt = (f, cx, cy, glide) => {
+    const k0 = k, t0x = tx, t0y = ty;
+    k = k0 * f; clamp();
+    const real = k / k0;
+    tx = cx - (cx - t0x) * real; ty = cy - (cy - t0y) * real; clamp();
+    if (!glide || reducedMotion()) { schedule(); sync(); return; }
+    const k1 = k, t1x = tx, t1y = ty, start = performance.now();
+    cancelAnimationFrame(anim);
+    const step = now => {
+      const pr = Math.min(1, (now - start) / 180), e = easeOut(pr);
+      k = k0 + (k1 - k0) * e; tx = t0x + (t1x - t0x) * e; ty = t0y + (t1y - t0y) * e;
+      render();
+      if (pr < 1) anim = requestAnimationFrame(step); else sync();
+    };
+    anim = requestAnimationFrame(step);
+  };
+  const toLocal = (clientX, clientY) => { const r = svg.getBoundingClientRect(); return [(clientX - r.left) * width / r.width, (clientY - r.top) * H / r.height]; };
+  // Trackpad pinch arrives as ctrl+wheel; a plain wheel scrolls the page as usual.
+  svg.addEventListener("wheel", ev => {
+    if (!ev.ctrlKey && !ev.metaKey) { hint.classList.add("show"); clearTimeout(hint.t); hint.t = setTimeout(() => hint.classList.remove("show"), 1400); return; }
+    ev.preventDefault();
+    const [cx, cy] = toLocal(ev.clientX, ev.clientY);
+    zoomAt(Math.exp(-ev.deltaY * 0.01), cx, cy, false);
+  }, { passive: false });
+  svg.addEventListener("dblclick", ev => { ev.preventDefault(); const [cx, cy] = toLocal(ev.clientX, ev.clientY); zoomAt(ev.shiftKey ? 0.5 : 2, cx, cy, true); });
+  // Pointer drag pans with one mouse button; on touch, one finger scrolls the page and two fingers pan and pinch.
+  const down = new Map();
+  let last = null;
+  svg.addEventListener("pointerdown", ev => {
+    down.set(ev.pointerId, toLocal(ev.clientX, ev.clientY));
+    moved = false;
+    if (ev.pointerType === "mouse" ? k > 1 : down.size === 2) { last = centroid(); svg.setPointerCapture(ev.pointerId); svg.classList.add("grabbing"); }
+  });
+  const centroid = () => { const v = [...down.values()]; const c = v.reduce((a, p) => [a[0] + p[0] / v.length, a[1] + p[1] / v.length], [0, 0]); const d = v.length === 2 ? Math.hypot(v[0][0] - v[1][0], v[0][1] - v[1][1]) : 0; return { c, d }; };
+  svg.addEventListener("pointermove", ev => {
+    if (!down.has(ev.pointerId)) return;
+    down.set(ev.pointerId, toLocal(ev.clientX, ev.clientY));
+    if (!last || (ev.pointerType !== "mouse" && down.size < 2)) return;
+    const now = centroid();
+    if (Math.hypot(now.c[0] - last.c[0], now.c[1] - last.c[1]) > 3) moved = true;
+    tx += now.c[0] - last.c[0]; ty += now.c[1] - last.c[1];
+    if (last.d && now.d) { const f = now.d / last.d; const k0 = k; k *= f; clamp(); const real = k / k0; tx = now.c[0] - (now.c[0] - tx) * real; ty = now.c[1] - (now.c[1] - ty) * real; moved = true; }
+    clamp(); last = now; schedule();
+  });
+  const up = ev => { down.delete(ev.pointerId); if (down.size < (ev.pointerType === "mouse" ? 1 : 2)) { last = null; svg.classList.remove("grabbing"); sync(); } else last = centroid(); };
+  svg.addEventListener("pointerup", up);
+  svg.addEventListener("pointercancel", up);
+
+  const btn = (label, text, fn) => h("button", { type: "button", "aria-label": label, title: label, onclick: fn }, text);
+  const zin = btn("Zoom in", "+", () => zoomAt(2, width / 2, H / 2, true));
+  const zout = btn("Zoom out", "−", () => zoomAt(0.5, width / 2, H / 2, true));
+  const reset = btn("Show all of Texas", "Reset", () => zoomAt(1 / k, width / 2, H / 2, true));
+  const sync = () => { zout.disabled = reset.disabled = k <= 1.001; zin.disabled = k >= KMAX - 0.001; };
+  const hint = h("p", { class: "map-hint", "aria-hidden": "true" }, "Ctrl + scroll or pinch to zoom");
+  const wrap = h("div", { class: "map-wrap", tabindex: 0, "aria-label": "Map of Texas districts. Plus and minus keys zoom, arrow keys pan.",
+    onkeydown: ev => {
+      const pan = { ArrowLeft: [60, 0], ArrowRight: [-60, 0], ArrowUp: [0, 60], ArrowDown: [0, -60] }[ev.key];
+      if (ev.target !== wrap) return;
+      if (ev.key === "+" || ev.key === "=") zoomAt(2, width / 2, H / 2, true);
+      else if (ev.key === "-") zoomAt(0.5, width / 2, H / 2, true);
+      else if (ev.key === "0") zoomAt(1 / k, width / 2, H / 2, true);
+      else if (pan && k > 1) { tx += pan[0]; ty += pan[1]; clamp(); schedule(); }
+      else return;
+      ev.preventDefault();
+    } }, svg, h("div", { class: "map-zoom" }, zin, zout, reset), hint);
+  render(); sync();
+  return wrap;
 }

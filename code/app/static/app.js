@@ -313,9 +313,10 @@ function ocrSection(o) {
       "Scanned PDFs have no text layer, so their pages are read by an OCR model (",
       o.model ? o.model.split(";")[0] : "Indra OCR", `), on the computer's processor with a ${o.cpus}-core cap. `,
       "Pages that already have text keep it."),
-    h("div", { class: "cols" },
-      h("div", {}, bar(o.documents_done, o.documents_total),
-        h("p", { class: "small" }, `${num(o.documents_done)} of ${num(o.documents_total)} scanned documents done (${pct(o.documents_done, o.documents_total)}).`))),
+    h("div", { class: "meter" },
+      h("p", { class: "meter-count" }, h("b", {}, num(o.documents_done)), ` of ${num(o.documents_total)} scanned documents read`,
+        h("span", {}, pct(o.documents_done, o.documents_total))),
+      bar(o.documents_done, o.documents_total, "ocr")),
     h("dl", { class: "facts" },
       fact("Status", stale ? h("span", { class: "warn-text" }, state) : state,
         stale ? "No update in over 10 minutes" : `Updated ${ago(o.updated_at)}`),
@@ -332,13 +333,19 @@ function stageRow(label, n, total) {
   return h("tr", {}, h("td", {}, label), h("td", { class: "num" }, num(n)),
     h("td", { class: "num" }, total ? pct(n, total) : h("span", { class: "muted" }, "–")));
 }
-function bar(n, total) {
-  const w = total ? Math.max(1, Math.round(100 * n / total)) : 0;
-  const outer = h("div", { class: "bar", role: "presentation" });
+// A bar named by `key` slides from the value it showed on the last refresh.
+const barShown = {};
+function bar(n, total, key) {
+  const share = total ? Math.max(0.01, n / total) : 0;
   const inner = h("span", {});
-  inner.style.width = `${w}%`;
-  outer.appendChild(inner);
-  return outer;
+  inner.style.transform = `scaleX(${share})`;
+  if (key) {
+    const from = barShown[key];
+    barShown[key] = share;
+    if (from !== undefined && from !== share && !reducedMotion())
+      inner.animate([{ transform: `scaleX(${from})` }, { transform: `scaleX(${share})` }], { duration: 400, easing: EASE_OUT });
+  }
+  return h("div", { class: "bar", role: "presentation" }, inner);
 }
 function terms() {
   return h("dl", { class: "terms" },
