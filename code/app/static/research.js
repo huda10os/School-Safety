@@ -59,7 +59,7 @@ function chipEl(chip, extra) {
   const unread = chip.minutes_unread_share;
   return h("a", { class: "chip", href: "#/coverage" },
     h("span", {}, `Showing ${num(chip.meetings)} readable meetings from ${num(chip.districts)} districts`),
-    unread !== null && unread !== undefined ? h("span", { class: "k" }, `${PCT(unread)} of minutes not yet read`) : null,
+    unread !== null && unread !== undefined && unread >= 0.005 ? h("span", { class: "k" }, `${PCT(unread)} of minutes not yet read`) : null,
     extra ? h("span", { class: "k" }, extra) : null,
     metaCache?.measures && !metaCache.calibrated ? h("span", { class: "k" }, "Version 1*: labels use starting cutoffs; accuracy not yet measured") : null);
 }
@@ -188,8 +188,9 @@ async function pageStory(token) {
   const steps = [
     { scene: "dots", head: `${num(s.documents)} meeting records from ${s.districts_with_records === s.districts_total ? "all" : `${num(s.districts_with_records)} of`} ${num(s.districts_total)} Texas school districts.`,
       body: [`Agendas and minutes posted online since ${s.first_year}. Each dot is one district.`] },
-    { scene: "dots", head: "We can't read all of them yet.",
-      body: [`${PCT(unread)} of minutes are scanned pages still waiting for OCR, so every share on this page is a lower bound.`], key: [
+    { scene: "dots", head: unread >= 0.005 ? "We can't read all of them yet." : "Scanned pages were read by OCR.",
+      body: [unread >= 0.005 ? `${PCT(unread)} of minutes are scanned pages still waiting for OCR, so every share on this page is a lower bound.`
+        : `Many small districts post scanned PDFs with no text layer, so an OCR model read their pages. ${num(s.chip.scans_unread)} documents are still unreadable, and some districts post nothing online.`], key: [
       ["readable", `Text we can read: ${num(counts.readable)} districts`], ["scan", `Mostly scans not yet read: ${num(counts.scan)}`],
       ["unavailable", `Listed, but the text is unavailable: ${num(counts.unavailable)}`], ["none", `No record found online: ${num(counts.none)}`]],
       cap: "A district is drawn by the state most of its documents are in." },
@@ -212,7 +213,7 @@ async function pageStory(token) {
     { scene: "line",
       head: pre && pre.after_actual !== null ? [rising ? "Part of that rise was already under way. " : "", "After Uvalde: ", A(shareText(pre.after_actual)), `, against ${shareText(pre.after_projected)} on the earlier trend.`]
         : "Was the share already rising before Uvalde?",
-      body: [pre && pre.after_actual !== null ? `In the two years before, the share was ${rising ? "rising" : pre.slope_per_year < -0.005 ? "falling" : "roughly flat"} by about ${Math.abs(Math.round(pre.slope_per_year * 100))} point${Math.abs(Math.round(pre.slope_per_year * 100)) === 1 ? "" : "s"} a year. The dotted line carries that trend forward, so the gap between it and the solid line is the part a trend alone does not explain.${lastFull ? ` Unlike after Santa Fe, it has not gone back: ${shareText(lastFull.share)} in ${yr(lastFull)}.` : ""}`
+      body: [pre && pre.after_actual !== null ? `In the two years before, the share was ${rising || pre.slope_per_year < -0.005 ? `${rising ? "rising" : "falling"} by about ${Math.max(1, Math.abs(Math.round(pre.slope_per_year * 100)))} point${Math.abs(Math.round(pre.slope_per_year * 100)) > 1 ? "s" : ""} a year` : "roughly flat"}. The dotted line carries that trend forward, so the gap between it and the solid line is the part a trend alone does not explain.${lastFull ? ` Unlike after Santa Fe, it has not gone back: ${shareText(lastFull.share)} in ${yr(lastFull)}.` : ""}`
         : "When the measures are ready, this step compares the year after Uvalde with the trend in the two years before it, so a rise that started earlier is not credited to the shooting."],
       cap: "Observational, not causal. Other things changed at the same time, including new state law after Uvalde." },
     { scene: "multiples", hl: "a",
@@ -443,7 +444,7 @@ async function pageExplore(token, _parts, params) {
         caption: [t.measures ? `Share of readable minutes and agendas mentioning ${label}, one meeting counted once. ` : "Readable minutes and agendas per month, one meeting counted once. ",
           `${num(t.chip.districts)} districts, ${num(t.chip.meetings)} meetings.${stableNote} `,
           t.measures && t.chip.not_screened ? `${num(t.chip.not_screened)} readable meetings are not screened yet. ` : "",
-          `Scans not yet read by OCR are excluded (${PCT(t.chip.minutes_unread_share)} of minutes), so counts are lower bounds. ${STANDING}`],
+          t.chip.minutes_unread_share >= 0.005 ? `Scans not yet read by OCR are excluded (${PCT(t.chip.minutes_unread_share)} of minutes), so counts are lower bounds. ${STANDING}` : STANDING],
         table: { columns: [st.grain === "year" ? "Year" : st.grain === "quarter" ? "Quarter" : "Month", "Readable meetings", "Mentions", "Uncertain", "Share", "95% interval", "Districts"], rows, caption: label },
         csv,
       }),
