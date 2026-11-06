@@ -154,7 +154,7 @@ function render(...nodes) {
   main.replaceChildren(...nodes.flat().filter(Boolean));
 }
 function failure(err) {
-  render(h("h1", { text: "Something went wrong" }), h("p", { class: "bad-text" }, String(err.message || err)),
+  render(h("h1", { text: "This page did not load" }), h("p", { class: "bad-text" }, String(err.message || err)),
     h("p", { class: "muted" }, "The server may be restarting. Reload the page in a moment."));
 }
 function field(label, control) {
@@ -207,10 +207,13 @@ function route() {
   const { parts, params } = parseHash();
   const page = parts[0] || "story";
   const navFor = { district: "districts", record: "records", board: "explore", coverage: "explore", event: "events" };
-  for (const a of document.querySelectorAll("nav a")) {
+  for (const a of document.querySelectorAll(".top nav a")) {
     const active = a.dataset.nav === page || a.dataset.nav === navFor[page];
     if (active) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current");
   }
+  // On narrow screens the nav scrolls sideways; keep the current page's link in view.
+  const nav = document.querySelector(".top nav"), cur = nav?.querySelector('[aria-current="page"]');
+  if (cur && nav.scrollWidth > nav.clientWidth) nav.scrollLeft = Math.max(0, cur.offsetLeft - nav.offsetLeft - (nav.clientWidth - cur.offsetWidth) / 2);
   const pages = { progress: pageProgress, districts: pageDistricts, district: pageDistrict, records: pageRecords, record: pageRecord,
     ...(window.RESEARCH_PAGES || {}) };
   const fn = pages[page] || pages.story || pageProgress;

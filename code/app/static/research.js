@@ -57,7 +57,7 @@ function pending(what) {
 }
 function chipEl(chip, extra) {
   const unread = chip.minutes_unread_share;
-  return h("a", { class: "chip", href: "#/coverage", "aria-live": "polite" },
+  return h("a", { class: "chip", href: "#/coverage" },
     h("span", {}, `Showing ${num(chip.meetings)} readable meetings from ${num(chip.districts)} districts`),
     unread !== null && unread !== undefined ? h("span", { class: "k" }, `${PCT(unread)} of minutes not yet read`) : null,
     extra ? h("span", { class: "k" }, extra) : null);
@@ -166,7 +166,7 @@ async function pageStory(token) {
   render(h("div", { class: "r" }, hero, m.measures ? null : pending("The story's first steps use the archive itself; the findings steps wait for the measures."),
     h("section", { class: "scrolly", "aria-label": "Story" }, graphic, h("div", { class: "steps" }, stepEls)),
     h("h2", {}, "Look for yourself"),
-    h("nav", { class: "closing", "aria-label": "Next" },
+    h("nav", { class: "closing", "aria-label": "Where to go next" },
       h("a", { href: "#/explore" }, h("b", {}, "Explore every district"), h("span", {}, "The statewide trend with filters, and every district's meetings.")),
       h("a", { href: "#/events" }, h("b", {}, "See any shooting before and after"), h("span", {}, "Nearby districts against the rest of Texas, and the words that changed.")),
       h("a", { href: "#/method" }, h("b", {}, "How we built this"), h("span", {}, "Definitions, accuracy, coverage and what the records cannot show."))),
@@ -341,7 +341,8 @@ async function pageExplore(token, _parts, params) {
         summary: finding ? finding.map(x => typeof x === "string" ? x : x.textContent).join("") : "Counts of readable meetings over time.",
         chart: box,
         legend: legendList(t.measures ? [["line", "Share of readable meetings"], ["band", "95% interval"], ["thin", "Fewer than 30 meetings"], ["rule", "Shooting"]] : [["rule", "Shooting"]]),
-        caption: [`Share of readable minutes and agendas mentioning ${label}, one meeting counted once. ${num(t.chip.districts)} districts, ${num(t.chip.meetings)} meetings.${stableNote} `,
+        caption: [t.measures ? `Share of readable minutes and agendas mentioning ${label}, one meeting counted once. ` : "Readable minutes and agendas per month, one meeting counted once. ",
+          `${num(t.chip.districts)} districts, ${num(t.chip.meetings)} meetings.${stableNote} `,
           t.measures && t.chip.not_screened ? `${num(t.chip.not_screened)} readable meetings are not screened yet. ` : "",
           `Scans not yet read by OCR are excluded (${PCT(t.chip.minutes_unread_share)} of minutes), so counts are lower bounds. ${STANDING}`],
         table: { columns: [st.grain === "year" ? "Year" : st.grain === "quarter" ? "Quarter" : "Month", "Readable meetings", "Mentions", "Uncertain", "Share", "95% interval", "Districts"], rows, caption: label },
@@ -744,7 +745,8 @@ async function searchResults(box, st, offset, token) {
   try { r = await api("search", { ...st, offset }); } catch (err) { box.replaceChildren(h("p", { class: "bad-text" }, String(err.message))); return; }
   if (token !== routeToken) return;
   const ol = offset ? box.querySelector("ol.results") : h("ol", { class: "results" });
-  if (!offset) box.replaceChildren(h("p", { class: "cap" }, r.items.length ? `${r.more ? "More than " : ""}${num(offset + r.items.length)} result${r.items.length === 1 ? "" : "s"}, newest first · ${r.seconds} s` : "No results."), ol,
+  if (!offset) box.replaceChildren(h("p", { class: "cap" }, r.items.length ? `${r.more ? "More than " : ""}${num(offset + r.items.length)} result${r.items.length === 1 ? "" : "s"}, newest first · ${r.seconds} s`
+    : `No results for “${st.q}”. ${st.scope === "passages" ? "Try a shorter word, or search the full text of every document." : "Try a shorter word or a wider range of years."}`), ol,
     h("div", { class: "fig-tools" }, h("a", { href: `api/search?${qs({ ...st, format: "csv" })}` }, "Download these results (CSV)")));
   box.querySelector(".pager")?.remove();
   for (const it of r.items) ol.appendChild(h("li", {},
@@ -813,7 +815,7 @@ async function pageMethod(token) {
         h("p", {}, "It has fewer readable meetings in the chosen years than the threshold you set (12 by default), so a share would be too noisy to colour. A dotted outline means no records were found for it online.")),
       q("How are the words that changed chosen?",
         h("p", {}, "For each event we take the measured document of every meeting in nearby districts in the window, split into before and after, and count the documents containing each word. Words are ranked by the weighted log-odds ratio with an informative Dirichlet prior (Monroe, Colaresi and Quinn 2008, “Fightin’ Words”), using the pooled before-and-after counts as the prior, and its z-score."),
-        h("p", {}, "Filters: common English words, months and weekdays are removed; a word must appear in at least 15% of the districts on the side it favours (at least 3); words almost never written in lower case, mostly people's names, are dropped. Click a word to read every passage. A word that changes is not evidence of why it changed.")),
+        h("p", {}, "Filters: common English words, months and weekdays are removed; a word must appear in at least 15% of the districts on the side it favours (at least 3); words almost never written in lower case, mostly people's names, are dropped. Select a word to read every passage. A word that changes is not evidence of why it changed.")),
       q("Assumptions in the current definitions",
         d.assumptions.length ? d.assumptions.map(a => h("div", { class: "assumption" }, h("p", { class: "over" }, (a.path || "general").replace(/\.label$/, "").replace(/_/g, " ").split(".").join(" › ")), h("p", {}, a.text))) : h("p", {}, "None listed.")),
       q("Can I download the data?",

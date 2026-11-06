@@ -445,23 +445,37 @@ function meetingTicks(width, m, o = {}) {
   const small = narrow(width);
   const H = small ? 200 : 230;
   const M = { t: 30, r: 14, b: 22, l: 40 };
-  const tickTop = H - M.b - 30, tickBot = H - M.b - 4;
   const x0 = ms(o.from || m.meetings[0]?.date || "2010-01-01"), x1 = ms(o.to || new Date().toISOString().slice(0, 10));
   const x = lin(x0, x1, M.l, width - M.r);
+  // event labels stacked in rows so nearby events do not print over each other
+  const placed = [], evLabels = [];
+  for (const e of (o.events || []).slice().sort((a, b) => a.date.localeCompare(b.date))) {
+    const ex = x(ms(e.date));
+    if (ex < M.l || ex > width - M.r) continue;
+    const text = small ? e.short : e.labelShort, wEst = text.length * 6.6;
+    const anchorEnd = ex + 4 + wEst > width;
+    const lx0 = anchorEnd ? ex - 4 - wEst : ex + 4;
+    let row = 0;
+    while (placed.some(p => p.row === row && !(lx0 + wEst < p.x0 || lx0 > p.x1))) row++;
+    placed.push({ row, x0: lx0, x1: lx0 + wEst });
+    evLabels.push({ ex, text, row, anchorEnd });
+  }
+  const rows = evLabels.length ? Math.max(...evLabels.map(l => l.row)) + 1 : 1;
+  M.t += (rows - 1) * 13;
+  const H2 = H + (rows - 1) * 13;
+  const tickTop = H2 - M.b - 30, tickBot = H2 - M.b - 4;
   const y = lin(0, 1, tickTop - 10, M.t);
-  const svg = sv("svg", { class: "c", viewBox: `0 0 ${width} ${H}`, width, height: H });
+  const svg = sv("svg", { class: "c", viewBox: `0 0 ${width} ${H2}`, width, height: H2 });
   for (const t of [0, 0.5, 1]) {
     svg.appendChild(sv("line", { class: t ? "grid" : "base", x1: M.l, x2: width - M.r, y1: y(t), y2: y(t) }));
     svg.appendChild(sv("text", { x: M.l - 6, y: y(t) + 4, "text-anchor": "end" }, PCT(t)));
   }
   const y0 = new Date(x0).getUTCFullYear(), y1 = new Date(x1).getUTCFullYear();
   const every = Math.ceil((y1 - y0 + 1) / (small ? 4 : 9));
-  for (let yr = y0; yr <= y1; yr++) if ((yr - y0) % every === 0) svg.appendChild(sv("text", { x: x(Date.UTC(yr, 0, 1)), y: H - 6, "text-anchor": "middle" }, String(yr)));
-  for (const e of o.events || []) {
-    const ex = x(ms(e.date));
-    if (ex < M.l || ex > width - M.r) continue;
-    svg.appendChild(sv("line", { class: "rule", x1: ex, x2: ex, y1: M.t - 8, y2: tickBot }));
-    svg.appendChild(sv("text", { class: "lab", x: ex + 4, y: M.t - 14 }, small ? e.short : e.labelShort));
+  for (let yr = y0; yr <= y1; yr++) if ((yr - y0) % every === 0) svg.appendChild(sv("text", { x: x(Date.UTC(yr, 0, 1)), y: H2 - 6, "text-anchor": "middle" }, String(yr)));
+  for (const l of evLabels) {
+    svg.appendChild(sv("line", { class: "rule", x1: l.ex, x2: l.ex, y1: 22 + l.row * 13, y2: tickBot }));
+    svg.appendChild(sv("text", { class: "lab halo", x: l.anchorEnd ? l.ex - 4 : l.ex + 4, y: 16 + l.row * 13, "text-anchor": l.anchorEnd ? "end" : "start" }, l.text));
   }
   const tw = Math.max(1, Math.min(3, (width - M.l - M.r) / Math.max(1, m.meetings.length) * 0.8));
   for (const d of m.scan_dates || []) svg.appendChild(sv("rect", { class: "tick-scan", x: x(ms(d)) - tw / 2, y: tickTop, width: Math.max(tw, 2), height: tickBot - tickTop }));
