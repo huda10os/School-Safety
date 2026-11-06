@@ -77,6 +77,7 @@ class Store:
         self._status_stats: dict[str, tuple] = {}
         self._csv_cache: dict[str, tuple] = {}
         self.last_change = 0.0
+        self._dates_from = None
         self.index_state = {"running": False, "files_total": 0, "files_done": 0,
                             "first_pass_done": False, "last_pass_at": None, "last_pass_seconds": None}
         self._cache: dict[str, tuple[float, object]] = {}
@@ -168,6 +169,14 @@ class Store:
                     except FileNotFoundError:
                         pass  # replaced mid-read; next pass picks it up
                     self.index_state["files_done"] += 1
+                # Staging keeps dates as first parsed; the build corrects implausible
+                # website dates (build_dataset._redate). Show the built date once it exists.
+                if staging_present and parquet.exists():
+                    mtime = parquet.stat().st_mtime
+                    if todo or mtime != self._dates_from:
+                        self._apply_built_dates(con, parquet)
+                        self._dates_from = mtime
+                        todo = todo or [None]
                 if todo:
                     self._cache.clear()
                 return {"changed": len(todo)}
@@ -175,6 +184,16 @@ class Store:
                 self.index_state.update(running=False, first_pass_done=True,
                                         last_pass_at=datetime.now(timezone.utc).isoformat(),
                                         last_pass_seconds=round(time.time() - started, 2))
+
+    def _apply_built_dates(self, con, parquet: Path) -> None:
+        try:
+            con.execute("CREATE OR REPLACE TEMP TABLE built_dates AS SELECT record_id, date FROM read_parquet(?)", [str(parquet)])
+            for table in ("records", "listings"):
+                con.execute(f"""UPDATE {table} SET date = b.date FROM built_dates b
+                    WHERE {table}.record_id = b.record_id AND {table}.date IS DISTINCT FROM b.date""")
+            con.execute("DROP TABLE built_dates")
+        except duckdb.Error:
+            pass  # parquet mid-write; the next pass retries
 
     def _read_status(self, entry) -> None:
         st = entry.stat()
