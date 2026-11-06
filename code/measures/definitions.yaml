@@ -1,0 +1,129 @@
+# Measure definitions for Texas school board meetings.
+#
+# Edit this file to change what counts as a safety or temperament mention;
+# bump `version` and re-run code/measures/run.py. Rules re-run instantly; model
+# labels are cached per (passage text, question wording, model), so only
+# passages whose candidate status or question wording changed are re-labelled.
+#
+# Every entry marked ASSUMPTION is our working choice, made because the
+# research brief defines the measures only as: "a flag on whether any topic of
+# security or safety was mentioned" and "any mention of temperament of
+# students or teachers like scared, acting out, stressed, happy".
+
+version: "2026-11-06.1"
+
+passages:
+  # A passage is the text around a candidate term, merged with neighbours.
+  window_chars: 300          # characters kept on each side of a hit
+  merge_gap_chars: 150       # hits closer than this join one passage
+  max_passage_chars: 2400    # longer merged passages are split
+
+safety:
+  description: >
+    Discussion of protecting students or staff from intentional harm or
+    threats of violence, and the people, plans, equipment and services used
+    for that protection.
+  # ASSUMPTION: "safety or security" means protection from violence and
+  # threats, not every use of the word "safety". Excluded senses below are
+  # kept as separate optional flags so they can be added back.
+  subtopics:
+    armed_staff:
+      label: "Armed staff / Guardian program"
+      terms: ["guardian program", "guardian plan", "school marshal", "armed staff", "arm teachers", "armed teachers", "concealed carry", "license to carry", "chl", "ltc"]
+    police_sro:
+      label: "Police and school resource officers"
+      terms: ["school resource officer", "resource officer", "sro", "school police", "police department", "police officer", "peace officer", "law enforcement", "security officer", "security guard", "armed security", "constable", "sheriff", "interlocal agreement for security"]
+    hardening:
+      label: "Building security and hardening"
+      terms: ["security camera", "surveillance camera", "camera system", "metal detector", "access control", "secure entry", "secured entry", "single point of entry", "vestibule", "door lock", "locking system", "keyless entry", "badge access", "bullet resistant", "ballistic", "window film", "fencing", "intruder", "panic button", "silent alarm", "school safety and security audit", "safety and security audit", "hb 3", "house bill 3", "school safety allotment", "safety allotment", "school safety and security grant"]
+    threat_assessment:
+      label: "Threat assessment"
+      terms: ["threat assessment", "behavioral threat", "threat team", "threatening", "terroristic threat", "anonymous tip", "stop it app", "stopit", "tip line", "school safety app"]
+    drills_emergency:
+      label: "Drills and emergency plans"
+      terms: ["lockdown", "active shooter", "active threat", "intruder drill", "standard response protocol", "emergency operations plan", "emergency operation plan", "emergency management plan", "multi-hazard", "safety drill", "evacuation drill", "shelter in place", "reunification", "texas school safety center", "txssc"]
+    mental_health:
+      label: "Mental health and counseling (safety-related)"
+      # ASSUMPTION: mental health counts as safety only when the passage ties
+      # it to safety, threats or crisis; the model question asks for that.
+      terms: ["mental health", "counseling services", "crisis counsel", "crisis team", "suicide prevention", "social emotional", "behavioral health", "trauma informed", "trauma-informed", "student support team"]
+  general_terms: ["school safety", "student safety", "campus safety", "safety and security", "security", "safety committee", "safe and secure", "violence", "weapon", "firearm", "gun", "shooting", "shooter"]
+  excluded_senses:
+    # Counted separately, never as safety in v1. ASSUMPTION.
+    traffic_transport: ["bus safety", "traffic safety", "crossing guard", "school zone", "driver safety"]
+    food_health: ["food safety", "covid", "health and safety protocols", "pandemic", "wellness policy"]
+    workplace: ["osha", "workplace safety", "safety training for employees", "workers compensation", "risk management"]
+    financial: ["social security", "security deposit", "securities", "financial security", "bond security"]
+    cyber: ["cybersecurity", "cyber security", "network security", "data security", "information security"]
+  question: >
+    Does this passage discuss protecting students or school staff from
+    violence or threats of harm, or the police, guards, armed staff, building
+    security, threat assessment, emergency drills or crisis mental-health
+    services used for that? Answer no for bus or traffic safety, food or COVID
+    health rules, workplace injury rules, cybersecurity, Social Security or
+    financial "securities".
+
+temperament:
+  description: >
+    Any statement about how students or school staff feel or behave:
+    emotions (fear, anxiety, stress, grief, morale, happiness, excitement) or
+    conduct (misbehavior, acting out, fighting, disruption, bullying).
+  # ASSUMPTION: includes conduct ("acting out") as well as feelings, as the
+  # brief's examples do; excludes figures of speech such as "happy to report".
+  terms:
+    negative: ["scared", "afraid", "fear", "fearful", "frightened", "terrified", "anxious", "anxiety", "stress", "stressed", "overwhelmed", "worried", "concern for their safety", "traumatized", "trauma", "grief", "grieving", "upset", "angry", "frustrated", "burnout", "burned out", "exhausted", "low morale", "morale", "unsafe", "feel unsafe", "acting out", "misbehavior", "behavior problems", "behavioral issues", "discipline referrals", "fights", "fighting", "disruptive", "outbursts", "bullying", "vaping"]
+    positive: ["happy", "excited", "enthusiastic", "proud", "thriving", "engaged", "high morale", "morale is", "joy", "celebrate", "feel safe", "felt safe", "confident", "positive culture"]
+  ignore_phrases: ["happy to report", "happy to announce", "pleased to report", "proud to announce", "excited to announce", "happy birthday", "happy holidays", "happy new year"]
+  who_terms:
+    students: ["students", "student", "kids", "children", "pupils", "class of"]
+    staff: ["teachers", "teacher", "staff", "employees", "faculty", "educators", "bus drivers", "counselors", "administrators"]
+  questions:
+    mention: >
+      Does this passage describe how students or school staff feel or behave,
+      for example being scared, stressed, upset, acting out, fighting, or
+      being happy or proud? Answer no for set phrases like "happy to report"
+      or "proud to announce" that do not describe anyone's feelings.
+    tone:
+      instructions: "What is the tone of what is said about how students or staff feel or behave?"
+      choices: {negative: "negative (fear, stress, misbehavior, grief)", positive: "positive (happy, proud, thriving)", mixed: "both negative and positive", none: "no description of feelings or behavior"}
+    who:
+      instructions: "Whose feelings or behavior are described?"
+      choices: {students: "students", staff: "teachers or other staff", both: "both students and staff", none: "no one"}
+
+events:
+  # Named shootings boards might reference. ASSUMPTION: list to be replaced
+  # or extended from Huda's event data. Dates are for display; matching is by name.
+  names:
+    uvalde: {label: "Robb Elementary, Uvalde", date: "2022-05-24", terms: ["uvalde", "robb elementary"]}
+    santa_fe: {label: "Santa Fe High School", date: "2018-05-18", terms: ["santa fe high", "santa fe isd shooting", "santa fe shooting"]}
+    sutherland_springs: {label: "Sutherland Springs church", date: "2017-11-05", terms: ["sutherland springs"]}
+    el_paso_walmart: {label: "El Paso Walmart", date: "2019-08-03", terms: ["el paso shooting", "el paso walmart"]}
+    odessa_midland: {label: "Midland-Odessa", date: "2019-08-31", terms: ["odessa shooting", "midland-odessa", "midland odessa shooting"]}
+    allen_mall: {label: "Allen Premium Outlets", date: "2023-05-06", terms: ["allen outlet", "allen premium outlets", "allen mall shooting"]}
+    parkland: {label: "Marjory Stoneman Douglas, Parkland FL", date: "2018-02-14", terms: ["parkland", "stoneman douglas"]}
+    sandy_hook: {label: "Sandy Hook Elementary, Newtown CT", date: "2012-12-14", terms: ["sandy hook", "newtown"]}
+    oxford: {label: "Oxford High School, MI", date: "2021-11-30", terms: ["oxford high school"]}
+    nashville_covenant: {label: "Covenant School, Nashville", date: "2023-03-27", terms: ["covenant school"]}
+    apalachee: {label: "Apalachee High School, GA", date: "2024-09-04", terms: ["apalachee"]}
+  generic_terms: ["recent tragedy", "tragic events", "tragedy in", "school shooting", "mass shooting", "moment of silence", "in light of recent events", "victims of the shooting"]
+  # Uvalde is also a district and county name: a "uvalde" hit counts as an
+  # event reference only when the model confirms it refers to the shooting.
+  question: >
+    Does this passage refer to a specific shooting or act of violence, such as
+    the Uvalde (Robb Elementary) or Santa Fe High School shootings, for
+    example by naming it, holding a moment of silence, or responding to it?
+    Answer no when a place name is used only as an address or district name.
+
+closed_session:
+  # Texas Government Code sections allowing closed deliberation on security.
+  # Agendas must cite the section, so a pattern match is reliable.
+  patterns: ['551\.076', '551\.089', 'deliberation regarding security devices', 'security audits?']
+
+thresholds:
+  # Three zones per yes/no question: >= yes -> yes, <= no -> no, otherwise
+  # uncertain (resolved by Claude and sampled for human review). Starting
+  # values only; calibration on the gold set replaces them (code/measures/calibrate.py).
+  safety: {yes: 0.80, no: 0.20}
+  temperament: {yes: 0.80, no: 0.20}
+  event: {yes: 0.80, no: 0.20}
+  choice_min_confidence: 0.60
