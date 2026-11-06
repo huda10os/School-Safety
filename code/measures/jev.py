@@ -225,8 +225,20 @@ def label(output=DEFAULT_OUTPUT, defs=None, max_usd=0, limit=None, meeting_ids=N
         pending, submitted, skipped, exhausted = {}, 0, 0, False
         def collect(done):
             for future in done:
-                cache.append(future.result())
-                pending.pop(future)
+                mid = pending.pop(future)
+                try:
+                    cache.append(future.result())
+                except requests.HTTPError as error:
+                    # A request jev rejects (4xx other than 429) is logged and skipped so one
+                    # meeting cannot stop the run; it stays unlabelled and is retried next run.
+                    status = error.response.status_code if error.response is not None else None
+                    if status is None or not 400 <= status < 500 or status == 429:
+                        raise
+                    budget.settle(0)
+                    with open(output / 'jev_rejected.jsonl', 'a') as log:
+                        log.write(json.dumps(dict(meeting_id=mid, status=status,
+                                                  body=error.response.text[:1000])) + '\n')
+                    print(json.dumps(dict(meeting_id=mid, rejected=status)), flush=True)
         with ThreadPoolExecutor(max_workers=concurrency) as executor:
             try:
                 for mid, passages in passage_groups(output / 'passages.parquet'):
@@ -263,7 +275,7 @@ def label(output=DEFAULT_OUTPUT, defs=None, max_usd=0, limit=None, meeting_ids=N
                     errors = []
                     for future in done:
                         try:
-                            cache.append(future.result())
+                            collect([future])
                         except Exception as error:
                             errors.append(error)
                     if errors:
