@@ -10,7 +10,7 @@
 # security or safety was mentioned" and "any mention of temperament of
 # students or teachers like scared, acting out, stressed, happy".
 
-version: "2026-11-06.1"
+version: "2026-11-06.2"
 
 passages:
   # A passage is the text around a candidate term, merged with neighbours.
@@ -116,8 +116,10 @@ events:
 
 closed_session:
   # Texas Government Code sections allowing closed deliberation on security.
-  # Agendas must cite the section, so a pattern match is reliable.
-  patterns: ['551\.076', '551\.089', 'deliberation regarding security devices', 'security audits?']
+  # A match means the agenda or minutes cite the section; many agendas list
+  # every closed-session section as boilerplate, so it is not proof that a
+  # security session took place.
+  patterns: ['551\.076', '551\.089', 'deliberation regarding security devices', '\bsecurity audits?\b']
 
 thresholds:
   # Three zones per yes/no question: >= yes -> yes, <= no -> no, otherwise
