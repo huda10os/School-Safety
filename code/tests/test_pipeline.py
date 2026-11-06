@@ -39,3 +39,18 @@ def test_pending_records_yield_minutes_before_agendas(tmp_path, monkeypatch):
         rows.append(({"tea_id": tea_id}, {"platform": "boardbook"}))
     order = [record["record_id"] for _, record in pipeline.pending_records(rows)]
     assert order == ["000001-Minutes", "000002-Minutes", "000001-Agenda", "000002-Agenda"]
+
+
+def test_jobs_drop_sources_on_the_skip_list(tmp_path, monkeypatch):
+    reference = tmp_path / "reference"
+    reference.mkdir()
+    (reference / "districts.csv").write_text(
+        "tea_id,school_district,county_name,county_fips,website,tea_source\n057905,Dallas ISD,Dallas County,48113,x,x\n")
+    (reference / "platforms.csv").write_text(
+        "tea_id,platform,entry_url,evidence\n057905,website,https://hang.example/live,a\n"
+        "057905,diligent,https://d.example/Portal/,b\n")
+    (reference / "skip_sources.csv").write_text(
+        "tea_id,platform,entry_url,reason\n057905,website,https://hang.example/live,hangs\n")
+    monkeypatch.setattr(pipeline, "REFERENCE", reference)
+    args = Namespace(platforms=str(reference / "platforms.csv"), tea_ids=None, platform=None)
+    assert [job["platform"] for _, job in pipeline.jobs(args)] == ["diligent"]

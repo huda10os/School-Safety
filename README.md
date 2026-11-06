@@ -17,6 +17,9 @@ code/                 collection scripts (Python 3.12)
   browser.py          agent-browser fallback for sites behind a bot check
   extract.py          text from PDF, DOCX and plain text (no OCR)
   build_dataset.py    data/records.parquet and data/coverage.parquet
+  ocr.py, ocr/        Indra OCR of scanned pages (Docker, CPU)
+  measures/           meeting table, safety/temperament definitions, rule flags, model labels
+  run_statewide.sh    every stage with the settings used for the published run
   app/                local web app: progress, districts, record browser
   tests/              pytest suite
 data/reference/       small committed inputs (district list, platform map, BoardBook orgs)
@@ -35,26 +38,31 @@ Works on Linux and macOS.
 
 ## Reproduce
 
-Run from `code/`:
+One command runs every stage with the settings used for the published run:
 
 ```sh
-../.venv/bin/python registry.py                 # 1,018 districts from TEA
-../.venv/bin/python match_boardbook.py          # BoardBook org matches
-../.venv/bin/python detect_platform.py --workers 16   # platform map for every district
-../.venv/bin/python pipeline.py all --workers 24 --processes 4
+code/run_statewide.sh          # full run
+code/run_statewide.sh update   # later: re-read listings, collect only new documents
 ```
 
-`pipeline.py all` runs three stages, each of which can also be run alone:
+It runs, in order:
 
-1. `discover` reads every district's meeting listing into `data/staging/listings/`.
-2. `documents` downloads every listed document and extracts its text into `data/staging/records/`. Minutes are collected for every district first, then agendas, then the rest.
-3. `build` writes `data/records.parquet` and `data/coverage.parquet`.
+1. `registry.py` builds the 1,018-district list from TEA's district file. Counties come from TEA's county numbers.
+2. `match_boardbook.py` and `detect_platform.py` build the platform map, unless `data/reference/platforms.csv` already exists. The committed map plus `platform_overrides.csv` (hand-verified sources) is what the published run used.
+3. One `pipeline.py` process per platform, in parallel: `discover` reads each district's meeting listing; `documents` downloads every listed document and extracts its text, minutes first for every district, then agendas, then the rest.
+4. `ocr.py` reads scanned pages with Indra OCR in a Docker container capped at 6 CPUs and 4 GB (`docker build -t txboards-indra:1.1.2 code/ocr` first). Only pages without a text layer are OCR'd. About 5–6 hours for the ~314,000 scanned pages.
+5. `build_dataset.py` writes `data/records.parquet` and `data/coverage.parquet`.
+6. `measures/run.py` builds meetings, candidate passages and rule flags from `code/measures/definitions.yaml`. See [Measures](#measures).
 
-Limit a run with `--tea-ids 031901,057905` or `--platform boardbook`. Everything is resumable: downloads are cached in `data/raw/`, and finished documents are skipped. To pick up new meetings later, run `pipeline.py discover --refresh` and then `pipeline.py documents`; only new links are downloaded.
+Everything is resumable: responses are cached in `data/raw/`, finished documents are skipped, and OCR output is kept per document. Limit any `pipeline.py` stage with `--tea-ids 031901,057905` or `--platform boardbook`.
 
-Requests are spaced per host (`code/config.py`): BoardBook 0.5 s, BoardDocs and each Diligent portal 3 s, everything else 1 s. Statewide BoardBook collection therefore takes a couple of days.
+**Settings that matter.** These were measured on a 16-thread, 59 GB machine:
 
-Memory: network work runs in threads; PDF parsing runs in a small process pool whose workers are recycled and replaced if one dies. A full run stays within a few GB.
+- **Request spacing per host** (`code/config.py`): BoardBook 0.1 s, with automatic back-off on 429/503 responses; BoardDocs and each Diligent portal 3 s; everything else 1 s.
+- **District-website discovery:** above about 6 threads it ran out of memory (crawls of up to 200 pages per district, plus browser sessions for bot-checked sites). Up to 3 browser sessions run at once, configurable with `TXBOARDS_BROWSER_SLOTS`.
+- **Downloads:** streamed. Audio and video files are recorded as `recording` links rather than downloaded. Files over 150 MB are `too_large`.
+- **Skipped sources:** sources that hang or duplicate another platform are listed with a reason in `data/reference/skip_sources.csv`. Dallas ISD's website crawl hangs; its meetings come from Diligent.
+- **What does not repeat exactly:** pages behind bot checks depend on browser timing, and very large site archives stop at the 200-page crawl limit (Del Valle ISD and El Paso ISD in the published run). Sites also change over time.
 
 ## Dataset
 
@@ -98,7 +106,6 @@ Shows collection progress with a rate and estimated time to finish, every distri
 
 ## Not yet done
 
-- OCR for `needs_ocr` and `partial_ocr` documents (raw files are kept for it).
 - Transcription of `Recording` rows. They hold links only: audio/video files posted on district sites, and YouTube, Swagit and Vimeo links found in meeting listings. Video links embedded elsewhere on district websites are not yet collected.
 - Legacy `.doc` conversion.
 - Independent review of extracted records (planned with TypeSafe's jev).

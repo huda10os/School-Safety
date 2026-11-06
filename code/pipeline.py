@@ -56,6 +56,10 @@ def jobs(args) -> list[tuple[dict, dict]]:
     overrides = REFERENCE / "platform_overrides.csv"
     if overrides.exists() and Path(args.platforms) == REFERENCE / "platforms.csv":
         rows += load_csv(overrides)
+    # Sources known to hang or duplicate another platform, with the reason.
+    skip_path = REFERENCE / "skip_sources.csv"
+    skipped = {(r["tea_id"], r["platform"], r["entry_url"]) for r in load_csv(skip_path)} if skip_path.exists() else set()
+    rows = [r for r in rows if (r.get("tea_id"), r.get("platform"), r.get("entry_url")) not in skipped]
     wanted = set(args.tea_ids.split(",")) if args.tea_ids else None
     # A district can list documents on several pages of one platform (e.g. a
     # current-minutes page and an archive page); they share one staging file.
