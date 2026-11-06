@@ -1,0 +1,4 @@
+Newsreader (Production Type), Plus Jakarta Sans (Tokotype) and Roboto Mono
+(Christian Robertson) are licensed under the SIL Open Font License 1.1
+(https://openfontlicense.org). Latin subsets, variable weights, downloaded
+from Google Fonts on 2026-11-05.

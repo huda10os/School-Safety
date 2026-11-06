@@ -205,14 +205,15 @@ function route() {
   clearInterval(refreshTimer);
   refreshTimer = null;
   const { parts, params } = parseHash();
-  const page = parts[0] || "progress";
+  const page = parts[0] || "story";
+  const navFor = { district: "districts", record: "records", board: "explore", coverage: "explore", event: "events" };
   for (const a of document.querySelectorAll("nav a")) {
-    const active = a.dataset.nav === page || (a.dataset.nav === "districts" && page === "district")
-      || (a.dataset.nav === "records" && page === "record");
+    const active = a.dataset.nav === page || a.dataset.nav === navFor[page];
     if (active) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current");
   }
-  const pages = { progress: pageProgress, districts: pageDistricts, district: pageDistrict, records: pageRecords, record: pageRecord };
-  const fn = pages[page] || pageProgress;
+  const pages = { progress: pageProgress, districts: pageDistricts, district: pageDistrict, records: pageRecords, record: pageRecord,
+    ...(window.RESEARCH_PAGES || {}) };
+  const fn = pages[page] || pages.story || pageProgress;
   Promise.resolve(fn(token, parts.slice(1), params)).catch(err => token === routeToken && failure(err));
 }
 window.addEventListener("hashchange", () => { route(); main.focus({ preventScroll: true }); window.scrollTo(0, 0); });
@@ -499,7 +500,8 @@ async function pageDistrict(token, parts, params) {
   render(
     h("p", { class: "crumbs" }, h("a", { href: "#/districts" }, "Districts"), " / ", d.school_district),
     h("h1", { text: d.school_district }),
-    h("p", { class: "muted" }, `${d.county_name} · TEA ${d.tea_id} · `, d.website ? ext(d.website, "district website") : "no website listed"),
+    h("p", { class: "muted" }, `${d.county_name} · TEA ${d.tea_id} · `, d.website ? ext(d.website, "district website") : "no website listed",
+      " · ", h("a", { href: `#/board/${d.tea_id}` }, "Meetings and measures over time")),
     h("p", {}, status(d.state, STATE_LABELS[d.state]), " ", h("span", { class: "muted" }, STATE_HELP[d.state] || "")),
     d.flags.length ? h("ul", {}, d.flags.map(f => h("li", {}, h("strong", {}, FLAG_LABELS[f] || f), `: ${FLAG_HELP[f] || ""}`))) : null,
     h("dl", { class: "facts" },
@@ -676,4 +678,5 @@ function fieldValue(key, value) {
   return s;
 }
 
-route();
+// Deferred scripts all run before DOMContentLoaded, so research.js has registered its pages by then.
+document.addEventListener("DOMContentLoaded", route);

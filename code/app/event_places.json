@@ -1,0 +1,14 @@
+{
+  "_note": "Where each event in code/measures/definitions.yaml happened, for distance rules in the app. Coordinates are town-level and approximate (good enough for radius rules of 10 miles or more). Deaths are used only to order events (severity) and appear only in tooltips. ASSUMPTION: replace from Huda's event file when it exists.",
+  "uvalde": {"lat": 29.2097, "lon": -99.7862, "county": "Uvalde County", "place": "Uvalde, Texas", "kind": "school", "deaths": 21},
+  "santa_fe": {"lat": 29.3780, "lon": -95.1055, "county": "Galveston County", "place": "Santa Fe, Texas", "kind": "school", "deaths": 10},
+  "sutherland_springs": {"lat": 29.2733, "lon": -98.0561, "county": "Wilson County", "place": "Sutherland Springs, Texas", "kind": "community", "deaths": 26},
+  "el_paso_walmart": {"lat": 31.7726, "lon": -106.3780, "county": "El Paso County", "place": "El Paso, Texas", "kind": "community", "deaths": 23},
+  "odessa_midland": {"lat": 31.8457, "lon": -102.3676, "county": "Ector County", "place": "Odessa and Midland, Texas", "kind": "community", "deaths": 7},
+  "allen_mall": {"lat": 33.1032, "lon": -96.6706, "county": "Collin County", "place": "Allen, Texas", "kind": "community", "deaths": 8},
+  "parkland": {"lat": null, "lon": null, "county": null, "place": "Parkland, Florida", "kind": "school", "deaths": 17},
+  "sandy_hook": {"lat": null, "lon": null, "county": null, "place": "Newtown, Connecticut", "kind": "school", "deaths": 26},
+  "oxford": {"lat": null, "lon": null, "county": null, "place": "Oxford, Michigan", "kind": "school", "deaths": 4},
+  "nashville_covenant": {"lat": null, "lon": null, "county": null, "place": "Nashville, Tennessee", "kind": "school", "deaths": 6},
+  "apalachee": {"lat": null, "lon": null, "county": null, "place": "Winder, Georgia", "kind": "school", "deaths": 4}
+}

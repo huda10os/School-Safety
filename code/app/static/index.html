@@ -3,27 +3,40 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Texas board records</title>
+<title>Texas school boards after school shootings</title>
 <script>if(!/\/$|\.[a-z]+$/.test(location.pathname)){location.replace(location.pathname+"/"+location.search+location.hash)}</script>
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preload" href="fonts/plus-jakarta-sans.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/newsreader.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="app.css">
+<link rel="stylesheet" href="research.css">
 <script src="app.js" defer></script>
+<script src="charts.js" defer></script>
+<script src="research.js" defer></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
 <header class="top">
   <div class="top-inner">
-    <a class="mark" href="#/" aria-label="Texas board records, progress"><span class="dot" aria-hidden="true"></span><span class="word">texas board records</span></a>
+    <a class="mark" href="#/" aria-label="Texas school boards, the story"><span class="dot" aria-hidden="true"></span><span class="word">texas school boards</span></a>
     <nav aria-label="Main">
-      <a href="#/" data-nav="progress">Progress</a>
+      <a href="#/" data-nav="story">Story</a>
+      <a href="#/explore" data-nav="explore">Explore</a>
+      <a href="#/events" data-nav="events">Events</a>
+      <a href="#/map" data-nav="map">Map</a>
+      <a href="#/search" data-nav="search">Search</a>
+      <a href="#/method" data-nav="method">Method</a>
+      <span class="nav-sep" aria-hidden="true"></span>
+      <a href="#/progress" data-nav="progress">Collection</a>
       <a href="#/districts" data-nav="districts">Districts</a>
       <a href="#/records" data-nav="records">Records</a>
     </nav>
   </div>
 </header>
+<div id="banner" role="status"></div>
 <main id="main" tabindex="-1">
   <p class="muted">Loading…</p>
-  <noscript><p>This page needs JavaScript to load data from the server.</p></noscript>
+  <noscript><!--NOSCRIPT--></noscript>
 </main>
 </body>
 </html>

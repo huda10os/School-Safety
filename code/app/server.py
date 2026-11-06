@@ -34,10 +34,15 @@ sys.path.insert(0, str(APP.parent))
 from config import DATA  # noqa: E402
 from records import FIELDS  # noqa: E402
 from store import Store  # noqa: E402
+from research import BadRequest, NotFound, Research, table_rows  # noqa: E402
 
 STATIC = APP / "static"
 STATIC_TYPES = {".html": "text/html; charset=utf-8", ".js": "text/javascript; charset=utf-8",
-                ".css": "text/css; charset=utf-8", ".svg": "image/svg+xml"}
+                ".css": "text/css; charset=utf-8", ".svg": "image/svg+xml", ".json": "application/json",
+                ".woff2": "font/woff2", ".txt": "text/plain; charset=utf-8"}
+DOWNLOADS = {"meetings": ("measures/meetings.parquet", "meetings.parquet"),
+             "passages": ("measures/passages.parquet", "passages.parquet"),
+             "coverage": ("coverage.parquet", "coverage.parquet")}
 FILTER_KEYS = ("tea_id", "county", "detail", "meeting_type", "platform", "text_status",
                "date_from", "date_to", "q", "name", "sort")
 REFRESH_SECONDS = 20
@@ -55,6 +60,7 @@ def inline_script_hashes(html: str) -> list[str]:
 class Handler(BaseHTTPRequestHandler):
     server_version = "BoardRecords/1"
     store: Store
+    research: Research
     password: str | None
     csp: str
 
@@ -132,7 +138,11 @@ class Handler(BaseHTTPRequestHandler):
             self._send(404, b"Not found.\n", "text/plain; charset=utf-8")
             return
         ctype = STATIC_TYPES.get(target.suffix, "application/octet-stream")
-        self._send(200, target.read_bytes(), ctype, {"Cache-Control": "no-cache"})
+        body = target.read_bytes()
+        if name == "index.html":
+            body = body.replace(b"<!--NOSCRIPT-->", noscript_summary(self.research).encode())
+        cache = "public, max-age=604800, immutable" if target.suffix == ".woff2" else "no-cache"
+        self._send(200, body, ctype, {"Cache-Control": cache})
 
     @staticmethod
     def _filters(params: dict) -> dict:
@@ -209,6 +219,152 @@ class Handler(BaseHTTPRequestHandler):
         self.close_connection = True
 
 
+    # ------------------------------------------------------------ research API
+    def _research(self, params, fn, to_csv=None, name="data"):
+        try:
+            result = fn(params)
+        except BadRequest as exc:
+            self._json({"error": str(exc)}, 400)
+            return
+        except NotFound as exc:
+            self._json({"error": str(exc)}, 404)
+            return
+        if params.get("format") == "csv" and to_csv:
+            columns, rows = to_csv(result)
+            self._csv(columns, rows, f"{name}.csv")
+        else:
+            self._json(result)
+
+    def _csv(self, columns, rows, filename):
+        buffer = io.StringIO()
+        writer = csv.writer(buffer)
+        writer.writerow(columns)
+        for row in rows:
+            writer.writerow(["" if v is None else v for v in row])
+        self._send(200, buffer.getvalue().encode("utf-8"), "text/csv; charset=utf-8",
+                   {"Content-Disposition": f'attachment; filename="{filename}"', "Cache-Control": "no-store"})
+
+    def _file(self, path: Path, ctype: str, filename: str):
+        size = path.stat().st_size
+        self._headers(200, ctype, size, {"Content-Disposition": f'attachment; filename="{filename}"',
+                                         "Cache-Control": "no-store"})
+        if self.command == "HEAD":
+            return
+        with open(path, "rb") as handle:
+            while chunk := handle.read(1 << 20):
+                self.wfile.write(chunk)
+
+    def api_meta(self, params):
+        self._research(params, lambda p: self.research.meta())
+
+    def api_story(self, params):
+        self._research(params, lambda p: self.research.story(), lambda r: table_rows(r["year_trend"]), "statewide-by-year")
+
+    def api_trend(self, params):
+        def rows(r):
+            extra = {"measure": r["label"], "sample_rule": r["sample"], "grain": r["grain"],
+                     "filters": "; ".join(f"{k}={params[k]}" for k in ("region", "size", "from", "to") if params.get(k))}
+            return table_rows([{**x, **extra} for x in r["rows"]])
+        self._research(params, self.research.trend, rows, "statewide-trend")
+
+    def api_subtopics(self, params):
+        self._research(params, self.research.subtopic_trend, lambda r: table_rows(
+            [{"subtopic": k, "label": r["labels"][k], **x} for k, v in r["series"].items() for x in v]), "subtopics-by-year")
+
+    def api_tone(self, params):
+        self._research(params, self.research.tone, lambda r: table_rows(r["rows"]), "temperament-tone-by-year")
+
+    def api_coverage_grid(self, params):
+        def rows(r):
+            cols = ["tea_id", "school_district", "county_name", "enrollment", "first_year"] + [str(y) for y in r["years"]]
+            return cols, [[d["tea_id"], d["school_district"], d["county_name"], d["enrollment"], d["first_year"],
+                           *[{"R": "readable", "S": "scan_awaiting_ocr", "U": "unavailable"}.get(c, "none") for c in d["cells"]]]
+                          for d in r["districts"]]
+        self._research(params, self.research.coverage_grid, rows, "coverage-by-district-year")
+
+    def api_event(self, params):
+        def rows(r):
+            rule = "same county" if r["same_county"] else f"within {r['radius']} miles"
+            return table_rows([{"event": r["event"]["key"], "group": g, "nearby_rule": rule, "window_months": r["window"],
+                                "sample_rule": r["sample"], "measure": r["label"], **x}
+                               for g, v in r["series"].items() for x in v])
+        self._research(params, self.research.event, rows, f"event-{params.get('key', 'uvalde')}")
+
+    def api_events_summary(self, params):
+        self._research(params, self.research.events_summary, lambda r: table_rows(r["rows"]), "events-before-after")
+
+    def api_event_words(self, params):
+        self._research(params, self.research.event_words, lambda r: table_rows(
+            [{"direction": "more_after", **x} for x in r["words_after"]] +
+            [{"direction": "more_before", **x} for x in r["words_before"]]), f"words-{params.get('key', 'uvalde')}")
+
+    def api_kwic(self, params):
+        self._research(params, self.research.kwic, lambda r: table_rows(r["items"]), "keyword-in-context")
+
+    def api_board(self, params):
+        self._research(params, self.research.board, lambda r: table_rows(r["meetings"]), f"district-{params.get('tea_id', '')}")
+
+    def api_board_meetings(self, params):
+        self._research(params, self.research.board_meetings)
+
+    def api_map(self, params):
+        self._research(params, self.research.map, lambda r: table_rows(r["districts"]), "map-districts")
+
+    def api_search(self, params):
+        self._research(params, self.research.search, lambda r: table_rows(r["items"]), "search")
+
+    def api_method(self, params):
+        self._research(params, lambda p: self.research.method())
+
+    def api_panel(self, params):
+        fmt = params.get("format") or "csv"
+        if fmt not in ("csv", "parquet"):
+            self._json({"error": "format must be csv or parquet"}, 400)
+            return
+        try:
+            path = self.research.export_file(self.research.panel_sql(params), fmt, "panel")
+        except (BadRequest, NotFound) as exc:
+            self._json({"error": str(exc)}, 400)
+            return
+        self._file(path, "text/csv; charset=utf-8" if fmt == "csv" else "application/vnd.apache.parquet",
+                   f"event-district-meeting-panel.{fmt}")
+
+    def api_file(self, params):
+        entry = DOWNLOADS.get(params.get("name", ""))
+        path = self.store.data / entry[0] if entry else None
+        if not entry or not path.exists():
+            self._json({"error": "file not available"}, 404)
+            return
+        self._file(path, "application/vnd.apache.parquet", entry[1])
+
+
+def noscript_summary(r: Research) -> str:
+    """Plain HTML facts for readers without JavaScript; every value is escaped."""
+    from html import escape
+    try:
+        s = r.story()
+    except Exception:  # the page still loads; the script shows the error
+        return ""
+    chip = s.get("chip") or {}
+    facts = [f"{s['documents']:,} meeting documents from {s['districts_with_records']:,} of {s['districts_total']:,} Texas school districts, {s['first_year']} to {s['last_year']}.",
+             f"{(chip.get('minutes_unread_share') or 0) * 100:.0f}% of minutes are scans not yet read by OCR."]
+    if s.get("measures"):
+        last = [x for x in s["year_trend"] if not x["thin"]][-1:] or s["year_trend"][-1:]
+        if last:
+            facts.append(f"In {last[0]['period'][:4]}, at least {last[0]['share'] * 100:.0f}% of {last[0]['meetings']:,} readable meetings mentioned a safety subtopic.")
+    elif s.get("measures_status") == "partial":
+        sc = s["screening"]
+        facts.append(f"Safety and temperament labelling is in progress: {sc['screened']:,} of {sc['readable']:,} readable meetings screened so far.")
+    else:
+        facts.append("Safety and temperament measures are not computed yet.")
+    items = "".join(f"<li>{escape(f)}</li>" for f in facts)
+    return (f"<section class=\"noscript\"><h1>Texas school boards after school shootings</h1><ul>{items}</ul>"
+            "<p>The charts need JavaScript. The data are available without it: "
+            "<a href=\"api/story?format=csv\">statewide share by year (CSV)</a>, "
+            "<a href=\"api/coverage_grid?format=csv\">coverage by district and year (CSV)</a>, "
+            "<a href=\"api/panel?format=csv\">event, district and meeting panel (CSV)</a>.</p></section>")
+
+
 def background(store: Store, stop: threading.Event) -> None:
     last_sample = 0.0
     while not stop.is_set():
@@ -222,13 +378,26 @@ def background(store: Store, stop: threading.Event) -> None:
         stop.wait(REFRESH_SECONDS)
 
 
+def warm(r: Research) -> None:
+    """Fill the caches the landing page and default event view need."""
+    try:
+        r.story()
+        r.events_summary({})
+        for key in ("uvalde", "santa_fe"):
+            r.event({"key": key})
+            r.event_words({"key": key})
+    except Exception:
+        traceback.print_exc()
+
+
 def make_server(data_dir: Path, host: str = "127.0.0.1", port: int = 8791,
                 password: str | None = None, run_background: bool = True):
     store = Store(Path(data_dir))
+    research_store = Research(Path(data_dir), store)
     html = (STATIC / "index.html").read_text()
     script_src = " ".join(["'self'", *inline_script_hashes(html)])
     handler = type("BoundHandler", (Handler,), {
-        "store": store, "password": password,
+        "store": store, "research": research_store, "password": password,
         "csp": (f"default-src 'self'; script-src {script_src}; style-src 'self'; img-src 'self' data:; "
                 "object-src 'none'; base-uri 'none'; frame-ancestors 'self'"),
     })
@@ -237,8 +406,10 @@ def make_server(data_dir: Path, host: str = "127.0.0.1", port: int = 8791,
     stop = threading.Event()
     if run_background:
         threading.Thread(target=background, args=(store, stop), daemon=True, name="indexer").start()
+        threading.Thread(target=warm, args=(research_store,), daemon=True, name="research-warm").start()
     httpd.stop_event = stop
     httpd.store = store
+    httpd.research = research_store
     return httpd
 
 
@@ -257,6 +428,7 @@ def main(argv=None) -> None:
     finally:
         httpd.stop_event.set()
         httpd.server_close()
+        httpd.research.close()
 
 
 if __name__ == "__main__":
