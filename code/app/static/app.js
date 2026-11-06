@@ -258,6 +258,7 @@ function progressView(p) {
       fact("Last data change", ago(p.last_data_change),
         stale ? h("span", { class: "warn-text" }, "No new files in over 15 minutes. The run may be stalled or finished.")
           : fmtDate(p.last_data_change))),
+    p.ocr ? ocrSection(p.ocr) : null,
     (p.mapping_incomplete || !p.platforms_file) ? h("p", { class: "note" },
       p.platforms_file
         ? `Discovery is still growing the backlog: ${num(p.districts_mapped)} of ${num(p.districts_total)} districts have been checked for a meeting platform (${num(unchecked)} to go), so the totals and the time estimate will keep rising.`
@@ -298,6 +299,27 @@ function progressView(p) {
       p.index.running ? ` · indexing ${p.index.files_done} of ${p.index.files_total} changed files` : "",
       ` · page generated ${fmtDate(p.generated_at)}`),
   ];
+}
+function ocrSection(o) {
+  const stale = o.phase === "running" && o.updated_at && (Date.now() - new Date(o.updated_at)) > 10 * 60 * 1000;
+  const state = o.phase === "finished" ? "Finished" : stale ? "Stalled" : "Running";
+  return h("section", { "aria-labelledby": "ocr-h" },
+    h("h2", { id: "ocr-h", text: "Reading scanned documents (OCR)" }),
+    h("p", { class: "muted" },
+      "Scanned PDFs have no text layer, so their pages are read by an OCR model (",
+      o.model ? o.model.split(";")[0] : "Indra OCR", `), on the computer's processor with a ${o.cpus}-core cap. `,
+      "Pages that already have text keep it."),
+    h("div", { class: "cols" },
+      h("div", {}, bar(o.documents_done, o.documents_total),
+        h("p", { class: "small" }, `${num(o.documents_done)} of ${num(o.documents_total)} scanned documents done (${pct(o.documents_done, o.documents_total)}).`))),
+    h("dl", { class: "facts" },
+      fact("Status", stale ? h("span", { class: "warn-text" }, state) : state,
+        stale ? "No update in over 10 minutes" : `Updated ${ago(o.updated_at)}`),
+      fact("Pages read this run", num(o.ocr_pages_done), "Only pages without a text layer"),
+      fact("Speed", o.pages_per_second ? `${o.pages_per_second} pages / s` : "–", "Over this run so far"),
+      fact("Time left", o.phase === "finished" ? "None" : o.eta_minutes != null ? duration(o.eta_minutes) : "Estimating",
+        "For the scanned documents still waiting"),
+      fact("Problems", num(o.errors), "Documents the OCR could not read; they keep their earlier status")));
 }
 function fact(label, value, note) {
   return h("div", {}, h("dt", {}, label), h("dd", {}, value, note ? h("span", { class: "muted small" }, note) : null));

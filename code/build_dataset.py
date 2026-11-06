@@ -29,7 +29,7 @@ from config import DATA, REFERENCE, STAGING
 from platforms import website
 from records import FIELDS, LISTING_FIELDS, PREFERENCE, read_jsonl, record_id
 
-ARROW_TYPES = {"string": pa.string(), "date": pa.date32(), "int32": pa.int32(),
+ARROW_TYPES = {"string": pa.string(), "date": pa.date32(), "int32": pa.int32(), "float32": pa.float32(),
                "bool": pa.bool_(), "list<string>": pa.list_(pa.string())}
 SCHEMA = pa.schema([(name, ARROW_TYPES[kind]) for name, (kind, _) in FIELDS.items()])
 LATE_START = date(2018, 1, 1)
@@ -79,6 +79,20 @@ def _recording_rows(rows: list[dict]) -> list[dict]:
     return list(extra.values())
 
 
+def _apply_ocr(row: dict) -> None:
+    """Use the OCR'd text (code/ocr.py) for scanned documents when it exists."""
+    if row.get("text_status") not in ("needs_ocr", "partial_ocr") or not row.get("content_sha256"):
+        return
+    path = STAGING / "ocr" / row["content_sha256"][:2] / f"{row['content_sha256']}.json"
+    if not path.exists():
+        return
+    ocr = json.loads(path.read_text())
+    if not ocr.get("ocr_pages"):
+        return
+    row.update(text=ocr.get("text"), text_status="ok" if ocr.get("text") else "empty",
+               text_method="pdf+ocr", ocr_pages=ocr["ocr_pages"], ocr_mean_conf=ocr.get("mean_conf"))
+
+
 HEADER_CHARS = 800  # a meeting's own date sits in its first lines (notice, title block)
 
 
@@ -117,6 +131,7 @@ def district_records(tea_id_platform: str) -> list[dict]:
             collected[record["record_id"]] = {**record, "text_status": "pending"}
     rows = list(collected.values())
     for row in rows:
+        _apply_ocr(row)
         _redate(row)
     rows += _recording_rows(rows)
     best: dict[tuple, dict] = {}

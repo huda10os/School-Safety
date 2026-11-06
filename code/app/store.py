@@ -395,7 +395,15 @@ class Store:
                                  if self.last_change else None),
             "index": dict(self.index_state),
             "chart": chart,
+            "ocr": self._ocr_progress(),
         }
+
+    def _ocr_progress(self) -> dict | None:
+        """Progress written by code/ocr.py, if an OCR run has started."""
+        try:
+            return json.loads((self.data / "staging" / "ocr" / "progress.json").read_text())
+        except (OSError, ValueError):
+            return None
 
     @staticmethod
     def _rate(history: list[dict], collected_now: int, recent: int):
