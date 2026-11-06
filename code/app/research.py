@@ -321,6 +321,7 @@ class Research:
             "data_as_of": date.fromtimestamp(max(mtimes)).isoformat() if mtimes else None,
             "measures_as_of": date.fromtimestamp(self.files["meetings"].stat().st_mtime).isoformat() if measures else None,
             "min_screened": MIN_SCREENED,
+            "calibrated": self.files["calibration"].exists(),
         }
         old, self.con = self.con, con
         if old is not None:

@@ -60,7 +60,8 @@ function chipEl(chip, extra) {
   return h("a", { class: "chip", href: "#/coverage" },
     h("span", {}, `Showing ${num(chip.meetings)} readable meetings from ${num(chip.districts)} districts`),
     unread !== null && unread !== undefined ? h("span", { class: "k" }, `${PCT(unread)} of minutes not yet read`) : null,
-    extra ? h("span", { class: "k" }, extra) : null);
+    extra ? h("span", { class: "k" }, extra) : null,
+    metaCache?.measures && !metaCache.calibrated ? h("span", { class: "k" }, "Version 1*: labels use starting cutoffs; accuracy not yet measured") : null);
 }
 function setHash(path, params) {
   const q = qs(params);
@@ -793,16 +794,16 @@ async function pageMethod(token) {
         h("ul", {}, m.events.map(e => h("li", {}, `${e.label}: ${dateLabel(e.date)}${e.in_texas ? ` (${e.county})` : " (outside Texas)"}`))),
         h("p", {}, "A meeting refers to an event when a passage names it or responds to it (for example a moment of silence). “Uvalde” is also a district and county name, so it counts only when the passage is about the shooting.")),
       q("What does a closed security session mean, and why does absence of discussion not mean absence of concern?",
-        h("p", {}, "Texas Government Code section 551.076 lets a board deliberate in closed session on deploying security personnel or devices, and section 551.089 on security audits and assessments. Agendas must cite the section, so we flag meetings that do. What is said in those sessions is not in the public minutes."),
+        h("p", {}, "Texas Government Code section 551.076 lets a board deliberate in closed session on deploying security personnel or devices, and section 551.089 on security audits and assessments. Agendas must cite the section, so we flag meetings that do. Many agendas list every closed-session section as standard wording, so the flag means the section was cited, not that a security session took place. What is said in those sessions is not in the public minutes."),
         h("p", {}, "So a meeting with no safety mention may still have discussed safety in private. Every share on these pages counts public discussion only, and is a lower bound for discussion of any kind.")),
       q("How do yes, no and uncertain work?",
         h("p", {}, "Each yes-or-no question gives a probability. Three zones turn it into a label:"),
         h("dl", {}, Object.entries(thr).filter(([, v]) => typeof v === "object").map(([k, v]) => [h("dt", {}, k), h("dd", {}, `yes at ${v.yes} or above, no at ${v.no} or below, uncertain in between`)])),
-        h("p", {}, "Uncertain meetings are not counted as mentions; charts report how many there were. Starting thresholds are replaced by values calibrated on the hand-checked sample.")),
+        h("p", {}, "Uncertain meetings are not counted as mentions; charts report how many there were. Version 1 uses these starting cutoffs as they are. They have not been checked against hand-coded meetings, which is the asterisk on every share in this app.")),
       q("How accurate is the classifier?",
         calRows.length ? [h("p", {}, `Against the hand-checked sample (${d.calibration_path}):`),
           dataTable({ columns: ["Question", ...Object.keys(calRows[0][1])], rows: calRows.map(([k, v]) => [k, ...Object.values(v).map(x => typeof x === "number" ? (x <= 1 && x > 0 && !Number.isInteger(x) ? x.toFixed(2) : num(x)) : String(x))]) })]
-          : h("p", {}, "Not measured yet. Precision and recall per question will appear here from gold/calibration.json once the hand-checked sample is coded.")),
+          : h("p", {}, "Not measured in version 1. A 500-meeting sample for hand-checking is drawn (data/measures/gold/packet.jsonl); if it is coded, precision and recall per question will appear here from gold/calibration.json.")),
       q("Which meetings are in the denominator?",
         h("p", {}, "The unit is a board meeting, not a document: agendas and minutes of the same meeting count once. The measured document is the minutes when they can be read, else the agenda, else the BoardBook projector view. A meeting is readable when that document has text (extracted, or read by OCR)."),
         h("p", {}, `Shares divide meetings with a mention by readable meetings that were screened. ${d.chip.not_screened ? `${num(d.chip.not_screened)} readable meetings are not screened yet.` : ""} Months with fewer than ${d.thin_meetings} readable meetings are drawn dashed; event rows with fewer than ${d.min_event_districts} districts are marked thin.`)),
