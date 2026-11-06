@@ -1,0 +1,32 @@
+{
+  "nodes": [
+    {
+      "name": "Base Column",
+      "type": "BASE_COLUMN",
+      "nodes": [
+        {
+          "name": "Text",
+          "type": "CONTENT_NODE_TEXT",
+          "content": {
+            "html": "<p><strong>Board Meeting Minutes</strong></p><ul><li><p style=\"text-align: left\"><a target=\"_blank\" rel=\"noopener noreferrer nofollow\" href=\"https://aptg.co/0v1g_F\">September</a></p></li><li><p style=\"text-align: left\"><a target=\"_blank\" rel=\"noopener noreferrer nofollow\" href=\"https://aptg.co/MXQcdq\">October</a></p></li><li><p style=\"text-align: left\"><a target=\"_blank\" rel=\"noopener noreferrer nofollow\" href=\"https://aptg.co/553Zh-\">November</a></p></li><li><p style=\"text-align: left\"><a target=\"_blank\" rel=\"noopener noreferrer nofollow\" href=\"https://aptg.co/Sj8lkk\">December</a></p></li><li><p style=\"text-align: left\"><a target=\"_blank\" rel=\"noopener noreferrer nofollow\" href=\"https://aptg.co/43x96R\">January</a></p></li><li><p style=\"text-align: left\"><a target=\"_blank\" rel=\"noopener noreferrer nofollow\" href=\"https://aptg.co/CPSkbP\">February</a></p></li></ul>"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Base Column",
+      "type": "BASE_COLUMN",
+      "nodes": [
+        {
+          "name": "Text",
+          "type": "CONTENT_NODE_TEXT",
+          "content": {
+            "html": "<p></p><ul><li><p><a target=\"_blank\" rel=\"noopener noreferrer nofollow\" href=\"https://aptg.co/mpbG08\">March</a></p></li><li><p><a target=\"_blank\" rel=\"noopener noreferrer nofollow\" href=\"https://aptg.co/Fqr1Fy\">April</a></p></li><li><p><a target=\"_blank\" rel=\"noopener noreferrer nofollow\" href=\"https://aptg.co/13FBYX\">May</a></p></li><li><p><a target=\"_blank\" rel=\"noopener noreferrer nofollow\" href=\"https://aptg.co/sbx3Hg\">June</a></p></li><li><p><a target=\"_blank\" rel=\"noopener noreferrer nofollow\" href=\"https://aptg.co/YSGVL9\">July</a></p></li><li><p><a target=\"_blank\" rel=\"noopener noreferrer nofollow\" href=\"https://aptg.co/mXzMMX\">August</a></p></li><li><p><a target=\"_blank\" rel=\"noopener noreferrer nofollow\" href=\"https://aptg.co/J9cF83\">August 31, 2026 Special Session</a></p><p></p></li></ul>"
+          }
+        }
+      ]
+    }
+  ],
+  "name": "Two Columns",
+  "type": "LAYOUT_NODE_DOUBLE_COLUMN"
+}

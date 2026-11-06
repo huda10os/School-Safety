@@ -95,8 +95,60 @@ function asOf(m) {
 }
 
 // ------------------------------------------------------------------ landing story
+// Share of meetings with a mention in the 12 months before or after an event,
+// from the same monthly rows the line draws (event month itself excluded).
+function windowShare(rows, iso, side, months = 12) {
+  const [ey, em] = iso.split("-").map(Number);
+  let yes = 0, n = 0;
+  for (const r of rows) {
+    const [y, m] = r.period.split("-").map(Number);
+    const rel = (y - ey) * 12 + m - em;
+    if (side === "before" ? rel >= -months && rel < 0 : rel > 0 && rel <= months) { yes += r.yes || 0; n += r.meetings || 0; }
+  }
+  return n ? { share: yes / n, yes, meetings: n } : null;
+}
+// Which subtopics moved: mean share 2014–2017 (before Santa Fe) against the last full year.
+function subtopicMoves(subs, lastYear) {
+  if (!subs) return [];
+  return Object.keys(subs.labels).map(k => {
+    const pts = subs.series[k].filter(p => p.share !== null && !p.thin);
+    const base = pts.filter(p => p.year >= 2014 && p.year <= 2017);
+    const end = pts.filter(p => p.year === lastYear)[0] || pts[pts.length - 1];
+    if (!base.length || !end) return null;
+    const from = base.reduce((a, p) => a + p.yes, 0) / base.reduce((a, p) => a + p.meetings, 0);
+    return { key: k, label: SUB_SHORT[k] || subs.labels[k], from, to: end.share, toYear: end.year, change: end.share - from, ratio: from ? end.share / from : null };
+  }).filter(Boolean).sort((x, y) => y.change - x.change);
+}
+// Tone rows come one per group; shares are per group, never summed across groups
+// (a meeting describing both students and staff sits in both rows).
+// Shares under 10% keep one decimal so a 0.4% subtopic does not read as 0%.
+function pct1(v) { return v === null || v === undefined ? "–" : v > 0 && v < 0.001 ? "under 0.1%" : v < 0.1 ? `${(v * 100).toFixed(1)}%` : shareText(v); }
+// Passages quoted in the story, found through the search API so each carries its
+// district, date and source link. sentence: the part of the passage quoted, verbatim.
+const STORY_QUOTES = [
+  { step: "a", tea_id: "022901", q: "weekly door checks", year: 2022, sentence: /Dr\. Rinehart provided an update[^.]*\./, tag: "safety" },
+  { step: "t", tea_id: "020908", q: "moment of silence for the Uvalde", year: 2022, detail: "Minutes", sentence: /Trustee Murphy also offered a moment of silence[^.]*\./, tag: "after Uvalde" },
+  { step: "t", tea_id: "031901", q: "terrified for anything", year: 2022, sentence: /I am terrified for anything to happen to any of my students/, tag: "public comment" },
+];
+async function storyQuotes() {
+  const out = await Promise.all(STORY_QUOTES.map(async sq => {
+    try {
+      const r = await api("search", { q: sq.q, tea_id: sq.tea_id, from: sq.year, to: sq.year, scope: "passages" });
+      const it = r.items.find(x => !sq.detail || x.detail === sq.detail) || r.items[0];
+      const text = it && it.snippet.replace(/\s+/g, " ").match(sq.sentence);
+      return text ? { ...sq, excerpt: text[0], school_district: it.school_district, date: it.date, detail: it.detail, source_link: it.source_link } : null;
+    } catch { return null; }
+  }));
+  return out.filter(Boolean);
+}
+function toneShares(tone, years, who = "students") {
+  const rows = (tone?.rows || []).filter(r => years.includes(r.year) && r.who === who);
+  const sum = k => rows.reduce((a, r) => a + r[k], 0), n = rows.reduce((a, r) => a + r.meetings, 0);
+  return n ? { negative: sum("negative") / n, positive: sum("positive") / n, mixed: sum("mixed") / n, meetings: n } : null;
+}
 async function pageStory(token) {
   const [m, s] = await Promise.all([meta(), api("story")]);
+  const picked = m.measures ? await storyQuotes() : [];
   if (token !== routeToken) return;
   document.title = "Texas school boards after school shootings";
   const unread = s.chip.minutes_unread_share;
@@ -105,66 +157,92 @@ async function pageStory(token) {
   const firsts = s.dots.filter(d => d.first_year_raw).map(d => d.first_year_raw).sort((a, b) => a - b);
   const median = firsts[Math.floor(firsts.length / 2)];
   const after2018 = firsts.filter(y => y > 2018).length;
+  const thisYear = new Date().getUTCFullYear();
   const yt = s.year_trend.filter(r => r.share !== null && !r.thin);
   const pick = y => yt.find(r => r.period.startsWith(String(y)));
-  const lastFull = yt.filter(r => +r.period.slice(0, 4) < new Date().getUTCFullYear()).slice(-1)[0] || yt.slice(-1)[0];
+  const lastFull = yt.filter(r => +r.period.slice(0, 4) < thisYear).slice(-1)[0] || yt.slice(-1)[0];
   const early = pick(2015) || yt[0];
   const santa = s.events.find(e => e.key === "santa_fe"), uv = s.events.find(e => e.key === "uvalde");
-  const subs = s.subtopics, sub = key => {
-    const pts = (subs?.series[key] || []).filter(p => p.share !== null && !p.thin);
-    return pts.length ? [pts[0], pts[pts.length - 1]] : null;
-  };
-  const armed = sub("armed_staff"), mh = sub("mental_health");
+  const win = (e, side) => m.measures && e ? windowShare(s.month_trend, e.date, side) : null;
+  const sfB = win(santa, "before"), sfA = win(santa, "after"), uvB = win(uv, "before"), uvA = win(uv, "after");
+  const moves = m.measures ? subtopicMoves(s.subtopics, lastFull ? +lastFull.period.slice(0, 4) : thisYear - 1) : [];
+  const hlA = moves[0], hlB = moves.find(x => x.key === "mental_health" && x !== hlA) || moves[1];
   const tone = s.tone;
-  const quotes = tone?.quotes || [];
+  const quotesA = picked.filter(q => q.step === "a"), quotesT = picked.filter(q => q.step === "t");
+  const tAll = lastFull ? toneShares(tone, [+lastFull.period.slice(0, 4)]) : null;
   const pre = s.pretrend;
+  const tEarly = toneShares(tone, [2014, 2015, 2016, 2017]), tLate = lastFull ? toneShares(tone, [+lastFull.period.slice(0, 4)]) : null;
+  const yr = r => r.period.slice(0, 4);
+  const A = t => h("span", { class: "accent" }, t);
+  const moveLine = x => `${x.label}: ${pct1(x.from)} of meetings a year in 2014–2017, ${pct1(x.to)} in ${x.toYear}`;
+  const y2021 = pick(2021);
+  const rising = pre ? pre.slope_per_year > 0.005 : false;
   const steps = [
-    { scene: "dots", body: [`Texas school boards have published at least ${num(s.documents)} meeting documents since ${s.first_year}. We collected them from ${num(s.districts_with_records)} of the state's ${num(s.districts_total)} districts.`],
-      count: "Each dot is one district" },
-    { scene: "dots", body: ["But we can't read all of them."], key: [
-      ["readable", `Text we can read: ${num(counts.readable)} districts`], ["scan", `Mostly scans not yet read by OCR: ${num(counts.scan)}`],
+    { scene: "dots", head: `${num(s.documents)} meeting records from ${s.districts_with_records === s.districts_total ? "all" : `${num(s.districts_with_records)} of`} ${num(s.districts_total)} Texas school districts.`,
+      body: [`Agendas and minutes posted online since ${s.first_year}. Each dot is one district.`] },
+    { scene: "dots", head: "We can't read all of them yet.",
+      body: [`${PCT(unread)} of minutes are scanned pages still waiting for OCR, so every share on this page is a lower bound.`], key: [
+      ["readable", `Text we can read: ${num(counts.readable)} districts`], ["scan", `Mostly scans not yet read: ${num(counts.scan)}`],
       ["unavailable", `Listed, but the text is unavailable: ${num(counts.unavailable)}`], ["none", `No record found online: ${num(counts.none)}`]],
-      cap: `${PCT(unread)} of minutes are scanned PDFs waiting for OCR. A district is drawn by the state most of its documents are in.` },
-    { scene: "dots", body: [`Most districts only post recent years. Half of the districts' records start in ${median} or later, and ${num(after2018)} start after 2018.`],
+      cap: "A district is drawn by the state most of its documents are in." },
+    { scene: "dots", head: "Most districts only post recent years.",
+      body: [`Half of the districts' records start in ${median} or later, and ${num(after2018)} start after 2018. Early years rest on fewer boards.`],
       count: `Dots line up by first year on record; earlier years are bunched at ${s.first_year}` },
-    { scene: "line", body: m.measures && early && lastFull
-      ? [`In the meetings we can read, safety came up in `, h("span", { class: "accent" }, `${shareText(early.share)} of ${early.period.slice(0, 4)} meetings`), ` and ${shareText(lastFull.share)} of ${lastFull.period.slice(0, 4)} meetings.`]
-      : [`Safety measures are not computed yet. What we can show is how many meetings each month we can read, which is the denominator every share will use.`],
+    { scene: "line", draw: true,
+      head: m.measures && early && lastFull ? [`Safety came up in `, A(`${shareText(lastFull.share)} of ${yr(lastFull)} meetings`), `, against ${shareText(early.share)} in ${yr(early)}.`]
+        : "First, how many meetings we can read.",
+      body: [m.measures ? "Safety means any of six subtopics: armed staff, police and SROs, building security, threat assessment, drills and plans, or mental health tied to safety."
+        : "Safety shares are not computed yet. The bars are readable meetings each month, the denominator every share will use."],
       cap: "Bars under the line: readable meetings per month. The line is dashed where a month has fewer than 30." },
-    { scene: "line", body: [`Two Texas school shootings are marked: Santa Fe High School on ${santa ? dateLabel(santa.date) : "18 May 2018"}, and Robb Elementary in Uvalde on ${uv ? dateLabel(uv.date) : "24 May 2022"}. The year after each is shaded.`] },
-    { scene: "line", body: pre && pre.after_actual !== null
-      ? [`Before Uvalde the share was ${pre.slope_per_year > 0.005 ? "already rising" : pre.slope_per_year < -0.005 ? "falling" : "roughly flat"}, by about ${Math.abs(Math.round(pre.slope_per_year * 100))} point${Math.abs(Math.round(pre.slope_per_year * 100)) === 1 ? "" : "s"} a year. In the 12 months after, it averaged `,
-        h("span", { class: "accent" }, shareText(pre.after_actual)), `, against ${shareText(pre.after_projected)} if the earlier trend had simply continued (dotted line).`]
-      : ["When the measures are ready, this step compares the year after Uvalde with the trend in the two years before it, so a rise that started earlier is not credited to the shooting."],
+    { scene: "line",
+      head: sfB && sfA && uvB && uvA ? [`After Santa Fe, ${shareText(sfB.share)} became `, A(shareText(sfA.share)), `. After Uvalde, ${shareText(uvB.share)} became `, A(shareText(uvA.share)), "."]
+        : "Two Texas school shootings are marked.",
+      body: [`Santa Fe High School, ${santa ? dateLabel(santa.date) : "18 May 2018"}, and Robb Elementary in Uvalde, ${uv ? dateLabel(uv.date) : "24 May 2022"}. `,
+        sfB && sfA ? "Each pair is every Texas meeting we can read in the 12 months before and after; the shaded band is the year after. " : "The shaded band is the year after each.",
+        sfA && y2021 ? `The rise after Santa Fe faded: by 2021 the share was back to ${shareText(y2021.share)}.` : ""],
       cap: HEDGE },
-    { scene: "multiples", body: armed ? [`What they talked about changed. Armed staff and the Guardian program came up in `, h("span", { class: "accent" }, `${shareText(armed[1].share)} of meetings in ${armed[1].year}`), `, against ${shareText(armed[0].share)} in ${armed[0].year}.`]
-      : ["What they talked about: six safety subtopics, each drawn on the same scale. They appear here once the measures are computed."] },
-    { scene: "multiples", body: mh ? [`Mental health and counseling, when tied to safety, came up in `, h("span", { class: "accent" }, `${shareText(mh[1].share)} of meetings in ${mh[1].year}`), `, against ${shareText(mh[0].share)} in ${mh[0].year}.`]
-      : ["Mental health and counseling count only when a passage ties them to safety, threats or crisis."] },
-    { scene: "tone", body: tone && tone.rows.length ? ["How board members described students and staff. Bars to the left are negative descriptions (fear, stress, misbehavior); to the right, positive ones."]
-      : ["How board members described students and staff: negative, positive or mixed. This appears once the measures are computed."],
-      quotes },
+    { scene: "line",
+      head: pre && pre.after_actual !== null ? [rising ? "Part of that rise was already under way. " : "", "After Uvalde: ", A(shareText(pre.after_actual)), `, against ${shareText(pre.after_projected)} on the earlier trend.`]
+        : "Was the share already rising before Uvalde?",
+      body: [pre && pre.after_actual !== null ? `In the two years before, the share was ${rising ? "rising" : pre.slope_per_year < -0.005 ? "falling" : "roughly flat"} by about ${Math.abs(Math.round(pre.slope_per_year * 100))} point${Math.abs(Math.round(pre.slope_per_year * 100)) === 1 ? "" : "s"} a year. The dotted line carries that trend forward, so the gap between it and the solid line is the part a trend alone does not explain.${lastFull ? ` Unlike after Santa Fe, it has not gone back: ${shareText(lastFull.share)} in ${yr(lastFull)}.` : ""}`
+        : "When the measures are ready, this step compares the year after Uvalde with the trend in the two years before it, so a rise that started earlier is not credited to the shooting."],
+      cap: "Observational, not causal. Other things changed at the same time, including new state law after Uvalde." },
+    { scene: "multiples", hl: "a",
+      head: hlA ? [`${hlA.label} moved most: `, A(`${pct1(hlA.from)} to ${pct1(hlA.to)}`), " of meetings."] : "What they talked about changed.",
+      body: [hlA ? `${moveLine(hlA)}${hlA.key === "hardening" ? ": vestibules, door audits, cameras and fencing" : ""}. Every panel shares one scale. Many safety mentions name no single subtopic, so the panels add up to less than the line.` : "Six safety subtopics, each drawn on the same scale. They appear here once the measures are computed."],
+      quotes: quotesA },
+    { scene: "multiples", hl: "b",
+      head: hlB ? [`${hlB.label}: `, A(`${pct1(hlB.from)} to ${pct1(hlB.to)}`), ", small but up."] : "Mental health counts only when tied to safety.",
+      body: [hlB ? `${moveLine(hlB)}. ` : "", moves.length > 2 ? `It counts only when a passage ties it to safety, threats or crisis. The rest: ${moves.filter(x => x !== hlA && x !== hlB).map(x => `${x.label[0].toLowerCase()}${x.label.slice(1)} ${pct1(x.from)} to ${pct1(x.to)}`).join("; ")}.`
+        : "Mental health and counseling count only when a passage ties them to safety, threats or crisis."] },
+    { scene: "tone",
+      head: tAll ? ["How students felt rarely reached the record: ", A(`${pct1(tAll.negative + tAll.positive + tAll.mixed)} of ${yr(lastFull)} meetings`), "."]
+        : "How board members described students and staff.",
+      body: [tAll && tEarly ? `Descriptions of how students felt or behaved, ${yr(lastFull)}: ${pct1(tAll.positive)} of meetings positive, ${pct1(tAll.negative)} negative, ${pct1(tAll.mixed)} mixed. Minutes record business, not feelings; what does surface comes in moments of silence and public comment, quoted here as written.`
+        : "Negative, positive or mixed. This appears once the measures are computed."],
+      quotes: quotesT },
   ];
   const sticky = h("div", { class: "chart-box" });
   const graphic = h("div", { class: "graphic", "aria-hidden": "false" }, sticky);
   const stepEls = steps.map((st, i) => h("div", { class: "step", "data-step": i + 1 },
-    h("div", { class: "card" }, h("p", {}, st.body),
+    h("div", { class: "card" }, h("h3", { class: "step-head" }, st.head), h("p", { class: "step-body" }, st.body),
       st.key ? h("ul", { class: "key" }, st.key.map(([k, l]) => legendItem(k, l))) : null,
       st.cap ? h("p", { class: "cap" }, st.cap) : null,
       (st.quotes || []).map(q => quoteCard(q)),
-      h("p", { class: "count" }, `${st.count ? st.count + " · " : ""}Step ${i + 1} of ${steps.length}`)),
+      h("p", { class: "count" }, `${st.count ? st.count + " · " : ""}${i + 1} of ${steps.length}`)),
     h("div", { class: "figure-static chart-box" })));
   const hero = h("header", { class: "hero" },
     h("p", { class: "over" }, `Texas school boards · meeting records ${s.first_year}–${s.last_year}`),
     h("h1", {}, "What Texas school boards said after school shootings"),
-    h("p", { class: "lede" }, `We collected ${num(s.documents)} agendas, minutes and other meeting documents from ${num(s.districts_with_records)} of Texas's ${num(s.districts_total)} school districts. Here is what they say, and what we can't read yet.`),
+    h("p", { class: "lede" }, `We collected ${num(s.documents)} agendas, minutes and other meeting documents from ${s.districts_with_records === s.districts_total ? `all ${num(s.districts_total)} Texas` : `${num(s.districts_with_records)} of Texas's ${num(s.districts_total)}`} school districts. Here is what they say, and what we can't read yet.`),
     h("div", { class: "factrow" },
       h("div", {}, h("b", {}, num(s.districts_total)), h("span", {}, "districts")),
       h("div", {}, h("b", {}, num(s.documents)), h("span", {}, "documents")),
       h("div", {}, h("b", {}, `${s.first_year}–${s.last_year}`), h("span", {}, "years")),
       h("div", {}, h("b", {}, PCT(unread)), h("span", {}, "of minutes unread"))),
-    h("p", { class: "cap" }, h("a", { href: "#/explore" }, "Skip the story and explore the data →")));
-  render(h("div", { class: "r" }, hero, m.measures ? null : pending("The story's first steps use the archive itself; the findings steps wait for the measures."),
+    h("p", { class: "cap" }, metaCache?.measures && !metaCache.calibrated ? "Version 1*: labels use starting cutoffs; accuracy not yet measured. " : "",
+      h("a", { href: "#/explore" }, "Skip the story and explore the data →")));
+  render(h("div", { class: "r story" }, hero, m.measures ? null : pending("The story's first steps use the archive itself; the findings steps wait for the measures."),
     h("section", { class: "scrolly", "aria-label": "Story" }, graphic, h("div", { class: "steps" }, stepEls)),
     h("h2", {}, "Look for yourself"),
     h("nav", { class: "closing", "aria-label": "Where to go next" },
@@ -172,21 +250,29 @@ async function pageStory(token) {
       h("a", { href: "#/events" }, h("b", {}, "See any shooting before and after"), h("span", {}, "Nearby districts against the rest of Texas, and the words that changed.")),
       h("a", { href: "#/method" }, h("b", {}, "How we built this"), h("span", {}, "Definitions, accuracy, coverage and what the records cannot show."))),
     asOf(m)));
-  const draw = (w, step) => storyGraphic(w, Math.min(560, Math.max(300, (sticky.clientHeight || window.innerHeight * 0.55))), s, m, step);
+  const hl = { a: hlA?.key, b: hlB?.key };
+  const draw = (w, step) => storyGraphic(w, Math.min(560, Math.max(300, (sticky.clientHeight || window.innerHeight * 0.55))), s, m, step, hl);
   if (reducedMotion()) {
     stepEls.forEach((el, i) => mount(el.querySelector(".figure-static"), w => draw(w, i + 1)));
     return;
   }
   sticky.style.setProperty("height", "100%");
   let current = 1;
-  mount(sticky, w => { const g = draw(w, current); return g; });
+  const played = new Set();
+  mount(sticky, w => draw(w, current));
+  // Scene entrances play once: the line draws as its first step arrives, the
+  // subtopic panels settle in one after another.
+  const enter = (svg, st) => {
+    if (st.draw && !played.has("line")) { played.add("line"); drawIn(svg.querySelector(".scene-line")); }
+    if (st.scene === "multiples" && !played.has("multiples")) { played.add("multiples"); stagger(svg.querySelectorAll(".scene-multiples .mult"), 60); }
+  };
   const io = new IntersectionObserver(entries => {
     for (const en of entries) {
       if (!en.isIntersecting) continue;
       current = +en.target.dataset.step;
       stepEls.forEach(el => el.classList.toggle("on", el === en.target));
       const svg = sticky.querySelector("svg.sv");
-      if (svg) { svg.dataset.step = current; svg.dataset.scene = steps[current - 1].scene; }
+      if (svg) { svg.dataset.step = current; svg.dataset.scene = steps[current - 1].scene; enter(svg, steps[current - 1]); }
     }
   }, { rootMargin: "-45% 0px -45% 0px" });
   stepEls.forEach(el => io.observe(el));
@@ -195,10 +281,10 @@ async function pageStory(token) {
 function quoteCard(q) {
   return h("blockquote", { class: "quote" }, `“${q.excerpt}”`,
     h("footer", {}, `${q.school_district} · ${dateLabel(q.date)} · ${q.detail || "document"} · `,
-      h("span", { class: "tone-tag" }, q.tone === "negative" ? "− negative" : q.tone === "positive" ? "+ positive" : "mixed"), " ",
+      h("span", { class: "tone-tag" }, q.tag || (q.tone === "negative" ? "− negative" : q.tone === "positive" ? "+ positive" : "mixed")), " ",
       q.source_link ? h("a", { href: q.source_link, target: "_blank", rel: "noopener noreferrer" }, "source ↗") : null));
 }
-function storyGraphic(width, height, s, m, step) {
+function storyGraphic(width, height, s, m, step, hl = {}) {
   const H = Math.max(300, Math.min(height, 620));
   const scene = ["dots", "dots", "dots", "line", "line", "line", "multiples", "multiples", "tone"][step - 1];
   const svg = sv("svg", { class: "c sv", viewBox: `0 0 ${width} ${H}`, width, height: H, "data-step": step, "data-scene": scene, role: "img",
@@ -256,6 +342,8 @@ function storyGraphic(width, height, s, m, step) {
     const labels = s.subtopics.labels;
     gm.appendChild(center(multiples(width, Object.keys(labels).map(k => ({ key: k, label: labels[k].replace(/ \(safety-related\)/, ""), short: SUB_SHORT[k],
       points: s.subtopics.series[k].map(p => ({ x: p.year, y: p.share, thin: p.thin })) })), { rules: ev.map(e => ({ x: +e.date.slice(0, 4) + 0.4 })), xLabel: x => String(x) })));
+    if (hl.a) gm.querySelector(`.mult.${hl.a}`)?.classList.add("hl-a");
+    if (hl.b) gm.querySelector(`.mult.${hl.b}`)?.classList.add("hl-b");
   } else gm.appendChild(sv("text", { class: "placeholder", x: width / 2, y: H / 2, "text-anchor": "middle" }, "Subtopics not computed yet"));
   svg.appendChild(gm);
   const gt = sv("g", { class: "scene scene-tone" });
@@ -276,6 +364,7 @@ async function pageExplore(token, _parts, params) {
   const toggle = h("button", { type: "button", class: "filters-toggle", "aria-expanded": "false", onclick: () => {
     const open = rail.classList.toggle("open"); toggle.setAttribute("aria-expanded", String(open)); } }, "Filters");
   const update = () => { setHash("explore", st); drawRail(); drawMain(); };
+  let lastFinding = null, staggered = false;
   function drawRail() {
     const active = ["subtopic", "region", "size"].filter(k => st[k]).length + (st.measure !== "safety") + (st.sample !== "all");
     toggle.textContent = active ? `Filters (${active})` : "Filters";
@@ -351,15 +440,18 @@ async function pageExplore(token, _parts, params) {
       }),
     ];
     if (subs) {
-      const sbox = h("div", { class: "chart-box" });
+      const sbox = h("div", { class: "chart-box multiples-box" });
       const labels = subs.labels;
       mount(sbox, w => multiples(w, Object.keys(labels).map(k => ({ key: k, label: labels[k].replace(/ \(safety-related\)/, ""), short: SUB_SHORT[k],
         points: subs.series[k].map(p => ({ x: p.year, y: p.share, thin: p.thin })) })),
         { selected: st.subtopic || null, rules: events.map(e => ({ x: +e.date.slice(0, 4) + (+e.date.slice(5, 7) - 1) / 12 })), xLabel: x => String(Math.round(x)),
           onSelect: k => { st.measure = "safety"; st.subtopic = st.subtopic === k ? "" : k; update(); window.scrollTo({ top: 0 }); } }));
+      const lastSub = Math.min(+st.to, new Date().getUTCFullYear() - 1);
+      const mv = subtopicMoves(subs, lastSub)[0];
       parts.push(h("h2", {}, "What they talked about"), figure({
-        title: "Each safety subtopic, as a share of readable meetings per year",
-        sub: "Same scale in every panel. One meeting can mention several subtopics. Select a panel to put it in the main chart.",
+        title: mv && mv.change > 0.005 ? null : "Each safety subtopic, as a share of readable meetings per year",
+        titleNodes: mv && mv.change > 0.005 ? [`${mv.label} rose most: `, h("span", { class: "accent" }, `${shareText(mv.from)} of meetings a year in 2014–2017, ${shareText(mv.to)} in ${mv.toYear}`)] : null,
+        sub: "Each safety subtopic as a share of readable meetings per year. Same scale in every panel; one meeting can mention several. Select a panel to put it in the main chart.",
         chart: sbox, caption: `Share of readable meetings each year mentioning the subtopic. ${STANDING}`,
         table: { columns: ["Subtopic", ...subs.series[Object.keys(labels)[0]].map(p => String(p.year))],
           rows: Object.keys(labels).map(k => [labels[k], ...subs.series[k].map(p => shareText(p.share))]) },
@@ -368,8 +460,11 @@ async function pageExplore(token, _parts, params) {
     if (tone) {
       const tbox = h("div", { class: "chart-box" });
       mount(tbox, w => diverging(w, tone.rows));
+      const tYear = Math.min(+st.to, new Date().getUTCFullYear() - 1);
+      const tE = toneShares(tone, [2014, 2015, 2016, 2017]), tL = toneShares(tone, [tYear]);
       parts.push(h("h2", {}, "How they described students and staff"), figure({
-        title: "Negative, mixed and positive descriptions of how students and staff feel or behave",
+        title: tE && tL ? null : "Negative, mixed and positive descriptions of how students and staff feel or behave",
+        titleNodes: tE && tL ? ["Students were described negatively in ", h("span", { class: "accent" }, `${shareText(tL.negative)} of ${tYear} meetings`), `, against ${shareText(tE.negative)} a year in 2014–2017`] : null,
         sub: "Share of readable meetings each year. Negative extends left of the centre line, positive right; mixed sits across the centre.",
         chart: tbox, legend: legendList([["neg", "− negative"], ["mixed", "mixed"], ["pos", "+ positive"]]),
         caption: `Temperament: any statement about how students or staff feel or behave, as defined in the method. Figures of speech such as "happy to report" are excluded. ${STANDING}`,
@@ -380,6 +475,11 @@ async function pageExplore(token, _parts, params) {
     parts.push(h("h2", {}, "Districts"), h("p", { class: "col" }, "Every district has a page with one mark per meeting. Find one on the ",
       h("a", { href: "#/map" }, "map"), ", in the ", h("a", { href: "#/districts" }, "district list"), ", or see ", h("a", { href: "#/coverage" }, "what we can read for every district and year"), "."));
     mainCol.replaceChildren(...parts.filter(Boolean));
+    const text = finding ? finding.map(x => typeof x === "string" ? x : x.textContent).join("") : "";
+    if (lastFinding !== null && text !== lastFinding) { swapIn(mainCol.querySelector(".fig-title .accent")); swapIn(mainCol.querySelector(".chip > span")); }
+    lastFinding = text;
+    const sm = mainCol.querySelector(".chart-box.multiples-box");
+    if (sm && !staggered) { staggered = true; whenSeen(sm, () => stagger(sm.querySelectorAll(".mult"))); }
   }
   drawRail();
   render(h("div", { class: "r" }, h("p", { class: "over" }, "Explore"), h("h1", {}, "Safety in Texas school board meetings, statewide"),
@@ -428,14 +528,18 @@ async function pageEvents(token, parts, params) {
   const body = h("div", { "aria-live": "polite" });
   const controls = h("form", { class: "ev-controls", "aria-label": "Event settings", onsubmit: ev => ev.preventDefault() });
   const update = () => { setHash(`events/${key}`, st); drawControls(); drawBody(); };
+  let lastFinding = null;
   function drawControls() {
     const out = h("output", { for: "f-radius" }, `${st.radius} miles`);
+    const fill = el => el.style.setProperty("--fill", `${(100 * (el.value - el.min) / (el.max - el.min)).toFixed(1)}%`);
     const range = h("input", { type: "range", id: "f-radius", min: 10, max: 200, step: 5, value: st.radius, disabled: st.same_county ? true : null,
-      oninput: ev => { out.textContent = `${ev.target.value} miles`; }, onchange: ev => { st.radius = ev.target.value; update(); } });
+      oninput: ev => { out.textContent = `${ev.target.value} miles`; fill(ev.target); }, onchange: ev => { st.radius = ev.target.value; update(); } });
+    fill(range);
     const county = h("input", { type: "checkbox", id: "f-county", onchange: ev => { st.same_county = ev.target.checked ? "1" : ""; update(); } });
     county.checked = !!st.same_county;
     controls.replaceChildren(
-      e.in_texas ? h("div", {}, h("label", { class: "lbl", for: "f-radius" }, "Nearby means within"), range, out,
+      e.in_texas ? h("div", {}, h("label", { class: "lbl", for: "f-radius" }, "Nearby means within"), out, range,
+        h("div", { class: "range-scale", "aria-hidden": "true" }, h("span", {}, "10 mi"), h("span", {}, "200 mi")),
         h("label", { class: "opt", for: "f-county" }, county, `Same county instead (${e.county})`)) :
         h("div", {}, h("span", { class: "lbl" }, "Nearby"), h("p", { class: "small" }, "Outside Texas, so every Texas district is compared before and after.")),
       h("div", {}, h("label", { class: "lbl", for: "f-window" }, "Window"),
@@ -516,6 +620,9 @@ async function pageEvents(token, parts, params) {
           h("span", { class: "muted small" }, " Every district and meeting within the window, with distance, same-county and within-radius columns, for R or Stata."))),
     ];
     body.replaceChildren(...parts.filter(Boolean));
+    const text = finding.map(x => typeof x === "string" ? x : x.textContent).join("");
+    if (lastFinding !== null && text !== lastFinding) swapIn(body.querySelector(".finding .accent") || body.querySelector(".finding"));
+    lastFinding = text;
     drawWords(words);
   }
   async function drawWords(box) {
@@ -573,7 +680,14 @@ async function pageEvents(token, parts, params) {
       h("p", { class: "cap" }, `${w.method} A word that changes is not evidence of why it changed: new board members, new minute templates and other events all move words. Check the passages.`),
       h("div", { class: "fig-tools" }, h("a", { href: `api/event_words?${qs({ key, radius: st.radius, same_county: st.same_county, window: st.window, scope: w.scope, n: 200, format: "csv" })}` }, "Download the word scores (CSV)")));
   }
-  const picker = sel("event", m.events.map(x => [x.key, `${x.label} · ${dateLabel(x.date)}`]), key, { "aria-label": "Choose an event", onchange: ev => { location.hash = `#/events/${ev.target.value}`; } });
+  // Grouped the way the research is: shootings in Texas, then those elsewhere that Texas boards may also have answered.
+  const picker = h("select", { name: "event", "aria-label": "Choose an event", onchange: ev => { location.hash = `#/events/${ev.target.value}`; } },
+    [["In Texas", m.events.filter(x => x.in_texas)], ["Outside Texas", m.events.filter(x => !x.in_texas)]].filter(([, l]) => l.length).map(([label, list]) =>
+      h("optgroup", { label }, list.slice().sort((a, b) => b.date.localeCompare(a.date)).map(x => {
+        const o = h("option", { value: x.key }, `${SHORT[x.key] || x.label.split(",")[0]} · ${dateLabel(x.date)}`);
+        if (x.key === key) o.selected = true;
+        return o;
+      }))));
   drawControls();
   render(h("div", { class: "r" },
     h("div", { class: "ev-head" }, h("p", { class: "crumbs" }, h("a", { href: "#all-events", onclick: ev => { ev.preventDefault(); document.getElementById("all-events")?.scrollIntoView(); } }, "← All events")), picker),
@@ -809,7 +923,11 @@ async function pageMethod(token) {
         h("p", {}, `Shares divide meetings with a mention by readable meetings that were screened. ${d.chip.not_screened ? `${num(d.chip.not_screened)} readable meetings are not screened yet.` : ""} Months with fewer than ${d.thin_meetings} readable meetings are drawn dashed; event rows with fewer than ${d.min_event_districts} districts are marked thin.`)),
       q("What can't we read yet? (coverage and OCR)",
         h("p", {}, `Of ${num(totalDocs)} documents, ${num(states.readable || 0)} have text, ${num(states.scan || 0)} are scanned images waiting for OCR, ${num(states.unavailable || 0)} are listed but unavailable, and ${num(states.recording || 0)} are recordings (links only). ${PCT(d.chip.minutes_unread_share)} of minutes are unread scans.`),
-        ocr ? h("p", {}, `OCR progress: ${ocr.done !== undefined ? `${num(ocr.done)} of ${num(ocr.total)} documents` : JSON.stringify(ocr)}.`) : null,
+        ocr ? h("p", {}, (() => {
+          const done = ocr.documents_done ?? ocr.done, total = ocr.documents_total ?? ocr.total;
+          if (done === undefined || !total) return `OCR status: ${ocr.phase || "unknown"}.`;
+          return `OCR progress: ${num(done)} of ${num(total)} scanned documents read (${PCT(done / total)})${ocr.phase === "running" ? ", still running" : ""}${ocr.updated_at ? `, as of ${dateLabel(ocr.updated_at.slice(0, 10))}` : ""}.`;
+        })()) : null,
         h("p", {}, "Coverage is uneven: most districts post only recent years, larger districts post more, and small districts post more scans. Unread scans and missed wording can only add mentions, so counts are lower bounds. When OCR finishes, numbers will change; this page gives the date of the data."),
         h("p", {}, h("a", { href: "#/coverage" }, "See coverage for every district and year"), ".")),
       q("Why is a district hollow on the map?",

@@ -261,15 +261,19 @@ function lineChart(width, o) {
   // hover and keyboard focus over the first series
   if (main && o.tip) {
     const pts = main.points.filter(p => p.y !== null);
-    const ring = sv("circle", { class: "focus-ring", r: 6, cx: 0, cy: 0, display: "none" });
+    const xhair = sv("line", { class: "xhair", x1: 0, x2: 0, y1: M.t, y2: plotB, display: "none" });
+    const ring = sv("circle", { class: "focus-ring", r: 4, cx: 0, cy: 0, display: "none" });
+    svg.appendChild(xhair);
     svg.appendChild(ring);
     let idx = pts.length - 1;
     const focus = (i, at, touch) => {
       idx = Math.max(0, Math.min(pts.length - 1, i));
       const p = pts[idx];
+      xhair.setAttribute("x1", x(p.x)); xhair.setAttribute("x2", x(p.x)); xhair.removeAttribute("display");
       ring.setAttribute("cx", x(p.x)); ring.setAttribute("cy", y(p.y)); ring.removeAttribute("display");
       Tip.show(o.tip(p), at || Tip.atElement(ring), touch);
     };
+    const unfocus = () => { Tip.hide(); ring.setAttribute("display", "none"); xhair.setAttribute("display", "none"); };
     const hit = sv("rect", { class: "hit", x: M.l, y: M.t, width: width - M.l - M.r, height: plotB - M.t, tabindex: 0,
       "aria-label": "Chart values. Use left and right arrow keys to read each point." });
     const nearest = ev => {
@@ -282,16 +286,16 @@ function lineChart(width, o) {
     };
     hit.addEventListener("pointermove", ev => { if (ev.pointerType === "mouse") focus(nearest(ev), { x: ev.clientX, y: ev.clientY }); });
     hit.addEventListener("pointerdown", ev => { if (ev.pointerType !== "mouse") focus(nearest(ev), null, true); });
-    hit.addEventListener("pointerleave", ev => { if (ev.pointerType === "mouse") { Tip.hide(); ring.setAttribute("display", "none"); } });
+    hit.addEventListener("pointerleave", ev => { if (ev.pointerType === "mouse") unfocus(); });
     hit.addEventListener("focus", () => focus(idx));
-    hit.addEventListener("blur", () => { Tip.hide(); ring.setAttribute("display", "none"); });
+    hit.addEventListener("blur", unfocus);
     hit.addEventListener("keydown", ev => {
       const step = { ArrowLeft: -1, ArrowRight: 1, Home: -1e6, End: 1e6 }[ev.key];
       if (step !== undefined) { ev.preventDefault(); focus(idx + step); }
       if (ev.key === "Enter" && o.onEnter) o.onEnter(pts[idx]);
     });
     if (o.onEnter) hit.addEventListener("click", ev => { if (ev.pointerType === "mouse") o.onEnter(pts[nearest(ev)]); });
-    svg.insertBefore(hit, ring);
+    svg.insertBefore(hit, xhair);
   }
   return svg;
 }
@@ -362,6 +366,59 @@ function dumbbell(width, rows, o = {}) {
     svg.appendChild(g);
   });
   return svg;
+}
+
+// ------------------------------------------------------------------ motion
+// Every helper animates FROM a hidden state TO the state already in the DOM, with
+// fill "backwards", so a mark that never animates (reduced motion, no WAAPI,
+// background tab) is simply shown. Nothing is hidden in CSS waiting for script.
+const EASE_OUT = "cubic-bezier(0.23, 1, 0.32, 1)";
+function canAnimate(el) { return !reducedMotion() && el && typeof el.animate === "function"; }
+// Solid line segments draw left to right like a pen along time; dashed (thin)
+// segments, bands and points fade in behind it. Total about 700 ms, a data reveal.
+function drawIn(root, total = 700) {
+  const paths = [...root.querySelectorAll("path.line")];
+  if (!paths.length || !canAnimate(paths[0])) return;
+  const boxes = paths.map(p => { try { return p.getBBox(); } catch { return null; } });
+  const x0 = Math.min(...boxes.filter(Boolean).map(b => b.x)), x1 = Math.max(...boxes.filter(Boolean).map(b => b.x + b.width));
+  const span = Math.max(1, x1 - x0);
+  paths.forEach((p, i) => {
+    const b = boxes[i];
+    if (!b) return;
+    const delay = total * (b.x - x0) / span, duration = Math.max(40, total * b.width / span);
+    if (p.classList.contains("thin")) {
+      p.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 200, delay: delay + duration * 0.5, easing: EASE_OUT, fill: "backwards" });
+      return;
+    }
+    const len = p.getTotalLength();
+    p.animate([{ strokeDasharray: `${len} ${len}`, strokeDashoffset: len }, { strokeDasharray: `${len} ${len}`, strokeDashoffset: 0 }],
+      { duration, delay, easing: "linear", fill: "backwards" });
+  });
+  for (const el of root.querySelectorAll(".band, .pt"))
+    el.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 300, delay: total * 0.6, easing: EASE_OUT, fill: "backwards" });
+}
+// Siblings settle in one after another: 4 px rise and a fade, 200 ms each, 50 ms apart.
+function stagger(els, step = 50) {
+  els = [...els];
+  if (!els.length || !canAnimate(els[0])) return;
+  els.forEach((el, i) => el.animate([{ opacity: 0, transform: "translateY(4px)" }, { opacity: 1, transform: "none" }],
+    { duration: 200, delay: i * step, easing: EASE_OUT, fill: "backwards" }));
+}
+// A value that changed in place slides up into position (150 ms). No count-up:
+// the final number is in the DOM from the first frame.
+function swapIn(el) {
+  if (!canAnimate(el)) return;
+  el.animate([{ opacity: 0, transform: "translateY(4px)" }, { opacity: 1, transform: "none" }], { duration: 150, easing: EASE_OUT });
+}
+// Run fn once when el is a quarter in view, with a timeout backstop so a chart
+// below the fold in a screenshot or background tab is never left mid-state.
+function whenSeen(el, fn) {
+  if (!("IntersectionObserver" in window)) return;
+  let done = false;
+  const go = () => { if (!done) { done = true; io.disconnect(); fn(); } };
+  const io = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting)) go(); }, { threshold: 0.25 });
+  io.observe(el);
+  setTimeout(() => { done = true; io.disconnect(); }, 8000);
 }
 
 // ------------------------------------------------------------------ small multiples
